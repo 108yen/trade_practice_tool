@@ -21,8 +21,8 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      // home: Home(),
-      home: MiniChartsView(),
+      home: Home(),
+      // home: MiniChartsView(),
     );
   }
 }

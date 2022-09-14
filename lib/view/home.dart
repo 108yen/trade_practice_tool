@@ -8,12 +8,42 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HomeModel>(
-      create: (_) => HomeModel()..jsonLoadTest(),
+      create: (_) => HomeModel()..restApiTest(),
       child: Consumer<HomeModel>(
         builder: (context, model, child) {
           return Scaffold(
-            body: Center(
-              child: Text('ok'),
+            body: Column(
+              children: [
+                SizedBox(
+                  height: 500,
+                  child: ListView(
+                    children: model.symbolInfoList
+                        .map((e) => ListTile(
+                              title: Text(
+                                '${e.symbol} ${e.displayName}',
+                              ),
+                            ))
+                        .toList(),
+                  ),
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 200,
+                      child: TextField(
+                        decoration: InputDecoration(labelText: '銘柄コード'),
+                        controller: model.newSymbolController,
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        model.register();
+                      },
+                      child: Text('追加'),
+                    ),
+                  ],
+                )
+              ],
             ),
           );
         },
