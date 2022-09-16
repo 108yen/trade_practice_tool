@@ -10,4 +10,9 @@ class Regist {
   Regist.fromJson(Map<String, dynamic> json)
       : symbol = json['Symbol'],
         exchange = json['Exchange'];
+
+  Map<String, dynamic> toJson() => {
+    'Symbol':symbol,
+    'Exchange':exchange,
+  };
 }

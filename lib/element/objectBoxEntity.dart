@@ -31,3 +31,30 @@ class FiveminTickBox {
     required this.fiveminTickList,
   });
 }
+
+@Entity()
+class SymbolInfoListBox {
+  int id;
+
+  DateTime timestamp;
+  List<String> symbolInfoList;
+
+  SymbolInfoListBox({
+    this.id = 0,
+    required this.timestamp,
+    required this.symbolInfoList,
+  });
+}
+
+@Entity()
+class MessageTestBox {
+  @Id(assignable: true)
+  int id;
+
+  List<String> messageList;
+
+  MessageTestBox({
+    this.id = 0,
+    required this.messageList,
+  });
+}

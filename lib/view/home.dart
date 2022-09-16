@@ -8,7 +8,9 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HomeModel>(
-      create: (_) => HomeModel()..restApiTest(),
+      create: (_) => HomeModel()
+        ..restApiTest()
+        ..websocketTest(),
       child: Consumer<HomeModel>(
         builder: (context, model, child) {
           return Scaffold(
@@ -40,6 +42,12 @@ class Home extends StatelessWidget {
                         model.register();
                       },
                       child: Text('追加'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        model.removeAll();
+                      },
+                      child: Text('全削除'),
                     ),
                   ],
                 )

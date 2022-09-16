@@ -42,7 +42,7 @@ class Symbol {
         totalMarketValue = json['TotalMarketValue'],
         totalStocks = json['TotalStocks'],
         fiscalYearEndBasic = json['FiscalYearEndBasic'],
-        kCMarginBuy = json['KCMarginBuy']=='true',
+        kCMarginBuy = json['KCMarginBuy'] == 'true',
         kCMarginSell = json['KCMarginSell'] == 'true',
         marginBuy = json['MarginBuy'] == 'true',
         marginSell = json['MarginSell'] == 'true',
@@ -55,4 +55,24 @@ class Symbol {
         lowerLimit = json['LowerLimit'],
         symbol = json['Symbol'],
         symbolName = json['SymbolName'];
+
+  Map<String, dynamic> toJson() => {
+        'BisCategory': bisCategory,
+        'TotalMarketValue': totalMarketValue,
+        'TotalStocks': totalStocks,
+        'FiscalYearEndBasic': fiscalYearEndBasic,
+        'KCMarginBuy': kCMarginBuy ? 'true' : 'false',
+        'KCMarginSell': kCMarginSell ? 'true' : 'false',
+        'MarginBuy': marginBuy ? 'true' : 'false',
+        'MarginSell': marginSell ? 'true' : 'false',
+        'DisplayName': displayName,
+        'Exchange': exchange,
+        'ExchangeName': exchangeName,
+        'TradingUnit': tradingUnit,
+        'PriceRangeGroup': priceRangeGroup,
+        'UpperLimit': upperLimit,
+        'LowerLimit': lowerLimit,
+        'Symbol': symbol,
+        'SymbolName': symbolName,
+      };
 }

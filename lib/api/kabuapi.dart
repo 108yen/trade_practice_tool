@@ -30,8 +30,34 @@ class Kabuapi {
     }
   }
 
-  static Future<List<Regist>> registerCode(String apikey, int symbol) async {
+  static Future<bool> removeAll(String apikey) async {
+    try {
+      final http.Response response = await http.put(
+        Uri.http(REST_URL, '/kabusapi/unregister/all'),
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-KEY': apikey,
+        },
+      );
+      if (response.statusCode != 200) {
+        throw KabuapiException(response.statusCode, response.body);
+      }
+      final Map<String, dynamic> fetchdata = json.decode(response.body);
+      if (fetchdata['RegistList'].isEmpty) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  static Future<List<Regist>> register(
+      String apikey, List<Regist> registList) async {
     List<Regist> _registList = [];
+
     try {
       final http.Response response = await http.put(
         Uri.http(REST_URL, '/kabusapi/register'),
@@ -40,12 +66,7 @@ class Kabuapi {
           'X-API-KEY': apikey,
         },
         body: json.encode({
-          'Symbols': [
-            {
-              'Symbol': '${symbol}',
-              'Exchange': 1,
-            },
-          ],
+          'Symbols': registList.map((e) => e.toJson()).toList(),
         }),
       );
       if (response.statusCode != 200) {
@@ -71,8 +92,7 @@ class Kabuapi {
           'X-API-KEY': apikey,
         },
         body: json.encode({
-          'Symbols': [
-          ],
+          'Symbols': [],
         }),
       );
       if (response.statusCode != 200) {
