@@ -1,62 +1,62 @@
 class Bord {
   // タイムスタンプ
-  final DateTime timeStamp;
+  final DateTime? timeStamp;
   // 銘柄コード
-  final String symbol;
+  final String? symbol;
   // 銘柄名
-  final String symbolName;
+  final String? symbolName;
   // 市場コード
-  final int exchange;
+  final int? exchange;
   // 市場名称
-  final String exchangeName;
+  final String? exchangeName;
   // 現値
-  final double currentPrice;
+  final double? currentPrice;
   // 現値時刻
-  final String currentPriceTime;
+  final String? currentPriceTime;
   // 現値前値比較
-  final String currentPriceChangeStatus;
+  final String? currentPriceChangeStatus;
   // 現値ステータス
-  final int currentPriceStatus;
+  final int? currentPriceStatus;
   // 計算用現値
-  final double calcPrice;
+  final double? calcPrice;
   // 前日終値
-  final double previousClose;
+  final double? previousClose;
   // 前日終値日付
-  final String previousCloseTime;
+  final String? previousCloseTime;
   // 前日比
-  final double changePreviousClose;
+  final double? changePreviousClose;
   // 暴落率
-  final double changePreviousClosePer;
+  final double? changePreviousClosePer;
   // 始値
-  final double openingPrice;
+  final double? openingPrice;
   // 始値時刻
-  final String openingPriceTime;
+  final String? openingPriceTime;
   // 高値
-  final double highPrice;
+  final double? highPrice;
   // 高値時刻
-  final String highPriceTime;
+  final String? highPriceTime;
   // 安値
-  final double lowPrice;
+  final double? lowPrice;
   // 安値時刻
-  final String lowPriceTime;
+  final String? lowPriceTime;
   // 売買高
-  final int tradingVolume;
+  final int? tradingVolume;
   // 売買高時刻
-  final String tradingVolumeTime;
+  final String? tradingVolumeTime;
   // VWAP
-  final double vwap;
+  final double? vwap;
   // 売買代金
-  final int tradingValue;
+  final int? tradingValue;
   // 最良売気配数量
-  final int bidQty;
+  final int? bidQty;
   // 最良売気配値段
-  final double bidPrice;
+  final double? bidPrice;
   // 最良売気配時刻
-  final String bidTime;
+  final String? bidTime;
   // 最良売気配フラグ
-  final String bidSign;
+  final String? bidSign;
   // 売成行数量
-  final int marketOrderSellQty;
+  final int? marketOrderSellQty;
   // 売気配数量1本目
   final Qty1 sell1;
   // 売気配数量2本目
@@ -78,15 +78,15 @@ class Bord {
   // 売気配数量10本目
   final Qty sell10;
   // 最良買気配数量
-  final int askQty;
+  final int? askQty;
   // 最良買気配値段
-  final double askPrice;
+  final double? askPrice;
   // 最良買気配時刻
-  final String askTime;
+  final String? askTime;
   // 最良買気配フラグ
-  final String askSign;
+  final String? askSign;
   // 買成行数量
-  final int marketOrderBuyQty;
+  final int? marketOrderBuyQty;
   // 買気配数量1本目
   final Qty1 buy1;
   // 買気配数量2本目
@@ -108,13 +108,13 @@ class Bord {
   // 買気配数量10本目
   final Qty buy10;
   // OVER気配数量
-  final int overSellQty;
+  final int? overSellQty;
   // UNDER気配数量
-  final int underBuyQty;
+  final int? underBuyQty;
   // 時価総額
-  final double totalMarketValue;
+  final double? totalMarketValue;
   // 	銘柄種別
-  final int securityType;
+  final int? securityType;
 
   Bord({
     timeStamp,
@@ -182,125 +182,190 @@ class Bord {
         symbolName = json['SymbolName'],
         exchange = json['Exchange'],
         exchangeName = json['ExchangeName'],
-        currentPrice = json['CurrentPrice'].toDouble(),
+        currentPrice = json['CurrentPrice'] == null
+            ? null
+            : json['CurrentPrice'].toDouble(),
         currentPriceTime = json['CurrentPriceTime'],
         currentPriceChangeStatus = json['CurrentPriceChangeStatus'],
         currentPriceStatus = json['CurrentPriceStatus'],
-        calcPrice = json['CalcPrice'].toDouble(),
-        previousClose = json['PreviousClose'].toDouble(),
+        calcPrice =
+            json['CalcPrice'] == null ? null : json['CalcPrice'].toDouble(),
+        previousClose = json['PreviousClose'] == null
+            ? null
+            : json['PreviousClose'].toDouble(),
         previousCloseTime = json['PreviousCloseTime'],
-        changePreviousClose = json['ChangePreviousClose'].toDouble(),
-        changePreviousClosePer = json['ChangePreviousClosePer'].toDouble(),
-        openingPrice = json['OpeningPrice'].toDouble(),
+        changePreviousClose = json['ChangePreviousClose'] == null
+            ? null
+            : json['ChangePreviousClose'].toDouble(),
+        changePreviousClosePer = json['ChangePreviousClosePer'] == null
+            ? null
+            : json['ChangePreviousClosePer'].toDouble(),
+        openingPrice = json['OpeningPrice'] == null
+            ? null
+            : json['OpeningPrice'].toDouble(),
         openingPriceTime = json['OpeningPriceTime'],
-        highPrice = json['HighPrice'].toDouble(),
+        highPrice =
+            json['HighPrice'] == null ? null : json['HighPrice'].toDouble(),
         highPriceTime = json['HighPriceTime'],
-        lowPrice = json['LowPrice'].toDouble(),
+        lowPrice =
+            json['LowPrice'] == null ? null : json['LowPrice'].toDouble(),
         lowPriceTime = json['LowPriceTime'],
-        tradingVolume = json['TradingVolume'].toInt(),
+        tradingVolume = json['TradingVolume'] == null
+            ? null
+            : json['TradingVolume'].toInt(),
         tradingVolumeTime = json['TradingVolumeTime'],
-        vwap = json['VWAP'].toDouble(),
-        tradingValue = json['TradingValue'].toInt(),
-        bidQty = json['BidQty'].toInt(),
-        bidPrice = json['BidPrice'].toDouble(),
+        vwap = json['VWAP'] == null ? null : json['VWAP'].toDouble(),
+        tradingValue =
+            json['TradingValue'] == null ? null : json['TradingValue'].toInt(),
+        bidQty = json['BidQty'] == null ? null : json['BidQty'].toInt(),
+        bidPrice =
+            json['BidPrice'] == null ? null : json['BidPrice'].toDouble(),
         bidTime = json['BidTime'],
         bidSign = json['BidSign'],
-        marketOrderSellQty = json['MarketOrderSellQty'].toInt(),
+        marketOrderSellQty = json['MarketOrderSellQty'] == null
+            ? null
+            : json['MarketOrderSellQty'].toInt(),
         sell1 = Qty1(
-          json['Sell1']['Price'].toDouble(),
-          json['Sell1']['Qty'].toInt(),
+          json['Sell1']['Price'] == null
+              ? null
+              : json['Sell1']['Price'].toDouble(),
+          json['Sell1']['Qty'] == null ? null : json['Sell1']['Qty'].toInt(),
           json['Sell1']['Time'],
           json['Sell1']['Sign'],
         ),
         sell2 = Qty(
-          json['Sell2']['Price'].toDouble(),
-          json['Sell2']['Qty'].toInt(),
+          json['Sell2']['Price'] == null
+              ? null
+              : json['Sell2']['Price'].toDouble(),
+          json['Sell2']['Qty'] == null ? null : json['Sell2']['Qty'].toInt(),
         ),
         sell3 = Qty(
-          json['Sell3']['Price'].toDouble(),
-          json['Sell3']['Qty'].toInt(),
+          json['Sell3']['Price'] == null
+              ? null
+              : json['Sell3']['Price'].toDouble(),
+          json['Sell3']['Qty'] == null ? null : json['Sell3']['Qty'].toInt(),
         ),
         sell4 = Qty(
-          json['Sell4']['Price'].toDouble(),
-          json['Sell4']['Qty'].toInt(),
+          json['Sell4']['Price'] == null
+              ? null
+              : json['Sell4']['Price'].toDouble(),
+          json['Sell4']['Qty'] == null ? null : json['Sell4']['Qty'].toInt(),
         ),
         sell5 = Qty(
-          json['Sell5']['Price'].toDouble(),
-          json['Sell5']['Qty'].toInt(),
+          json['Sell5']['Price'] == null
+              ? null
+              : json['Sell5']['Price'].toDouble(),
+          json['Sell5']['Qty'] == null ? null : json['Sell5']['Qty'].toInt(),
         ),
         sell6 = Qty(
-          json['Sell6']['Price'].toDouble(),
-          json['Sell6']['Qty'].toInt(),
+          json['Sell6']['Price'] == null
+              ? null
+              : json['Sell6']['Price'].toDouble(),
+          json['Sell6']['Qty'] == null ? null : json['Sell6']['Qty'].toInt(),
         ),
         sell7 = Qty(
-          json['Sell7']['Price'].toDouble(),
-          json['Sell7']['Qty'].toInt(),
+          json['Sell7']['Price'] == null
+              ? null
+              : json['Sell7']['Price'].toDouble(),
+          json['Sell7']['Qty'] == null ? null : json['Sell7']['Qty'].toInt(),
         ),
         sell8 = Qty(
-          json['Sell8']['Price'].toDouble(),
-          json['Sell8']['Qty'].toInt(),
+          json['Sell8']['Price'] == null
+              ? null
+              : json['Sell8']['Price'].toDouble(),
+          json['Sell8']['Qty'] == null ? null : json['Sell8']['Qty'].toInt(),
         ),
         sell9 = Qty(
-          json['Sell9']['Price'].toDouble(),
-          json['Sell9']['Qty'].toInt(),
+          json['Sell9']['Price'] == null
+              ? null
+              : json['Sell9']['Price'].toDouble(),
+          json['Sell9']['Qty'] == null ? null : json['Sell9']['Qty'].toInt(),
         ),
         sell10 = Qty(
-          json['Sell10']['Price'].toDouble(),
-          json['Sell10']['Qty'].toInt(),
+          json['Sell10']['Price'] == null
+              ? null
+              : json['Sell10']['Price'].toDouble(),
+          json['Sell10']['Qty'] == null ? null : json['Sell10']['Qty'].toInt(),
         ),
-        askQty = json['AskQty'].toInt(),
-        askPrice = json['AskPrice'].toDouble(),
+        askQty = json['AskQty'] == null ? null : json['AskQty'].toInt(),
+        askPrice =
+            json['AskPrice'] == null ? null : json['AskPrice'].toDouble(),
         askTime = json['AskTime'],
         askSign = json['AskSign'],
-        marketOrderBuyQty = json['MarketOrderBuyQty'].toInt(),
+        marketOrderBuyQty = json['MarketOrderBuyQty'] == null
+            ? null
+            : json['MarketOrderBuyQty'].toInt(),
         buy1 = Qty1(
-          json['Buy1']['Price'].toDouble(),
-          json['Buy1']['Qty'].toInt(),
+          json['Buy1']['Price'] == null
+              ? null
+              : json['Buy1']['Price'].toDouble(),
+          json['Buy1']['Qty'] == null ? null : json['Buy1']['Qty'].toInt(),
           json['Buy1']['Time'],
           json['Buy1']['Sign'],
         ),
         buy2 = Qty(
-          json['Buy2']['Price'].toDouble(),
-          json['Buy2']['Qty'].toInt(),
+          json['Buy2']['Price'] == null
+              ? null
+              : json['Buy2']['Price'].toDouble(),
+          json['Buy2']['Qty'] == null ? null : json['Buy2']['Qty'].toInt(),
         ),
         buy3 = Qty(
-          json['Buy3']['Price'].toDouble(),
-          json['Buy3']['Qty'].toInt(),
+          json['Buy3']['Price'] == null
+              ? null
+              : json['Buy3']['Price'].toDouble(),
+          json['Buy3']['Qty'] == null ? null : json['Buy3']['Qty'].toInt(),
         ),
         buy4 = Qty(
-          json['Buy4']['Price'].toDouble(),
-          json['Buy4']['Qty'].toInt(),
+          json['Buy4']['Price'] == null
+              ? null
+              : json['Buy4']['Price'].toDouble(),
+          json['Buy4']['Qty'] == null ? null : json['Buy4']['Qty'].toInt(),
         ),
         buy5 = Qty(
-          json['Buy5']['Price'].toDouble(),
-          json['Buy5']['Qty'].toInt(),
+          json['Buy5']['Price'] == null
+              ? null
+              : json['Buy5']['Price'].toDouble(),
+          json['Buy5']['Qty'] == null ? null : json['Buy5']['Qty'].toInt(),
         ),
         buy6 = Qty(
-          json['Buy6']['Price'].toDouble(),
-          json['Buy6']['Qty'].toInt(),
+          json['Buy6']['Price'] == null
+              ? null
+              : json['Buy6']['Price'].toDouble(),
+          json['Buy6']['Qty'] == null ? null : json['Buy6']['Qty'].toInt(),
         ),
         buy7 = Qty(
-          json['Buy7']['Price'].toDouble(),
-          json['Buy7']['Qty'].toInt(),
+          json['Buy7']['Price'] == null
+              ? null
+              : json['Buy7']['Price'].toDouble(),
+          json['Buy7']['Qty'] == null ? null : json['Buy7']['Qty'].toInt(),
         ),
         buy8 = Qty(
-          json['Buy8']['Price'].toDouble(),
-          json['Buy8']['Qty'].toInt(),
+          json['Buy8']['Price'] == null
+              ? null
+              : json['Buy8']['Price'].toDouble(),
+          json['Buy8']['Qty'] == null ? null : json['Buy8']['Qty'].toInt(),
         ),
         buy9 = Qty(
-          json['Buy9']['Price'].toDouble(),
-          json['Buy9']['Qty'].toInt(),
+          json['Buy9']['Price'] == null
+              ? null
+              : json['Buy9']['Price'].toDouble(),
+          json['Buy9']['Qty'] == null ? null : json['Buy9']['Qty'].toInt(),
         ),
         buy10 = Qty(
-          json['Buy10']['Price'].toDouble(),
-          json['Buy10']['Qty'].toInt(),
+          json['Buy10']['Price'] == null
+              ? null
+              : json['Buy10']['Price'].toDouble(),
+          json['Buy10']['Qty'] == null ? null : json['Buy10']['Qty'].toInt(),
         ),
-        overSellQty = json['OverSellQty'].toInt(),
-        underBuyQty = json['UnderBuyQty'].toInt(),
+        overSellQty =
+            json['OverSellQty'] == null ? null : json['OverSellQty'].toInt(),
+        underBuyQty =
+            json['UnderBuyQty'] == null ? null : json['UnderBuyQty'].toInt(),
         totalMarketValue = json['TotalMarketValue'],
         securityType = json['SecurityType'],
-        timeStamp =
-            json.containsKey('timeStamp') ? json['timeStamp'] : DateTime.now();
+        timeStamp = json.containsKey('timeStamp')
+            ? DateTime.parse(json['timeStamp'])
+            : DateTime.now();
 
   Map<String, dynamic> toJson() => {
         'TimeStamp': '${timeStamp}',
@@ -430,18 +495,18 @@ class Bord {
 
 class Qty {
   // 値段
-  final double price;
+  final double? price;
   // 数量
-  final int qty;
+  final int? qty;
 
   Qty(this.price, this.qty);
 }
 
 class Qty1 extends Qty {
   // 時刻
-  final String time;
+  final String? time;
   // 気配フラグ
-  final String sign;
+  final String? sign;
 
   Qty1(double price, int Qty, this.time, this.sign) : super(price, Qty);
 }

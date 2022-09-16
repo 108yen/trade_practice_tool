@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:objectbox/objectbox.dart';
+import 'package:trade_practice_tool/view/detailChartView.dart';
 import 'package:trade_practice_tool/view/home.dart';
 import 'package:trade_practice_tool/view/miniChartsView.dart';
 
@@ -21,8 +22,9 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      // home: Home(),
       // home: MiniChartsView(),
+      home: DetailChartView(),
     );
   }
 }
