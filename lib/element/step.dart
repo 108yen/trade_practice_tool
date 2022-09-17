@@ -4,10 +4,8 @@ class Step {
   Step(
     this.date,
     this.time,
-    this.code,
     this.value,
     this.volume,
-    this.dayindex,
   ) {
     tradingValue = (value * volume).toInt();
     datetime = DateTime.parse(date + ' ' + time);
@@ -20,15 +18,11 @@ class Step {
   late int tradingValue;
   final String date;
   final String time;
-  final int code;
-  final int dayindex;
 
   Map<String, dynamic> toMap() {
     return ({
-      'code': code,
       'date': date,
       'time': time,
-      'dayindex': dayindex,
       'value': value,
       'volume': volume,
     });

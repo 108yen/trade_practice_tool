@@ -5,8 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:trade_practice_tool/element/bord.dart';
+import 'package:trade_practice_tool/element/indicatorComponentData.dart';
 import 'package:trade_practice_tool/element/objectBoxEntity.dart';
+import 'package:trade_practice_tool/element/step.dart' as kabuStep;
 import 'package:trade_practice_tool/objectbox.g.dart';
+import 'package:trade_practice_tool/utils/candlesticks/candlesticks.dart';
 
 import '../main.dart';
 
@@ -17,6 +20,16 @@ class DetailChartViewModel extends ChangeNotifier {
   String presentTime = '';
   int listLength = 0;
   int nowLength = 0;
+  List<Candle> candles = [];
+  IndicatorComponentData vwapIndicator = IndicatorComponentData(
+    'vwap',
+    Color.fromARGB(255, 255, 140, 0),
+  );
+  IndicatorComponentData tickIndicator = IndicatorComponentData(
+    'tick',
+    Color.fromARGB(255, 132, 142, 156),
+  );
+  List<kabuStep.Step> receiveSteps = [];
 
   static Future sendBordData(Map<String, dynamic> args) async {
     final List<String> sendDatas = args['data'];
@@ -66,6 +79,7 @@ class DetailChartViewModel extends ChangeNotifier {
       if (receivedBord.symbol! == '4934') {
         previousBord = displayBord;
         displayBord = receivedBord;
+        _storageReceiveStep(previousBord, displayBord);
       }
       notifyListeners();
     });
@@ -80,6 +94,50 @@ class DetailChartViewModel extends ChangeNotifier {
         'sendPort': sendPort,
         'data': fetchData.messageList,
       });
+    }
+  }
+
+  _storageReceiveStep(Bord? _previousBord, Bord? _currentBord) {
+    print('${_currentBord?.tradingVolume}');
+    // stepデータを格納していきたい
+    if (_currentBord?.tradingVolume == null ||
+        _currentBord?.tradingVolumeTime == null ||
+        _currentBord?.currentPrice == null) {
+      return;
+    }
+
+    final DateTime tradingVolumeTime =
+        DateTime.parse(_currentBord!.tradingVolumeTime!);
+    if (receiveSteps.isEmpty) {
+      kabuStep.Step _step = kabuStep.Step(
+        DateFormat('yyyy-MM-dd').format(tradingVolumeTime),
+        DateFormat('HH:mm:ss').format(tradingVolumeTime),
+        _currentBord.currentPrice!,
+        _currentBord.tradingVolume!.toDouble(),
+      );
+      _step.isBuy = true;
+      receiveSteps.add(_step);
+    } else if (_previousBord?.tradingVolume == null ||
+        _previousBord?.tradingVolumeTime == null ||
+        _previousBord?.currentPrice == null) {
+      return;
+    } else if (_previousBord!.tradingVolume! != _currentBord.tradingVolume!) {
+      kabuStep.Step _step = kabuStep.Step(
+        DateFormat('yyyy-MM-dd').format(tradingVolumeTime),
+        DateFormat('HH:mm:ss').format(tradingVolumeTime),
+        _currentBord.currentPrice!,
+        (_currentBord.tradingVolume! - _previousBord.tradingVolume!).toDouble(),
+      );
+      if (receiveSteps[receiveSteps.length - 1].value <
+          _currentBord.currentPrice!) {
+        _step.isBuy = true;
+      } else if (receiveSteps[receiveSteps.length - 1].value >
+          _currentBord.currentPrice!) {
+        _step.isBuy = false;
+      } else {
+        _step.isBuy = receiveSteps[receiveSteps.length - 1].isBuy;
+      }
+      receiveSteps.add(_step);
     }
   }
 }
