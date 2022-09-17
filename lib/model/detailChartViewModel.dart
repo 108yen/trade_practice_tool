@@ -13,7 +13,10 @@ import '../main.dart';
 class DetailChartViewModel extends ChangeNotifier {
   String receiveMessage = '';
   Bord? displayBord;
-  String presentTime='';
+  Bord? previousBord;
+  String presentTime = '';
+  int listLength = 0;
+  int nowLength = 0;
 
   static Future sendBordData(Map<String, dynamic> args) async {
     final List<String> sendDatas = args['data'];
@@ -35,10 +38,9 @@ class DetailChartViewModel extends ChangeNotifier {
 
   String _fixdata(String data) {
     final splited = data.split('"');
-    // {"timestamp":2022-09-16 08:17:29.007498,"message":{"OverSellQty":117000.0,"...
-    // return '${splited[0]}"${splited[1].substring(0, 9)}":${splited[2]}"${splited[3].substring(0,7)}":${data.substring(50)}';
+    final String timestampSplited = splited[2].split(',')[0];
 
-    return '{"${splited[1].substring(0, 9)}":"${splited[2].substring(0, 26)}","${splited[3].substring(0, 7)}":${data.substring(50)}';
+    return '{"${splited[1].substring(0, 9)}":"${timestampSplited}","${splited[3].substring(0, 7)}":${data.substring(timestampSplited.length == 23 ? 47 : 50)}';
   }
 
   Future receiveBordData() async {
@@ -46,28 +48,34 @@ class DetailChartViewModel extends ChangeNotifier {
     final sendPort = receivePort.sendPort;
 
     receivePort.listen((message) {
+      nowLength += 1;
       final jsonPersed = json.decode(_fixdata(message));
       Map<String, dynamic> shaped = {
         'timeStamp': jsonPersed['timestamp'],
       };
       shaped.addAll(jsonPersed['message']);
       final Bord receivedBord = Bord.fromJson(shaped);
-      if (receivedBord.timeStamp!=null) {
-      presentTime=
-            DateFormat('yyyy-MM-dd HH:mm:ss').format(receivedBord.timeStamp!);
+      // if (receivedBord.timeStamp != null) {
+      //   presentTime = DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
+      //       .format(receivedBord.timeStamp!);
+      // }
+      if (receivedBord.buy1.time != null) {
+        presentTime = receivedBord.buy1.time!;
       }
 
       if (receivedBord.symbol! == '4934') {
+        previousBord = displayBord;
         displayBord = receivedBord;
       }
       notifyListeners();
     });
 
     final messageTestBox = store.box<MessageTestBox>();
-    final query = messageTestBox.query(MessageTestBox_.id.equals(4)).build();
+    Query query = messageTestBox.query(MessageTestBox_.id.equals(4)).build();
     final fetchData = query.findFirst();
 
     if (fetchData != null) {
+      listLength = fetchData.messageList.length;
       await Isolate.spawn(sendBordData, {
         'sendPort': sendPort,
         'data': fetchData.messageList,

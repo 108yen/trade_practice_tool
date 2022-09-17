@@ -24,8 +24,15 @@ class HomeModel extends ChangeNotifier {
   late String _token;
 
   websocketTest() async {
-    final messageTestBox = store.box<MessageTestBox>();
     final channel = IOWebSocketChannel.connect(Uri.parse(WEBSOCKET_URL));
+    
+    channel.stream.listen((message) {
+      messageList.add('{"timestamp":"${DateTime.now()}","message":${message}}');
+    });
+  }
+
+  saveMessageList(){
+    final messageTestBox = store.box<MessageTestBox>();
 
     final query = messageTestBox.query().build();
     final List<MessageTestBox> messageTest = query.find();
@@ -37,17 +44,13 @@ class HomeModel extends ChangeNotifier {
               .id +
           1;
     }
-    print(id);
     
-    channel.stream.listen((message) {
-      messageList.add('{"timestamp":"${DateTime.now()}","message":${message}}');
-      messageTestBox.put(MessageTestBox(
-        id: id,
-        messageList: messageList,
-      ));
-      // print(message);
-      // Bord.fromJson(json.decode(message));
-    });
+    messageTestBox.put(MessageTestBox(
+      id: id,
+      messageList: messageList,
+    ));
+
+    print('save data with id:${id}');
   }
 
   Future restApiTest() async {

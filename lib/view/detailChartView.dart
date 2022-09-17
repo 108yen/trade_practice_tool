@@ -14,7 +14,7 @@ class DetailChartView extends StatelessWidget {
         builder: (context, model, child) {
           return Scaffold(
             appBar: AppBar(
-              title: Text('4934 Pアンチ ${model.presentTime}'),
+              title: Text('4934 Pアンチ ${model.presentTime} ${model.nowLength}/${model.listLength}'),
             ),
             body: Center(
               child: model.displayBord == null
