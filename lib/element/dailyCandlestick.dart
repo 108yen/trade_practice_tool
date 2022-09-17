@@ -22,6 +22,10 @@ class DailyCandlestick {
     dailyClose = open;
   }
 
+  bool alreadySetOpen() {
+    return dailyOpen != 0;
+  }
+
   updateValue(double price) {
     priceUpRate = ((price - previousDayClose) / previousDayClose) * 100;
     if (price > stopHeight) {

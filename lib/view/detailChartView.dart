@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:trade_practice_tool/model/detailChartViewModel.dart';
 import 'package:trade_practice_tool/utils/candlesticks/candlesticks.dart';
 import 'package:trade_practice_tool/view/widget/bordWidget.dart';
+import 'package:trade_practice_tool/view/widget/dailyCandlestickWidget.dart';
 import 'package:trade_practice_tool/view/widget/stepWidget.dart';
 import 'package:trade_practice_tool/view/widget/tickVolumeWidget.dart';
 
@@ -47,6 +48,11 @@ class DetailChartView extends StatelessWidget {
                             widgetWidth: chartWidth,
                             widgetHeight: tickVolumeWidgetHeight),
                       ],
+                    ),
+                    DailyCandlestickWidget(
+                      dailyCandlestick: model.dailyCandlestick,
+                      width: 20,
+                      height: constraints.maxHeight,
                     ),
                     StepWidget(
                       steps: model.receiveSteps,

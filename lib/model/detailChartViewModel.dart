@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:trade_practice_tool/element/bord.dart';
+import 'package:trade_practice_tool/element/dailyCandlestick.dart';
 import 'package:trade_practice_tool/element/indicatorComponentData.dart';
 import 'package:trade_practice_tool/element/objectBoxEntity.dart';
 import 'package:trade_practice_tool/element/step.dart' as kabuStep;
@@ -38,6 +39,8 @@ class DetailChartViewModel extends ChangeNotifier {
       args['sendPort'].send(item);
     }
   }
+
+  DailyCandlestick dailyCandlestick = DailyCandlestick(0);
 
   testPrint() {
     final messageTestBox = store.box<MessageTestBox>();
@@ -79,7 +82,16 @@ class DetailChartViewModel extends ChangeNotifier {
       if (receivedBord.symbol! == '4934') {
         previousBord = displayBord;
         displayBord = receivedBord;
+
         _storageReceiveStep(previousBord, displayBord);
+        if (previousBord == null) {
+          dailyCandlestick = DailyCandlestick(displayBord!.previousClose!);
+        } else if (!dailyCandlestick.alreadySetOpen() &&
+            displayBord?.openingPrice != null) {
+          dailyCandlestick.setOpenValue(displayBord!.openingPrice!);
+        } else if (displayBord?.currentPrice != null) {
+          dailyCandlestick.updateValue(displayBord!.currentPrice!);
+        }
       }
       notifyListeners();
     });
@@ -98,7 +110,6 @@ class DetailChartViewModel extends ChangeNotifier {
   }
 
   _storageReceiveStep(Bord? _previousBord, Bord? _currentBord) {
-    print('${_currentBord?.tradingVolume}');
     // stepデータを格納していきたい
     if (_currentBord?.tradingVolume == null ||
         _currentBord?.tradingVolumeTime == null ||
