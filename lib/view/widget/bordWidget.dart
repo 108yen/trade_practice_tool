@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:trade_practice_tool/element/bord.dart';
@@ -5,6 +7,7 @@ import 'package:trade_practice_tool/theme/theme_data.dart';
 
 class BordWidget extends StatelessWidget {
   final Bord bord;
+  final Bord? priviousBord;
   final double width = 250;
   final double height = 473;
   final double containerWidth = 80;
@@ -13,20 +16,48 @@ class BordWidget extends StatelessWidget {
 
   BordWidget({
     required this.bord,
+    required this.priviousBord,
   });
 
   @override
   Widget build(BuildContext context) {
     List<Widget> priceList = [
-      _BordContainer(context: context, value: bord.sell10.price),
-      _BordContainer(context: context, value: bord.sell9.price),
-      _BordContainer(context: context, value: bord.sell8.price),
-      _BordContainer(context: context, value: bord.sell7.price),
-      _BordContainer(context: context, value: bord.sell6.price),
-      _BordContainer(context: context, value: bord.sell5.price),
-      _BordContainer(context: context, value: bord.sell4.price),
-      _BordContainer(context: context, value: bord.sell3.price),
-      _BordContainer(context: context, value: bord.sell2.price),
+      _BordContainer(
+        context: context,
+        value: bord.sell10.price,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.sell9.price,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.sell8.price,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.sell7.price,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.sell6.price,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.sell5.price,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.sell4.price,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.sell3.price,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.sell2.price,
+      ),
       _BordContainer(
           context: context, value: bord.sell1.price, textColor: Colors.blue),
       _BordContainer(
@@ -73,29 +104,109 @@ class BordWidget extends StatelessWidget {
         context: context,
       ),
       _BordContainer(
-          context: context, value: bord.buy1.qty, textColor: Colors.red),
-      _BordContainer(context: context, value: bord.buy2.qty),
-      _BordContainer(context: context, value: bord.buy3.qty),
-      _BordContainer(context: context, value: bord.buy4.qty),
-      _BordContainer(context: context, value: bord.buy5.qty),
-      _BordContainer(context: context, value: bord.buy6.qty),
-      _BordContainer(context: context, value: bord.buy7.qty),
-      _BordContainer(context: context, value: bord.buy8.qty),
-      _BordContainer(context: context, value: bord.buy9.qty),
-      _BordContainer(context: context, value: bord.buy10.qty),
+        context: context,
+        value: bord.buy1.qty,
+        previousValue: priviousBord?.buy1.qty,
+        textColor: Colors.red,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy2.qty,
+        previousValue: priviousBord?.buy2.qty,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy3.qty,
+        previousValue: priviousBord?.buy3.qty,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy4.qty,
+        previousValue: priviousBord?.buy4.qty,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy5.qty,
+        previousValue: priviousBord?.buy5.qty,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy6.qty,
+        previousValue: priviousBord?.buy6.qty,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy7.qty,
+        previousValue: priviousBord?.buy7.qty,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy8.qty,
+        previousValue: priviousBord?.buy8.qty,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy9.qty,
+        previousValue: priviousBord?.buy9.qty,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy10.qty,
+        previousValue: priviousBord?.buy10.qty,
+      ),
     ];
     List<Widget> sellList = [
-      _BordContainer(context: context, value: bord.buy10.qty),
-      _BordContainer(context: context, value: bord.buy9.qty),
-      _BordContainer(context: context, value: bord.buy8.qty),
-      _BordContainer(context: context, value: bord.buy7.qty),
-      _BordContainer(context: context, value: bord.buy6.qty),
-      _BordContainer(context: context, value: bord.buy5.qty),
-      _BordContainer(context: context, value: bord.buy4.qty),
-      _BordContainer(context: context, value: bord.buy3.qty),
-      _BordContainer(context: context, value: bord.buy2.qty),
       _BordContainer(
-          context: context, value: bord.buy1.qty, textColor: Colors.blue),
+        context: context,
+        value: bord.buy10.qty,
+        previousValue: priviousBord?.buy10.qty,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy9.qty,
+        previousValue: priviousBord?.buy9.qty,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy8.qty,
+        previousValue: priviousBord?.buy8.qty,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy7.qty,
+        previousValue: priviousBord?.buy7.qty,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy6.qty,
+        previousValue: priviousBord?.buy6.qty,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy5.qty,
+        previousValue: priviousBord?.buy5.qty,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy4.qty,
+        previousValue: priviousBord?.buy4.qty,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy3.qty,
+        previousValue: priviousBord?.buy3.qty,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy2.qty,
+        previousValue: priviousBord?.buy2.qty,
+      ),
+      _BordContainer(
+        context: context,
+        value: bord.buy1.qty,
+        previousValue: priviousBord?.buy1.qty,
+        textColor: Colors.blue,
+      ),
       _BordContainer(
         context: context,
       ),
@@ -137,9 +248,17 @@ class BordWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              _BordContainer(context: context, value: bord.marketOrderSellQty),
+              _BordContainer(
+                context: context,
+                value: bord.marketOrderSellQty,
+                previousValue: priviousBord?.marketOrderSellQty,
+              ),
               _BordContainer(context: context, value: '成行'),
-              _BordContainer(context: context, value: bord.marketOrderBuyQty),
+              _BordContainer(
+                context: context,
+                value: bord.marketOrderBuyQty,
+                previousValue: priviousBord?.marketOrderBuyQty,
+              ),
             ],
           ),
           SizedBox(
@@ -182,15 +301,27 @@ class BordWidget extends StatelessWidget {
   }
 
   Widget _BordContainer({
-    dynamic value,
+    var value,
+    var previousValue,
     Color textColor = Colors.white,
     required BuildContext context,
   }) {
-    return Container(
+    Color boxColor = Theme.of(context).background;
+    if (previousValue != null && previousValue != value) {
+      boxColor = Theme.of(context).grayColor;
+    }
+
+// !containerの値が変化したらアニメーションが走るから、価格ごとの注文数量の変化で動いてない
+// todo 色戻るようにしないとみにくい
+    return AnimatedContainer(
       width: containerWidth,
       height: containerHeignt,
       alignment: Alignment.center,
+      duration: Duration(milliseconds: 30),
+      // curve: returnCurve(),
+      onEnd: () => boxColor = Theme.of(context).background,
       decoration: BoxDecoration(
+        color: boxColor,
         border: Border.all(
           color: Theme.of(context).grayColor,
           width: containerBorderWidth,
@@ -206,44 +337,10 @@ class BordWidget extends StatelessWidget {
   }
 }
 
-// class _AnimationTest extends StatefulWidget {
+// class returnCurve extends Curve {
 //   @override
-//   _AnimationTextState createState() => _AnimationTextState();
-// }
-
-// class _AnimationTextState extends State<_AnimationTest>
-//     with SingleTickerProviderStateMixin {
-
-//   Animation<Color> animation;
-//   AnimationController controller;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     controller =
-//         AnimationController(duration: Duration(seconds: 1), vsync: this);
-//     animation =
-//         ColorTween(begin: Colors.indigo, end: Colors.lime).animate(controller)
-//           ..addListener(() {
-//             setState(() {
-//               // The state that has changed here is the animation object’s value.
-//             });
-//           });
-//   }
-
-//   void animateColor() {
-//     controller.forward();
-//   }
- 
-//   @override
-//   Widget build(BuildContext context) {
-//     // TODO: implement build
-//     throw UnimplementedError();
-//   }
-  
-//   @override
-//   void dispose() {
-//     controller.dispose();
-//     super.dispose();
+//   double transform(double t) {
+//     print(sin(pi * t));
+//     return t;
 //   }
 // }

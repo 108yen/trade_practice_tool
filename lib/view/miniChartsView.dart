@@ -19,6 +19,7 @@ class MiniChartsView extends StatelessWidget {
                 candles: model.candles,
                 dailyCandlestick: model.dailyCandlestick,
                 indicators: [model.vwapIndicator],
+                bord: model.bord,
               ),
             ),
           );

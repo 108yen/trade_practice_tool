@@ -23,8 +23,10 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       // home: Home(),
-      // home: MiniChartsView(),
-      home: DetailChartView(),
+      home: MiniChartsView(),
+      // home: DetailChartView(
+      //   symbol: '4934',
+      // ),
     );
   }
 }

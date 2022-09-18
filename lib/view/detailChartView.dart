@@ -8,12 +8,19 @@ import 'package:trade_practice_tool/view/widget/bordWidget.dart';
 import 'package:trade_practice_tool/view/widget/dailyCandlestickWidget.dart';
 import 'package:trade_practice_tool/view/widget/stepWidget.dart';
 import 'package:trade_practice_tool/view/widget/tickVolumeWidget.dart';
+import 'package:trade_practice_tool/view/widget/tradeHistoryWidget.dart';
 
 class DetailChartView extends StatelessWidget {
+  final String symbol;
+  DetailChartView({
+    required this.symbol,
+  });
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<DetailChartViewModel>(
-      create: (_) => DetailChartViewModel()..receiveBordData(),
+      create: (_) => DetailChartViewModel(
+        symbol: symbol,
+      )..receiveBordData(),
       child: Consumer<DetailChartViewModel>(
         builder: (context, model, child) {
           return Scaffold(
@@ -24,14 +31,13 @@ class DetailChartView extends StatelessWidget {
             body: LayoutBuilder(
               builder: (context, constraints) {
                 final double tickVolumeWidgetHeight = 100;
-                final double chartWidth = 700;
+                final double chartWidth = constraints.maxWidth - 20 - 200 - 250;
                 return Row(
                   children: [
                     // チャート
                     Column(
                       children: [
                         SizedBox(
-                          // todo:うまく計算する
                           width: chartWidth,
                           height:
                               constraints.maxHeight - tickVolumeWidgetHeight,
@@ -58,13 +64,20 @@ class DetailChartView extends StatelessWidget {
                       steps: model.receiveSteps,
                       height: constraints.maxHeight,
                     ),
-                    // 取引履歴と板
-                    Spacer(),
-                    Center(
-                      child: model.displayBord == null
+                    // 取引履歴と板　width:250
+                    Column(children: [
+                      TradeHistoryWidget(
+                        width: 250,
+                        height: 100,
+                        margin: EdgeInsets.only(top: 5, bottom: 5),
+                      ),
+                      model.displayBord == null
                           ? Text('no data')
-                          : BordWidget(bord: model.displayBord!),
-                    ),
+                          : BordWidget(
+                              bord: model.displayBord!,
+                              priviousBord: model.previousBord,
+                            ),
+                    ]),
                   ],
                 );
               },

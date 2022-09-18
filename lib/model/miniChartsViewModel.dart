@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:trade_practice_tool/database/raspiDB.dart';
+import 'package:trade_practice_tool/element/bord.dart';
 import 'package:trade_practice_tool/element/dailyCandlestick.dart';
 import 'package:trade_practice_tool/element/indicatorComponentData.dart';
 import 'package:trade_practice_tool/element/step.dart';
@@ -19,6 +20,7 @@ class MiniChartsModel extends ChangeNotifier {
     Color.fromARGB(255, 132, 142, 156),
   );
   DailyCandlestick dailyCandlestick = DailyCandlestick(0);
+  Bord? bord;
 
   setSampleData() async {
     final Map<String, dynamic> result = await _stepToCandles(

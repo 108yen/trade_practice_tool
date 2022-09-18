@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
@@ -25,13 +26,17 @@ class HomeModel extends ChangeNotifier {
 
   websocketTest() async {
     final channel = IOWebSocketChannel.connect(Uri.parse(WEBSOCKET_URL));
-    
+
     channel.stream.listen((message) {
       messageList.add('{"timestamp":"${DateTime.now()}","message":${message}}');
+    }, onDone: () {
+      print('websocket channel closed');
+    }, onError: (error) {
+      print('websocket error occurred:${error}');
     });
   }
 
-  saveMessageList(){
+  saveMessageList() {
     final messageTestBox = store.box<MessageTestBox>();
 
     final query = messageTestBox.query().build();
@@ -44,7 +49,7 @@ class HomeModel extends ChangeNotifier {
               .id +
           1;
     }
-    
+
     messageTestBox.put(MessageTestBox(
       id: id,
       messageList: messageList,

@@ -15,6 +15,12 @@ import 'package:trade_practice_tool/utils/candlesticks/candlesticks.dart';
 import '../main.dart';
 
 class DetailChartViewModel extends ChangeNotifier {
+  final String symbol;
+
+  DetailChartViewModel({
+    required this.symbol,
+  });
+  
   String receiveMessage = '';
   Bord? displayBord;
   Bord? previousBord;

@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:trade_practice_tool/element/bord.dart';
 import 'package:trade_practice_tool/element/dailyCandlestick.dart';
 import 'package:trade_practice_tool/element/indicatorComponentData.dart';
 import 'package:trade_practice_tool/utils/candlesticks/src/main.dart';
 import 'package:trade_practice_tool/utils/candlesticks/src/models/candle.dart';
 import 'package:trade_practice_tool/view/widget/dailyCandlestickWidget.dart';
+import 'package:trade_practice_tool/view/widget/miniChartInfoWidget.dart';
 
 class MiniChartWidget extends StatelessWidget {
   final double width;
@@ -11,8 +13,10 @@ class MiniChartWidget extends StatelessWidget {
   final List<Candle> candles;
   final List<IndicatorComponentData> indicators;
   final DailyCandlestick dailyCandlestick;
+  final Bord? bord;
 
   final double dailyCandlestickWidth = 15;
+  final double infoWidgetHeight = 20;
 
   MiniChartWidget({
     required this.width,
@@ -20,6 +24,7 @@ class MiniChartWidget extends StatelessWidget {
     required this.candles,
     required this.dailyCandlestick,
     required this.indicators,
+    required this.bord,
   });
 
   @override
@@ -27,20 +32,29 @@ class MiniChartWidget extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      child: Row(
+      child: Column(
         children: [
-          SizedBox(
-            width: width - dailyCandlestickWidth,
-            height: height,
-            child: Candlesticks(
-              candles: candles,
-              indicators: indicators,
-            ),
+          MiniChartInfoWidget(
+            width: width,
+            height: infoWidgetHeight,
+            bord: bord,
           ),
-          DailyCandlestickWidget(
-            dailyCandlestick: dailyCandlestick,
-            width: dailyCandlestickWidth,
-            height: height,
+          Row(
+            children: [
+              Container(
+                width: width - dailyCandlestickWidth,
+                height: height - infoWidgetHeight,
+                child: Candlesticks(
+                  candles: candles,
+                  indicators: indicators,
+                ),
+              ),
+              DailyCandlestickWidget(
+                dailyCandlestick: dailyCandlestick,
+                width: dailyCandlestickWidth,
+                height: height - infoWidgetHeight,
+              ),
+            ],
           ),
         ],
       ),
