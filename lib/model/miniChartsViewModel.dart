@@ -8,8 +8,8 @@ import 'package:trade_practice_tool/element/step.dart';
 import 'package:trade_practice_tool/utils/candlesticks/src/models/candle.dart';
 
 class MiniChartsModel extends ChangeNotifier {
-  final double width = 400;
-  final double height = 200;
+  final double miniChartWidth = 319;
+  final double miniChartHeight = 200;
   List<Candle> candles = [];
   IndicatorComponentData vwapIndicator = IndicatorComponentData(
     'vwap',

@@ -12,15 +12,34 @@ class MiniChartsView extends StatelessWidget {
       child: Consumer<MiniChartsModel>(
         builder: (context, model, child) {
           return Scaffold(
-            body: Center(
-              child: MiniChartWidget(
-                width: model.width,
-                height: model.height,
-                candles: model.candles,
-                dailyCandlestick: model.dailyCandlestick,
-                indicators: [model.vwapIndicator],
-                bord: model.bord,
-              ),
+            body: LayoutBuilder(
+              builder: ((context, constraints) {
+                final crossAxisCount =
+                    constraints.maxWidth ~/ model.miniChartWidth;
+                return Container(
+                  width: (model.miniChartWidth + 1) * crossAxisCount,
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: crossAxisCount,
+                      mainAxisSpacing: 4,
+                      crossAxisSpacing: 1,
+                      childAspectRatio:
+                          model.miniChartWidth / model.miniChartHeight,
+                    ),
+                    itemCount: 30,
+                    itemBuilder: (BuildContext context, int index) {
+                      return MiniChartWidget(
+                        width: model.miniChartWidth,
+                        height: model.miniChartHeight,
+                        candles: model.candles,
+                        dailyCandlestick: model.dailyCandlestick,
+                        indicators: [model.vwapIndicator],
+                        bord: model.bord,
+                      );
+                    },
+                  ),
+                );
+              }),
             ),
           );
         },
