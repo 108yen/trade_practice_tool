@@ -6,7 +6,10 @@ import 'package:trade_practice_tool/database/raspiDB.dart';
 import 'package:trade_practice_tool/element/bord.dart';
 import 'package:trade_practice_tool/element/dailyCandlestick.dart';
 import 'package:trade_practice_tool/element/indicatorComponentData.dart';
+import 'package:trade_practice_tool/element/objectBoxEntity.dart';
 import 'package:trade_practice_tool/element/step.dart';
+import 'package:trade_practice_tool/main.dart';
+import 'package:trade_practice_tool/objectbox.g.dart';
 import 'package:trade_practice_tool/utils/candlesticks/src/models/candle.dart';
 
 class MiniChartParams {
@@ -77,18 +80,51 @@ class MiniChartParams {
     return previousDay;
   }
 
+  FiveminTickBox? _getFiveminTickBoxData(String symbol, String date) {
+    final fiveminTickBox = store.box<FiveminTickBox>();
+    final query = fiveminTickBox
+        .query(FiveminTickBox_.symbol
+            .equals(symbol)
+            .and(FiveminTickBox_.date.equals(date)))
+        .build();
+    final fetched = query.findFirst();
+
+    return fetched;
+  }
+
+  _storeFiveminTickBoxData(String symbol, String date,
+      List<Candle> fiveminTickList, List<double> vwap) {
+    final fiveminTickBox = store.box<FiveminTickBox>();
+    fiveminTickBox.put(FiveminTickBox.toString(
+      symbol: symbol,
+      date: date,
+      fiveminTickList: fiveminTickList,
+      vwap: vwap,
+    ));
+  }
+
   Future setPreviousDayData() async {
     String previousDay = _searchPreviousDay();
 
-    // もし前日のデータ持ってなかったらraspiから持ってくる
-    final Map<String, dynamic> result = await _stepToCandles(
-      steps: await RaspiDB.getStep(
-        previousDay,
-        int.parse(symbol),
-      ),
-    );
-    candles = result['candles'];
-    vwapIndicator.values = result['vwapData'];
+    final FiveminTickBox? fiveminTickBox =
+        _getFiveminTickBoxData(symbol, previousDay);
+    if (fiveminTickBox != null) {
+      print('データあった：${symbol}');
+      candles = fiveminTickBox.getCandles();
+      vwapIndicator.values = fiveminTickBox.getVwap();
+    } else {
+      print('データなかった：${symbol}');
+      final Map<String, dynamic> result = await _stepToCandles(
+        steps: await RaspiDB.getStep(
+          previousDay,
+          int.parse(symbol),
+        ),
+      );
+      candles = result['candles'];
+      vwapIndicator.values = result['vwapData'];
+      _storeFiveminTickBoxData(
+          symbol, previousDay, result['candles'], result['vwapData']);
+    }
     dailyCandlestick = DailyCandlestick(candles[0].close);
   }
 

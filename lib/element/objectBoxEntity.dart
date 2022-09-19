@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:objectbox/objectbox.dart';
+import 'package:trade_practice_tool/utils/candlesticks/src/models/candle.dart';
 
 @Entity()
 class BordBox {
@@ -20,16 +23,34 @@ class BordBox {
 class FiveminTickBox {
   int id;
 
-  int code;
+  String symbol;
   String date;
-  List<String> fiveminTickList;
+  late List<String> fiveminTickList;
+  late List<String> vwap;
 
   FiveminTickBox({
     this.id = 0,
-    required this.code,
+    required this.symbol,
     required this.date,
     required this.fiveminTickList,
+    required this.vwap,
   });
+
+  FiveminTickBox.toString({
+    this.id = 0,
+    required this.symbol,
+    required this.date,
+    required List<Candle> fiveminTickList,
+    required List<double> vwap,
+  }) {
+    this.fiveminTickList =
+        fiveminTickList.map((e) => json.encode(e.toJson())).toList();
+    this.vwap = vwap.map((e) => e.toString()).toList();
+  }
+
+  List<Candle> getCandles() =>
+      this.fiveminTickList.map((e) => Candle.fromJson(json.decode(e))).toList();
+  List<double> getVwap() => this.vwap.map((e) => double.parse(e)).toList();
 }
 
 @Entity()
