@@ -26,15 +26,12 @@ class MiniChartsView extends StatelessWidget {
                       childAspectRatio:
                           model.miniChartWidth / model.miniChartHeight,
                     ),
-                    itemCount: 30,
+                    itemCount: model.miniChartParamsList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return MiniChartWidget(
                         width: model.miniChartWidth,
                         height: model.miniChartHeight,
-                        candles: model.candles,
-                        dailyCandlestick: model.dailyCandlestick,
-                        indicators: [model.vwapIndicator],
-                        bord: model.bord,
+                        miniChartParams: model.miniChartParamsList[index],
                       );
                     },
                   ),

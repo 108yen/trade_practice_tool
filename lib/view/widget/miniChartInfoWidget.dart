@@ -1,18 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:trade_practice_tool/element/bord.dart';
+import 'package:trade_practice_tool/element/miniChartParams.dart';
 import 'package:trade_practice_tool/theme/theme_data.dart';
 
 class MiniChartInfoWidget extends StatelessWidget {
   final double width;
   final double height;
-  final Bord? bord;
-  final double titleWidth = 250;
+  final MiniChartParams miniChartParams;
+  final double titleWidth = 160;
 
   MiniChartInfoWidget({
     required this.width,
     required this.height,
-    required this.bord,
+    required this.miniChartParams,
   });
 
   @override
@@ -32,7 +33,7 @@ class MiniChartInfoWidget extends StatelessWidget {
               ),
             ),
             child: Text(
-              '${bord?.symbol ?? 'no data'} ${bord?.symbolName ?? ''}',
+              '${miniChartParams.symbol} ${miniChartParams.symbolName}',
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -45,7 +46,7 @@ class MiniChartInfoWidget extends StatelessWidget {
               ),
             ),
             child: Text(
-              '${bord?.currentPrice ?? ''} ${bord?.changePreviousClosePer ?? ''}%',
+              '${miniChartParams.currentBord?.currentPrice ?? ''} ${miniChartParams.currentBord?.changePreviousClosePer ?? ''}%',
               textAlign: TextAlign.right,
             ),
           ),
