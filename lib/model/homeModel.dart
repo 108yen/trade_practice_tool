@@ -36,7 +36,7 @@ class HomeModel extends ChangeNotifier {
     });
   }
 
-  saveMessageList() {
+  Future saveMessageList() async {
     final messageTestBox = store.box<MessageTestBox>();
 
     final query = messageTestBox.query().build();
@@ -56,6 +56,13 @@ class HomeModel extends ChangeNotifier {
     ));
 
     print('save data with id:${id}');
+
+    final messageBox = store.box<MessageBox>();
+
+    messageBox.put(MessageBox(
+      date: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+      messageList: messageList,
+    ));
   }
 
   Future restApiTest() async {

@@ -307,8 +307,10 @@ class BordWidget extends StatelessWidget {
     required BuildContext context,
   }) {
     Color boxColor = Theme.of(context).background;
+    Color borderColor = Theme.of(context).grayColor;
     if (previousValue != null && previousValue != value) {
-      boxColor = Theme.of(context).grayColor;
+      // boxColor = Colors.white12;
+      borderColor = Colors.white;
     }
 
 // !containerの値が変化したらアニメーションが走るから、価格ごとの注文数量の変化で動いてない
@@ -323,7 +325,7 @@ class BordWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: boxColor,
         border: Border.all(
-          color: Theme.of(context).grayColor,
+          color: borderColor,
           width: containerBorderWidth,
         ),
       ),

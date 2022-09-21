@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:trade_practice_tool/element/bord.dart';
-import 'package:trade_practice_tool/element/miniChartParams.dart';
+import 'package:trade_practice_tool/element/chartParams.dart';
 import 'package:trade_practice_tool/theme/theme_data.dart';
 
 class MiniChartInfoWidget extends StatelessWidget {
   final double width;
   final double height;
-  final MiniChartParams miniChartParams;
+  final ChartParams miniChartParams;
   final double titleWidth = 160;
 
   MiniChartInfoWidget({

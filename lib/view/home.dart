@@ -50,8 +50,8 @@ class Home extends StatelessWidget {
                       child: Text('全削除'),
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        model.saveMessageList();
+                      onPressed: () async {
+                        await model.saveMessageList();
                       },
                       child: Text('保存'),
                     ),

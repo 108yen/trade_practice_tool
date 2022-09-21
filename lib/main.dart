@@ -22,11 +22,53 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      // home: Home(),
-      home: MiniChartsView(),
-      // home: DetailChartView(
-      //   symbol: '4934',
-      // ),
+      home: Scaffold(
+        body: LayoutBuilder(builder: (context, constraints) {
+          return Container(
+            width: constraints.maxWidth,
+            height: constraints.maxHeight,
+            child: ListView(
+              children: [
+                ListTile(
+                  title: Text('データ取得'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: ((context) => Home()),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: Text('ミニチャート'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: ((context) => MiniChartsView()),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: Text('詳細チャート'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: ((context) => DetailChartView(
+                              symbol: '5032',
+                            )),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 }

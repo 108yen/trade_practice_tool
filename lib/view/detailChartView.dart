@@ -20,13 +20,22 @@ class DetailChartView extends StatelessWidget {
     return ChangeNotifierProvider<DetailChartViewModel>(
       create: (_) => DetailChartViewModel(
         symbol: symbol,
-      )..receiveBordData(),
+      )..init(),
       child: Consumer<DetailChartViewModel>(
         builder: (context, model, child) {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                  '4934 Pアンチ ${model.presentTime} ${model.nowLength}/${model.listLength}'),
+                '${model.chartParams.symbol} ${model.chartParams.symbolName} ${model.presentTime} ${model.nowLength}/${model.listLength}',
+              ),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.play_arrow),
+                  onPressed: () {
+                    model.receiveBordData();
+                  },
+                ),
+              ],
             ),
             body: LayoutBuilder(
               builder: (context, constraints) {
@@ -42,26 +51,26 @@ class DetailChartView extends StatelessWidget {
                           height:
                               constraints.maxHeight - tickVolumeWidgetHeight,
                           child: Candlesticks(
-                            candles: model.candles,
+                            candles: model.chartParams.candles,
                             indicators: [
-                              model.tickIndicator,
-                              model.vwapIndicator,
+                              model.chartParams.tickIndicator,
+                              model.chartParams.vwapIndicator,
                             ],
                           ),
                         ),
                         TickVolumeWidget(
-                            steps: model.receiveSteps,
+                            steps: model.chartParams.steps,
                             widgetWidth: chartWidth,
                             widgetHeight: tickVolumeWidgetHeight),
                       ],
                     ),
                     DailyCandlestickWidget(
-                      dailyCandlestick: model.dailyCandlestick,
+                      dailyCandlestick: model.chartParams.dailyCandlestick,
                       width: 20,
                       height: constraints.maxHeight,
                     ),
                     StepWidget(
-                      steps: model.receiveSteps,
+                      steps: model.chartParams.steps,
                       height: constraints.maxHeight,
                     ),
                     // 取引履歴と板　width:250
@@ -71,11 +80,11 @@ class DetailChartView extends StatelessWidget {
                         height: 100,
                         margin: EdgeInsets.only(top: 5, bottom: 5),
                       ),
-                      model.displayBord == null
+                      model.chartParams.currentBord == null
                           ? Text('no data')
                           : BordWidget(
-                              bord: model.displayBord!,
-                              priviousBord: model.previousBord,
+                              bord: model.chartParams.currentBord!,
+                              priviousBord: model.chartParams.previousBord,
                             ),
                     ]),
                   ],

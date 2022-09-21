@@ -68,6 +68,20 @@ class SymbolInfoListBox {
 }
 
 @Entity()
+class MessageBox {
+  int id;
+
+  String date;
+  List<String> messageList;
+
+  MessageBox({
+    this.id = 0,
+    required this.date,
+    required this.messageList,
+  });
+}
+
+@Entity()
 class MessageTestBox {
   @Id(assignable: true)
   int id;

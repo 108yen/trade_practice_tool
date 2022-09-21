@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:trade_practice_tool/element/bord.dart';
 import 'package:trade_practice_tool/element/dailyCandlestick.dart';
 import 'package:trade_practice_tool/element/indicatorComponentData.dart';
-import 'package:trade_practice_tool/element/miniChartParams.dart';
+import 'package:trade_practice_tool/element/chartParams.dart';
 import 'package:trade_practice_tool/utils/candlesticks/src/main.dart';
 import 'package:trade_practice_tool/utils/candlesticks/src/models/candle.dart';
 import 'package:trade_practice_tool/view/widget/dailyCandlestickWidget.dart';
@@ -11,7 +11,7 @@ import 'package:trade_practice_tool/view/widget/miniChartInfoWidget.dart';
 class MiniChartWidget extends StatelessWidget {
   final double width;
   final double height;
-  final MiniChartParams miniChartParams;
+  final ChartParams miniChartParams;
 
   final double dailyCandlestickWidth = 15;
   final double infoWidgetHeight = 20;
