@@ -49,6 +49,7 @@ class HomeModel extends ChangeNotifier {
               .id +
           1;
     }
+    query.close();
 
     messageTestBox.put(MessageTestBox(
       id: id,
@@ -71,6 +72,7 @@ class HomeModel extends ChangeNotifier {
     final symbolInfoListBox = store.box<SymbolInfoListBox>();
     final query = symbolInfoListBox.query().build();
     List<SymbolInfoListBox> allSymbolInfoList = query.find();
+    query.close();
     SymbolInfoListBox latestSymbolInfoList = allSymbolInfoList.reduce((value,
             element) =>
         value.timestamp.isAtSameMomentAs(element.timestamp) ? value : element);

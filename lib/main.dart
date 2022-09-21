@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:objectbox/objectbox.dart';
+import 'package:trade_practice_tool/element/objectBoxEntity.dart';
 import 'package:trade_practice_tool/view/detailChartView.dart';
 import 'package:trade_practice_tool/view/home.dart';
 import 'package:trade_practice_tool/view/miniChartsView.dart';
@@ -62,6 +63,24 @@ class MyApp extends StatelessWidget {
                             )),
                       ),
                     );
+                  },
+                ),
+                ListTile(
+                  title: Text('test'),
+                  onTap: () {
+                    final testbox = store.box<MessageTestBox>();
+                    final query =
+                        testbox.query(MessageTestBox_.id.equals(5)).build();
+                    final messageTestBox = query.findFirst();
+                    query.close();
+                    final box = store.box<MessageBox>();
+                    if (messageTestBox != null) {
+                      box.put(MessageBox(
+                        date: '2022-09-20',
+                        messageList: messageTestBox.messageList,
+                      ));
+                      print('converted');
+                    }
                   },
                 ),
               ],
