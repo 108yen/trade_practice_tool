@@ -10,10 +10,13 @@ import 'package:trade_practice_tool/view/miniChartsView.dart';
 import 'objectbox.g.dart';
 
 late Store store;
+late Store fileStore;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  store = await openStore(maxDBSizeInKB: 1000*1024*1024);
+  store = await openStore(
+      maxDBSizeInKB: 1000 * 1024 * 1024,
+      directory: 'E:/Program/trade_practice_tool/lib/assets/objectbox');
   runApp(MyApp());
 }
 
@@ -70,19 +73,23 @@ class MyApp extends StatelessWidget {
                 ListTile(
                   title: Text('test'),
                   onTap: () {
-                    final testbox = store.box<MessageTestBox>();
-                    final query =
-                        testbox.query(MessageTestBox_.id.equals(6)).build();
-                    final messageTestBox = query.findFirst();
-                    query.close();
-                    final box = store.box<MessageBox>();
-                    if (messageTestBox != null) {
-                      box.put(MessageBox(
-                        date: '2022-09-21',
-                        messageList: messageTestBox.messageList,
-                      ));
-                      print('converted');
-                    }
+                    // final resourcebox = store.box<MessageTestBox>();
+                    // final query =
+                    //     resourcebox.query(MessageTestBox_.id.equals(5)).build();
+                    // final resourceboxlist = query.findFirst();
+                    // query.close();
+                    // final box = fileStore.box<MessageBox>();
+                    // // print(resourceboxlist.length);
+                    // // for (var i = 0; i < resourceboxlist.length; i++) {
+                    // //   resourceboxlist[i].id = 0;
+                    // // }
+                    // if (resourceboxlist?.messageList != null) {
+                    //   box.put(MessageBox(
+                    //     date: '2022-09-20',
+                    //     messageList: resourceboxlist!.messageList,
+                    //   ));
+                    //   print('complete');
+                    // }
                   },
                 ),
               ],
