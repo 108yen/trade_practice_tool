@@ -80,7 +80,10 @@ class MainWindowIndicatorRenderObject extends RenderBox {
       Path? path;
       if (element.name == 'tick') {
         double _tickSpace = _candleWidth / 10;
-        for (int i = 0; (i + 1) * _tickSpace < size.width; i++) {
+        for (int i = 0;
+            (i + 1) * _tickSpace + _candleWidth * (0.5 - _index - 1) <
+                size.width;
+            i++) {
           if (i + _index >= element.values.length ||
               i + _index < 0 ||
               element.values[i + _index] == null) continue;

@@ -24,10 +24,25 @@ class RaspiDB {
     List<Step> results = [];
     for (var row in fetchData) {
       // print(row[0]);
-      results.add(Step(row[0], row[1], row[3], row[4],));
+      results.add(Step(
+        row[0],
+        row[1],
+        row[3],
+        row[4],
+      ));
     }
     await conn.close();
 
     return results;
+  }
+
+  static Future<bool> getDataExist(int code, String date) async {
+    final conn = await _dbConnect();
+
+    final fetchData = await conn.query(
+        'SELECT * FROM getdate WHERE code=${code} AND (`date` IN (\'$date\'))');
+    await conn.close();
+
+    return fetchData.length != 0;
   }
 }

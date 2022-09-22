@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:objectbox/objectbox.dart';
 import 'package:trade_practice_tool/element/objectBoxEntity.dart';
@@ -11,7 +13,7 @@ late Store store;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  store = await openStore();
+  store = await openStore(maxDBSizeInKB: 1000*1024*1024);
   runApp(MyApp());
 }
 
@@ -70,13 +72,13 @@ class MyApp extends StatelessWidget {
                   onTap: () {
                     final testbox = store.box<MessageTestBox>();
                     final query =
-                        testbox.query(MessageTestBox_.id.equals(5)).build();
+                        testbox.query(MessageTestBox_.id.equals(6)).build();
                     final messageTestBox = query.findFirst();
                     query.close();
                     final box = store.box<MessageBox>();
                     if (messageTestBox != null) {
                       box.put(MessageBox(
-                        date: '2022-09-20',
+                        date: '2022-09-21',
                         messageList: messageTestBox.messageList,
                       ));
                       print('converted');

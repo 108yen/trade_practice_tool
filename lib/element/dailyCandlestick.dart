@@ -4,7 +4,7 @@ class DailyCandlestick {
     stopHeight = previousDayClose + priceLimitRange;
     stopLow = previousDayClose - priceLimitRange;
   }
-  final double previousDayClose;
+  double previousDayClose;
   double dailyOpen = 0;
   double dailyHeight = 0;
   double dailyLow = 0;
@@ -14,6 +14,18 @@ class DailyCandlestick {
   late double priceLimitRange;
   double priceUpRate = 0;
   int x4 = 0;
+
+  setPreviousDayClose(double previousDayClose) {
+    this.previousDayClose = previousDayClose;
+
+    priceLimitRange = _caluculatePriceLimitRange(previousDayClose);
+    stopHeight = previousDayClose + priceLimitRange;
+    stopLow = previousDayClose - priceLimitRange;
+  }
+
+  bool alreadySetPreviousDayClose() {
+    return previousDayClose != 0;
+  }
 
   setOpenValue(double open) {
     dailyOpen = open;

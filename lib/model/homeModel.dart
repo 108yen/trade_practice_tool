@@ -37,26 +37,26 @@ class HomeModel extends ChangeNotifier {
   }
 
   Future saveMessageList() async {
-    final messageTestBox = store.box<MessageTestBox>();
+    // final messageTestBox = store.box<MessageTestBox>();
 
-    final query = messageTestBox.query().build();
-    final List<MessageTestBox> messageTest = query.find();
-    int id = 0;
-    if (messageTest.isNotEmpty) {
-      id = messageTest
-              .reduce(
-                  (value, element) => value.id > element.id ? value : element)
-              .id +
-          1;
-    }
-    query.close();
+    // final query = messageTestBox.query().build();
+    // final List<MessageTestBox> messageTest = query.find();
+    // int id = 0;
+    // if (messageTest.isNotEmpty) {
+    //   id = messageTest
+    //           .reduce(
+    //               (value, element) => value.id > element.id ? value : element)
+    //           .id +
+    //       1;
+    // }
+    // query.close();
 
-    messageTestBox.put(MessageTestBox(
-      id: id,
-      messageList: messageList,
-    ));
+    // messageTestBox.put(MessageTestBox(
+    //   id: id,
+    //   messageList: messageList,
+    // ));
 
-    print('save data with id:${id}');
+    // print('save data with id:${id}');
 
     final messageBox = store.box<MessageBox>();
 
@@ -64,6 +64,7 @@ class HomeModel extends ChangeNotifier {
       date: DateFormat('yyyy-MM-dd').format(DateTime.now()),
       messageList: messageList,
     ));
+    print('save data');
   }
 
   Future restApiTest() async {

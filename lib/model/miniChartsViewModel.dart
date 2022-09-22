@@ -84,9 +84,8 @@ class MiniChartsModel extends ChangeNotifier {
       notifyListeners();
     });
 
-    //todo テスト用のボックス
-    final messageTestBox = store.box<MessageTestBox>();
-    Query query = messageTestBox.query(MessageTestBox_.id.equals(6)).build();
+    final messageBox = store.box<MessageBox>();
+    Query query = messageBox.query(MessageBox_.date.equals(replayDate)).build();
     final fetchData = query.findFirst();
 
     if (fetchData != null) {

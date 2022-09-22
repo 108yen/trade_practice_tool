@@ -76,6 +76,10 @@ class ChartParams {
           _updateCandles(value, volume, currentBord!.vwap!, datetime);
         }
         // dailychart
+        if (!dailyCandlestick.alreadySetPreviousDayClose() &&
+            currentBord?.previousClose != null) {
+          dailyCandlestick.setPreviousDayClose(currentBord!.previousClose!);
+        }
         if (!dailyCandlestick.alreadySetOpen() &&
             currentBord?.openingPrice != null) {
           dailyCandlestick.setOpenValue(currentBord!.openingPrice!);
@@ -137,8 +141,9 @@ class ChartParams {
     if (fiveminTickBox != null) {
       candles = fiveminTickBox.getCandles();
       vwapIndicator.values = fiveminTickBox.getVwap();
-    } else {
-      // todo:raspiにもなかった時の処理がいる
+      dailyCandlestick = DailyCandlestick(candles[0].close);
+      // raspiにデータがあった時の処理
+    } else if (await RaspiDB.getDataExist(int.parse(symbol), previousDay)) {
       final Map<String, dynamic> result = await _stepToCandles(
         steps: await RaspiDB.getStep(
           previousDay,
@@ -149,8 +154,10 @@ class ChartParams {
       vwapIndicator.values = result['vwapData'];
       _storeFiveminTickBoxData(
           symbol, previousDay, result['candles'], result['vwapData']);
+      dailyCandlestick = DailyCandlestick(candles[0].close);
+    } else {
+      dailyCandlestick = DailyCandlestick(0);
     }
-    dailyCandlestick = DailyCandlestick(candles[0].close);
   }
 
   Future<Map<String, dynamic>> _stepToCandles({
