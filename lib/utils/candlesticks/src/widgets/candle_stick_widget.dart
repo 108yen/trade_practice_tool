@@ -40,7 +40,9 @@ class CandleStickWidget extends LeafRenderObjectWidget {
     CandleStickRenderObject candlestickRenderObject =
         renderObject as CandleStickRenderObject;
 
-    if (index <= 0 && candlestickRenderObject._close != candles[0].close) {
+    if (index <= 0 &&
+        candlestickRenderObject._close != null &&
+        candlestickRenderObject._close != candles[0].close) {
       candlestickRenderObject._candles = candles;
       candlestickRenderObject._index = index;
       candlestickRenderObject._candleWidth = candleWidth;
@@ -72,7 +74,7 @@ class CandleStickRenderObject extends RenderBox {
   late double _candleWidth;
   late double _low;
   late double _high;
-  late double _close;
+  double? _close;
   late Color _bullColor;
   late Color _bearColor;
 

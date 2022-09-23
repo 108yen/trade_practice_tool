@@ -2,31 +2,27 @@ import 'dart:convert';
 import 'dart:isolate';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:trade_practice_tool/database/raspiDB.dart';
 import 'package:trade_practice_tool/element/bord.dart';
-import 'package:trade_practice_tool/element/dailyCandlestick.dart';
-import 'package:trade_practice_tool/element/indicatorComponentData.dart';
 import 'package:trade_practice_tool/element/chartParams.dart';
 import 'package:trade_practice_tool/element/objectBoxEntity.dart';
-import 'package:trade_practice_tool/element/step.dart';
-import 'package:trade_practice_tool/element/symbol.dart';
+import 'package:trade_practice_tool/main.dart';
 import 'package:trade_practice_tool/objectbox.g.dart';
-import 'package:trade_practice_tool/utils/candlesticks/src/models/candle.dart';
+import 'package:trade_practice_tool/element/symbol.dart';
 
-import '../main.dart';
-
-class MiniChartsModel extends ChangeNotifier {
-  // 全画面で30チャート表示可
-  final double miniChartWidth = 319;
-  final double miniChartHeight = 208;
+class ChartViewModel extends ChangeNotifier {
   final String replayDate = '2022-09-21';
   List<ChartParams> miniChartParamsList = [];
-  String? detailChartSymbol;
+  int? detailChartIndex;
 
-  setDetailChart(String symbol) {
-    detailChartSymbol = symbol;
+  setDetailChartIndex(String symbol) {
+    detailChartIndex = miniChartParamsList.indexWhere(
+      (element) => element.symbol == symbol,
+    );
+    notifyListeners();
+  }
+
+  setDetailChartIndexNull() {
+    detailChartIndex = null;
     notifyListeners();
   }
 
@@ -57,7 +53,7 @@ class MiniChartsModel extends ChangeNotifier {
         miniChartParamsList.add(miniChartParams);
         notifyListeners();
       }
-      receiveBordData();
+      _receiveBordData();
     }
   }
 
@@ -69,7 +65,7 @@ class MiniChartsModel extends ChangeNotifier {
     }
   }
 
-  Future receiveBordData() async {
+  Future _receiveBordData() async {
     final receivePort = ReceivePort();
     final sendPort = receivePort.sendPort;
 

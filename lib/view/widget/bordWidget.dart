@@ -9,7 +9,7 @@ class BordWidget extends StatelessWidget {
   final Bord bord;
   final Bord? priviousBord;
   final double width = 250;
-  final double height = 473;
+  final double height = 873;
   final double containerWidth = 80;
   final double containerHeignt = 20;
   final double containerBorderWidth = 0.3;
@@ -21,223 +21,217 @@ class BordWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> priceList = [
-      _BordContainer(
-        context: context,
-        value: bord.sell10.price,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.sell9.price,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.sell8.price,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.sell7.price,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.sell6.price,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.sell5.price,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.sell4.price,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.sell3.price,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.sell2.price,
-      ),
-      _BordContainer(
-          context: context, value: bord.sell1.price, textColor: Colors.blue),
-      _BordContainer(
-          context: context, value: bord.buy1.price, textColor: Colors.red),
-      _BordContainer(context: context, value: bord.buy2.price),
-      _BordContainer(context: context, value: bord.buy3.price),
-      _BordContainer(context: context, value: bord.buy4.price),
-      _BordContainer(context: context, value: bord.buy5.price),
-      _BordContainer(context: context, value: bord.buy6.price),
-      _BordContainer(context: context, value: bord.buy7.price),
-      _BordContainer(context: context, value: bord.buy8.price),
-      _BordContainer(context: context, value: bord.buy9.price),
-      _BordContainer(context: context, value: bord.buy10.price),
-    ];
-    List<Widget> buyList = [
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy1.qty,
-        previousValue: priviousBord?.buy1.qty,
-        textColor: Colors.red,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy2.qty,
-        previousValue: priviousBord?.buy2.qty,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy3.qty,
-        previousValue: priviousBord?.buy3.qty,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy4.qty,
-        previousValue: priviousBord?.buy4.qty,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy5.qty,
-        previousValue: priviousBord?.buy5.qty,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy6.qty,
-        previousValue: priviousBord?.buy6.qty,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy7.qty,
-        previousValue: priviousBord?.buy7.qty,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy8.qty,
-        previousValue: priviousBord?.buy8.qty,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy9.qty,
-        previousValue: priviousBord?.buy9.qty,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy10.qty,
-        previousValue: priviousBord?.buy10.qty,
-      ),
-    ];
-    List<Widget> sellList = [
-      _BordContainer(
-        context: context,
-        value: bord.buy10.qty,
-        previousValue: priviousBord?.buy10.qty,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy9.qty,
-        previousValue: priviousBord?.buy9.qty,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy8.qty,
-        previousValue: priviousBord?.buy8.qty,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy7.qty,
-        previousValue: priviousBord?.buy7.qty,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy6.qty,
-        previousValue: priviousBord?.buy6.qty,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy5.qty,
-        previousValue: priviousBord?.buy5.qty,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy4.qty,
-        previousValue: priviousBord?.buy4.qty,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy3.qty,
-        previousValue: priviousBord?.buy3.qty,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy2.qty,
-        previousValue: priviousBord?.buy2.qty,
-      ),
-      _BordContainer(
-        context: context,
-        value: bord.buy1.qty,
-        previousValue: priviousBord?.buy1.qty,
-        textColor: Colors.blue,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-      _BordContainer(
-        context: context,
-      ),
-    ];
+    double _getTickRange(double value) {
+      if (value <= 3000) {
+        return 1.0;
+      } else if (5000 >= value && value >= 3000) {
+        return 5.0;
+      } else if (10000 >= value && value >= 5000) {
+        return 10.0;
+      } else if (30000 >= value && value >= 10000) {
+        return 10.0;
+      } else if (50000 >= value && value >= 30000) {
+        return 50.0;
+      } else if (100000 >= value && value >= 50000) {
+        return 100.0;
+      } else if (300000 >= value && value >= 100000) {
+        return 100.0;
+      } else if (500000 >= value && value >= 300000) {
+        return 500.0;
+      } else if (1000000 >= value && value >= 500000) {
+        return 1000.0;
+      } else if (3000000 >= value && value >= 1000000) {
+        return 1000.0;
+      } else if (5000000 >= value && value >= 3000000) {
+        return 5000.0;
+      } else if (10000000 >= value && value >= 5000000) {
+        return 10000.0;
+      } else if (30000000 >= value && value >= 10000000) {
+        return 10000.0;
+      } else if (50000000 >= value && value >= 30000000) {
+        return 50000.0;
+      } else {
+        return 100000.0;
+      }
+    }
+
+    List<Widget> _calcBordValueList() {
+      List<Widget> _bordTickList = [];
+      List<double> _bordValueList = [];
+      if (bord.buy1.price != null && bord.sell1.price != null) {
+        final ave = (bord.buy1.price! + bord.sell1.price!) / 2;
+        final medianTickRange = _getTickRange(ave);
+        final median = medianTickRange * (ave ~/ medianTickRange);
+        _bordValueList.add(median);
+        if (median == bord.buy1.price!) {
+          _bordTickList.add(Row(
+            children: [
+              _BordContainer(
+                context: context,
+              ),
+              _BordContainer(
+                context: context,
+                value: median,
+                textColor: Colors.red,
+              ),
+              _BordContainer(
+                context: context,
+                value: bord.buy1.qty,
+                textColor: Colors.red,
+              ),
+            ],
+          ));
+        } else if (median == bord.sell1.price!) {
+          _bordTickList.add(Row(
+            children: [
+              _BordContainer(
+                context: context,
+                value: bord.sell1.qty,
+                textColor: Colors.blue,
+              ),
+              _BordContainer(
+                context: context,
+                value: median,
+                textColor: Colors.blue,
+              ),
+              _BordContainer(
+                context: context,
+              ),
+            ],
+          ));
+        } else {
+          _bordTickList.add(Row(
+            children: [
+              _BordContainer(
+                context: context,
+              ),
+              _BordContainer(
+                context: context,
+                value: median,
+              ),
+              _BordContainer(
+                context: context,
+              ),
+            ],
+          ));
+        }
+        final List<Qty> _buyList = [
+          bord.buy1,
+          bord.buy2,
+          bord.buy3,
+          bord.buy4,
+          bord.buy5,
+          bord.buy6,
+          bord.buy7,
+          bord.buy8,
+          bord.buy9,
+          bord.buy10,
+        ];
+        final List<Qty> _sellList = [
+          bord.sell1,
+          bord.sell2,
+          bord.sell3,
+          bord.sell4,
+          bord.sell5,
+          bord.sell6,
+          bord.sell7,
+          bord.sell8,
+          bord.sell9,
+          bord.sell10,
+        ];
+        //買い板
+        for (var i = 0; i < 20; i++) {
+          final value =
+              _bordValueList[i] - _getTickRange(_bordValueList[i] - 1);
+          _bordValueList.add(value);
+          int index = _buyList.indexWhere(
+              (element) => element.price != null && element.price == value);
+          if (index != -1) {
+            _bordTickList.add(Row(
+              children: [
+                _BordContainer(
+                  context: context,
+                ),
+                _BordContainer(
+                  context: context,
+                  value: value,
+                  textColor: index != 0 ? Colors.white : Colors.red,
+                ),
+                _BordContainer(
+                  context: context,
+                  value: _buyList[index].qty,
+                  textColor: Colors.red,
+                ),
+              ],
+            ));
+          } else {
+            _bordTickList.add(Row(
+              children: [
+                _BordContainer(
+                  context: context,
+                ),
+                _BordContainer(
+                  context: context,
+                  value: value,
+                ),
+                _BordContainer(
+                  context: context,
+                ),
+              ],
+            ));
+          }
+        }
+        //売り板
+        for (var i = 0; i < 19; i++) {
+          final value = _bordValueList[0] + _getTickRange(_bordValueList[0]);
+          _bordValueList.insert(0, value);
+
+          int index = _sellList.indexWhere(
+              (element) => element.price != null && element.price == value);
+          if (index != -1) {
+            _bordTickList.insert(
+                0,
+                Row(
+                  children: [
+                    _BordContainer(
+                      context: context,
+                      value: _sellList[index].qty,
+                      textColor: Colors.blue,
+                    ),
+                    _BordContainer(
+                      context: context,
+                      value: value,
+                      textColor: index != 0 ? Colors.white : Colors.blue,
+                    ),
+                    _BordContainer(
+                      context: context,
+                    ),
+                  ],
+                ));
+          } else {
+            _bordTickList.insert(
+              0,
+              Row(
+                children: [
+                  _BordContainer(
+                    context: context,
+                  ),
+                  _BordContainer(
+                    context: context,
+                    value: value,
+                  ),
+                  _BordContainer(
+                    context: context,
+                  ),
+                ],
+              ),
+            );
+          }
+        }
+      }
+
+      return _bordTickList;
+    }
 
     return Container(
       width: width,
@@ -256,7 +250,7 @@ class BordWidget extends StatelessWidget {
               _BordContainer(context: context, value: '成行'),
               _BordContainer(
                 context: context,
-                value: bord.marketOrderBuyQty,
+                value: bord.marketOrderSellQty,
                 previousValue: priviousBord?.marketOrderBuyQty,
               ),
             ],
@@ -273,19 +267,22 @@ class BordWidget extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            children: [
-              Column(
-                children: sellList,
-              ),
-              Column(
-                children: priceList,
-              ),
-              Column(
-                children: buyList,
-              ),
-            ],
+          Column(
+            children: _calcBordValueList(),
           ),
+          // Row(
+          //   children: [
+          //     Column(
+          //       children: sellList,
+          //     ),
+          //     Column(
+          //       children: priceList,
+          //     ),
+          //     Column(
+          //       children: buyList,
+          //     ),
+          //   ],
+          // ),
           Row(
             children: [
               _BordContainer(
@@ -338,11 +335,3 @@ class BordWidget extends StatelessWidget {
     );
   }
 }
-
-// class returnCurve extends Curve {
-//   @override
-//   double transform(double t) {
-//     print(sin(pi * t));
-//     return t;
-//   }
-// }

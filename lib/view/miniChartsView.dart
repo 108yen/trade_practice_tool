@@ -28,10 +28,16 @@ class MiniChartsView extends StatelessWidget {
                     ),
                     itemCount: model.miniChartParamsList.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return MiniChartWidget(
-                        width: model.miniChartWidth,
-                        height: model.miniChartHeight,
-                        miniChartParams: model.miniChartParamsList[index],
+                      return GestureDetector(
+                        child: MiniChartWidget(
+                          width: model.miniChartWidth,
+                          height: model.miniChartHeight,
+                          miniChartParams: model.miniChartParamsList[index],
+                        ),
+                        onTap: () {
+                          model.setDetailChart(
+                              model.miniChartParamsList[index].symbol);
+                        },
                       );
                     },
                   ),

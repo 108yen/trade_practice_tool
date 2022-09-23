@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:objectbox/objectbox.dart';
 import 'package:trade_practice_tool/element/objectBoxEntity.dart';
+import 'package:trade_practice_tool/view/ChartView.dart';
 import 'package:trade_practice_tool/view/detailChartView.dart';
 import 'package:trade_practice_tool/view/home.dart';
 import 'package:trade_practice_tool/view/miniChartsView.dart';
@@ -66,6 +67,17 @@ class MyApp extends StatelessWidget {
                         builder: ((context) => DetailChartView(
                               symbol: '5032',
                             )),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: Text('ミニ＋詳細チャート'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: ((context) => ChartView()),
                       ),
                     );
                   },

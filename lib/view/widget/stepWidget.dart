@@ -35,6 +35,7 @@ class StepWidget extends StatelessWidget {
           width: width,
           height: height - 18,
           child: ListView(
+              controller: ScrollController(),
               children: steps.isEmpty
                   ? []
                   : steps.reversed
