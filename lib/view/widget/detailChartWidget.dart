@@ -83,6 +83,7 @@ class DetailChartWidget extends StatelessWidget {
                     : BordWidget(
                         bord: chartParams.currentBord!,
                         priviousBord: chartParams.previousBord,
+                        height: constraints.maxHeight - 110,
                       ),
               ]),
             ],

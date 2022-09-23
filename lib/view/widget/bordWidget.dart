@@ -9,7 +9,7 @@ class BordWidget extends StatelessWidget {
   final Bord bord;
   final Bord? priviousBord;
   final double width = 250;
-  final double height = 873;
+  final double height;
   final double containerWidth = 80;
   final double containerHeignt = 20;
   final double containerBorderWidth = 0.3;
@@ -17,6 +17,7 @@ class BordWidget extends StatelessWidget {
   BordWidget({
     required this.bord,
     required this.priviousBord,
+    this.height = 873,
   });
 
   @override
@@ -267,22 +268,14 @@ class BordWidget extends StatelessWidget {
               ),
             ],
           ),
-          Column(
-            children: _calcBordValueList(),
+          SizedBox(
+            height: height - 73 < 800 ? height - 73 : 800,
+            child: ListView(
+              controller: ScrollController(
+                  initialScrollOffset: 400 - (height - 73) / 2),
+              children: _calcBordValueList(),
+            ),
           ),
-          // Row(
-          //   children: [
-          //     Column(
-          //       children: sellList,
-          //     ),
-          //     Column(
-          //       children: priceList,
-          //     ),
-          //     Column(
-          //       children: buyList,
-          //     ),
-          //   ],
-          // ),
           Row(
             children: [
               _BordContainer(
