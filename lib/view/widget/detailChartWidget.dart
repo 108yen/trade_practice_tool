@@ -75,7 +75,7 @@ class DetailChartWidget extends StatelessWidget {
               Column(children: [
                 TradeHistoryWidget(
                   width: 250,
-                  height: 100,
+                  height: 120,
                   margin: EdgeInsets.only(top: 5, bottom: 5),
                 ),
                 chartParams.currentBord == null
@@ -83,7 +83,7 @@ class DetailChartWidget extends StatelessWidget {
                     : BordWidget(
                         bord: chartParams.currentBord!,
                         priviousBord: chartParams.previousBord,
-                        height: constraints.maxHeight - 110,
+                        height: constraints.maxHeight - 130,
                       ),
               ]),
             ],

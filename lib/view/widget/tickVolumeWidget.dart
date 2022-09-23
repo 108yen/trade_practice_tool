@@ -46,7 +46,7 @@ class TickVolumeWidget extends StatelessWidget {
         children: [
           SizedBox(
             height: widgetHeight - 2,
-            width: widgetWidth - 80,
+            width: widgetWidth - 60,
             child: CustomPaint(
               painter: _TickVolumePainter(
                 steps,
