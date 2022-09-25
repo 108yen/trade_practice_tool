@@ -44,7 +44,9 @@ class ChartView extends StatelessWidget {
                             child: DetailChartWidget(
                               chartParams: model
                                   .miniChartParamsList[model.detailChartIndex!],
+                              tradingHistoryList: model.tradingHistoryList,
                               onBackTap: () => model.setDetailChartIndexNull(),
+                              onBuy: () => model.buy(),
                             ),
                           ),
                         ],

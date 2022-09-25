@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:intl/intl.dart';
-import 'package:trade_practice_tool/assets/holidayList.dart';
+import 'package:trade_practice_tool/assets/infoUtils.dart';
 import 'package:trade_practice_tool/database/raspiDB.dart';
 import 'package:trade_practice_tool/element/bord.dart';
 import 'package:trade_practice_tool/element/dailyCandlestick.dart';

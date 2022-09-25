@@ -1,4 +1,4 @@
-final Map<String, String> holiday = {
+const Map<String, String> holiday = {
   //2022年休業日
   '2022-01-01': '元日',
   '2022-01-02': '休業日',
@@ -40,3 +40,37 @@ final Map<String, String> holiday = {
   '2023-11-23': '勤労感謝の日',
   '2023-12-31': '休業日',
 };
+
+double getTickRange(double value) {
+  if (value <= 3000) {
+    return 1.0;
+  } else if (5000 >= value && value >= 3000) {
+    return 5.0;
+  } else if (10000 >= value && value >= 5000) {
+    return 10.0;
+  } else if (30000 >= value && value >= 10000) {
+    return 10.0;
+  } else if (50000 >= value && value >= 30000) {
+    return 50.0;
+  } else if (100000 >= value && value >= 50000) {
+    return 100.0;
+  } else if (300000 >= value && value >= 100000) {
+    return 100.0;
+  } else if (500000 >= value && value >= 300000) {
+    return 500.0;
+  } else if (1000000 >= value && value >= 500000) {
+    return 1000.0;
+  } else if (3000000 >= value && value >= 1000000) {
+    return 1000.0;
+  } else if (5000000 >= value && value >= 3000000) {
+    return 5000.0;
+  } else if (10000000 >= value && value >= 5000000) {
+    return 10000.0;
+  } else if (30000000 >= value && value >= 10000000) {
+    return 10000.0;
+  } else if (50000000 >= value && value >= 30000000) {
+    return 50000.0;
+  } else {
+    return 100000.0;
+  }
+}

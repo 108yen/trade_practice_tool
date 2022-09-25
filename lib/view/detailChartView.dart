@@ -79,6 +79,8 @@ class DetailChartView extends StatelessWidget {
                         width: 250,
                         height: 100,
                         margin: EdgeInsets.only(top: 5, bottom: 5),
+                        tradingHistoryList: model.tradingHistoryList,
+                        onBuy: ()=>print('buy'),
                       ),
                       model.chartParams.currentBord == null
                           ? Text('no data')

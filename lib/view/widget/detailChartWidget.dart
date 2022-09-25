@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trade_practice_tool/element/chartParams.dart';
+import 'package:trade_practice_tool/element/tradingHistory.dart';
 import 'package:trade_practice_tool/utils/candlesticks/candlesticks.dart';
 import 'package:trade_practice_tool/view/widget/bordWidget.dart';
 import 'package:trade_practice_tool/view/widget/dailyCandlestickWidget.dart';
@@ -10,10 +11,14 @@ import 'package:trade_practice_tool/view/widget/tradeHistoryWidget.dart';
 class DetailChartWidget extends StatelessWidget {
   final ChartParams chartParams;
   final Function onBackTap;
+  final TradingHistoryList tradingHistoryList;
+  final Function onBuy;
 
   DetailChartWidget({
     required this.chartParams,
     required this.onBackTap,
+    required this.tradingHistoryList,
+    required this.onBuy,
   });
 
   @override
@@ -77,6 +82,8 @@ class DetailChartWidget extends StatelessWidget {
                   width: 250,
                   height: 120,
                   margin: EdgeInsets.only(top: 5, bottom: 5),
+                  tradingHistoryList: tradingHistoryList,
+                  onBuy: () => onBuy(),
                 ),
                 chartParams.currentBord == null
                     ? Text('no data')

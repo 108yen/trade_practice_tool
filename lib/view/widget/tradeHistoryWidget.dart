@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:trade_practice_tool/element/tradingHistory.dart';
 import 'package:trade_practice_tool/theme/theme_data.dart';
 
 class TradeHistoryWidget extends StatelessWidget {
@@ -9,11 +10,15 @@ class TradeHistoryWidget extends StatelessWidget {
   final double containerHeight = 20;
   final double containerBorderWidth = 0.3;
   final double padding = 5.0;
+  final Function onBuy;
+  final TradingHistoryList tradingHistoryList;
 
   TradeHistoryWidget({
     required this.width,
     required this.height,
     required this.margin,
+    required this.onBuy,
+    required this.tradingHistoryList,
   });
 
   @override
@@ -63,9 +68,17 @@ class TradeHistoryWidget extends StatelessWidget {
           _infoColumn('利益', '40,000 円'),
           _infoColumn('利益率', '4 %'),
           _infoColumn('仮利益', '4,000 円'),
-          OutlinedButton(
-            onPressed: () {},
-            child: Text('成買'),
+          Container(
+            height: containerHeight,
+            margin: EdgeInsets.all(padding),
+            child: OutlinedButton(
+              onPressed: () => onBuy(),
+              child: Text('成買'),
+              style: OutlinedButton.styleFrom(
+                primary: Colors.white,
+                backgroundColor: Theme.of(context).primaryRed,
+              ),
+            ),
           ),
         ],
       ),

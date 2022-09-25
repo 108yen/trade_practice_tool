@@ -10,6 +10,7 @@ import 'package:trade_practice_tool/element/dailyCandlestick.dart';
 import 'package:trade_practice_tool/element/indicatorComponentData.dart';
 import 'package:trade_practice_tool/element/objectBoxEntity.dart';
 import 'package:trade_practice_tool/element/step.dart' as kabuStep;
+import 'package:trade_practice_tool/element/tradingHistory.dart';
 import 'package:trade_practice_tool/objectbox.g.dart';
 import 'package:trade_practice_tool/utils/candlesticks/candlesticks.dart';
 
@@ -18,6 +19,7 @@ import '../main.dart';
 class DetailChartViewModel extends ChangeNotifier {
   final String symbol;
   late ChartParams chartParams;
+  TradingHistoryList tradingHistoryList = TradingHistoryList();
 
   DetailChartViewModel({
     required this.symbol,

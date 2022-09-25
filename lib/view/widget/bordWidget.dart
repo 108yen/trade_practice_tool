@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:trade_practice_tool/assets/infoUtils.dart';
 import 'package:trade_practice_tool/element/bord.dart';
 import 'package:trade_practice_tool/theme/theme_data.dart';
 
@@ -22,46 +23,12 @@ class BordWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _getTickRange(double value) {
-      if (value <= 3000) {
-        return 1.0;
-      } else if (5000 >= value && value >= 3000) {
-        return 5.0;
-      } else if (10000 >= value && value >= 5000) {
-        return 10.0;
-      } else if (30000 >= value && value >= 10000) {
-        return 10.0;
-      } else if (50000 >= value && value >= 30000) {
-        return 50.0;
-      } else if (100000 >= value && value >= 50000) {
-        return 100.0;
-      } else if (300000 >= value && value >= 100000) {
-        return 100.0;
-      } else if (500000 >= value && value >= 300000) {
-        return 500.0;
-      } else if (1000000 >= value && value >= 500000) {
-        return 1000.0;
-      } else if (3000000 >= value && value >= 1000000) {
-        return 1000.0;
-      } else if (5000000 >= value && value >= 3000000) {
-        return 5000.0;
-      } else if (10000000 >= value && value >= 5000000) {
-        return 10000.0;
-      } else if (30000000 >= value && value >= 10000000) {
-        return 10000.0;
-      } else if (50000000 >= value && value >= 30000000) {
-        return 50000.0;
-      } else {
-        return 100000.0;
-      }
-    }
-
     List<Widget> _calcBordValueList() {
       List<Widget> _bordTickList = [];
       List<double> _bordValueList = [];
       if (bord.buy1.price != null && bord.sell1.price != null) {
         final ave = (bord.buy1.price! + bord.sell1.price!) / 2;
-        final medianTickRange = _getTickRange(ave);
+        final medianTickRange = getTickRange(ave);
         final median = medianTickRange * (ave ~/ medianTickRange);
         _bordValueList.add(median);
         if (median == bord.buy1.price!) {
@@ -143,7 +110,7 @@ class BordWidget extends StatelessWidget {
         //買い板
         for (var i = 0; i < 20; i++) {
           final value =
-              _bordValueList[i] - _getTickRange(_bordValueList[i] - 1);
+              _bordValueList[i] - getTickRange(_bordValueList[i] - 1);
           _bordValueList.add(value);
           int index = _buyList.indexWhere(
               (element) => element.price != null && element.price == value);
@@ -184,7 +151,7 @@ class BordWidget extends StatelessWidget {
         }
         //売り板
         for (var i = 0; i < 19; i++) {
-          final value = _bordValueList[0] + _getTickRange(_bordValueList[0]);
+          final value = _bordValueList[0] + getTickRange(_bordValueList[0]);
           _bordValueList.insert(0, value);
 
           int index = _sellList.indexWhere(

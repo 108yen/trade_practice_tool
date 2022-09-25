@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:trade_practice_tool/element/bord.dart';
 import 'package:trade_practice_tool/element/chartParams.dart';
 import 'package:trade_practice_tool/element/objectBoxEntity.dart';
+import 'package:trade_practice_tool/element/tradingHistory.dart';
 import 'package:trade_practice_tool/main.dart';
 import 'package:trade_practice_tool/objectbox.g.dart';
 import 'package:trade_practice_tool/element/symbol.dart';
@@ -13,6 +14,21 @@ class ChartViewModel extends ChangeNotifier {
   final String replayDate = '2022-09-21';
   List<ChartParams> miniChartParamsList = [];
   int? detailChartIndex;
+  TradingHistoryList tradingHistoryList = TradingHistoryList();
+
+  buy() {
+    if (detailChartIndex != null &&
+        miniChartParamsList[detailChartIndex!].currentBord?.sell1.time !=
+            null &&
+        miniChartParamsList[detailChartIndex!].currentBord?.sell1.price !=
+            null) {
+      tradingHistoryList.buy(
+        miniChartParamsList[detailChartIndex!].symbol,
+        miniChartParamsList[detailChartIndex!].currentBord!.sell1.time!,
+        miniChartParamsList[detailChartIndex!].currentBord!.sell1.price!,
+      );
+    }
+  }
 
   setDetailChartIndex(String symbol) {
     detailChartIndex = miniChartParamsList.indexWhere(
@@ -82,6 +98,17 @@ class ChartViewModel extends ChangeNotifier {
             (element) => element.symbol == receivedBord.symbol!,
           )
           .setBord(receivedBord);
+
+      final buySymbol = tradingHistoryList.getBuySymbol;
+      if (buySymbol != null &&
+          receivedBord.symbol == buySymbol &&
+          receivedBord.currentPrice != null &&
+          receivedBord.currentPriceTime != null) {
+        tradingHistoryList.updateValue(
+          receivedBord.currentPrice!,
+          receivedBord.currentPriceTime!,
+        );
+      }
 
       notifyListeners();
     });
