@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:trade_practice_tool/element/tradingHistory.dart';
 import 'package:trade_practice_tool/theme/theme_data.dart';
 
@@ -23,7 +24,7 @@ class TradeHistoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget _infoColumn(String index, String info) {
+    Widget _infoColumn(String index, String info, Color infoColor) {
       return Row(
         children: [
           Container(
@@ -50,11 +51,28 @@ class TradeHistoryWidget extends StatelessWidget {
             child: Text(
               info,
               textAlign: TextAlign.end,
+              style: TextStyle(
+                color: infoColor,
+              ),
             ),
           ),
         ],
       );
     }
+
+    late Color profitColor;
+    if (tradingHistoryList.buyFlag &&
+        tradingHistoryList
+                .tradingHistoryList[
+                    tradingHistoryList.tradingHistoryList.length - 1]
+                .profit <
+            0) {
+      profitColor = Colors.red;
+    } else {
+      profitColor = Colors.white;
+    }
+
+    final formatter = NumberFormat("#,###.00");
 
     return Container(
       width: width,
@@ -64,14 +82,26 @@ class TradeHistoryWidget extends StatelessWidget {
       color: Theme.of(context).background,
       child: Column(
         children: [
-          _infoColumn('所持金額合計',
-              '${(tradingHistoryList.sumProfit + 1000000).toStringAsFixed(0)} 円'),
           _infoColumn(
-              '利益', '${tradingHistoryList.sumProfit.toStringAsFixed(0)} 円'),
-          _infoColumn('利益率',
-              '${tradingHistoryList.sumProfitRate.toStringAsFixed(2)} %'),
-          _infoColumn('仮利益',
-              '${tradingHistoryList.buyFlag ? tradingHistoryList.tradingHistoryList[tradingHistoryList.tradingHistoryList.length - 1].profit.toStringAsFixed(0) : 0} 円'),
+            '所持金額合計',
+            '${NumberFormat("#,###").format(tradingHistoryList.sumProfit + 1000000)} 円',
+            Colors.white,
+          ),
+          _infoColumn(
+            '利益',
+            '${NumberFormat("#,###").format(tradingHistoryList.sumProfit)} 円',
+            Colors.white,
+          ),
+          _infoColumn(
+            '利益率',
+            '${tradingHistoryList.sumProfitRate.toStringAsFixed(2)} %',
+            Colors.white,
+          ),
+          _infoColumn(
+            '仮利益',
+            '${NumberFormat("#,###").format(tradingHistoryList.buyFlag ? tradingHistoryList.tradingHistoryList[tradingHistoryList.tradingHistoryList.length - 1].profit : 0)} 円',
+            profitColor,
+          ),
           Container(
             height: containerHeight,
             margin: EdgeInsets.all(padding),
