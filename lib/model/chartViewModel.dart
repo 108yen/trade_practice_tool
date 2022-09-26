@@ -11,7 +11,7 @@ import 'package:trade_practice_tool/objectbox.g.dart';
 import 'package:trade_practice_tool/element/symbol.dart';
 
 class ChartViewModel extends ChangeNotifier {
-  final String replayDate = '2022-09-21';
+  final String replayDate = '2022-09-26';
   List<ChartParams> miniChartParamsList = [];
   int? detailChartIndex;
   TradingHistoryList tradingHistoryList = TradingHistoryList();
@@ -99,7 +99,7 @@ class ChartViewModel extends ChangeNotifier {
           )
           .setBord(receivedBord);
 
-      final buySymbol = tradingHistoryList.getBuySymbol;
+      final buySymbol = tradingHistoryList.getBuySymbol();
       if (buySymbol != null &&
           receivedBord.symbol == buySymbol &&
           receivedBord.currentPrice != null &&

@@ -64,10 +64,14 @@ class TradeHistoryWidget extends StatelessWidget {
       color: Theme.of(context).background,
       child: Column(
         children: [
-          _infoColumn('所持金額合計', '1,000,000 円'),
-          _infoColumn('利益', '40,000 円'),
-          _infoColumn('利益率', '4 %'),
-          _infoColumn('仮利益', '4,000 円'),
+          _infoColumn('所持金額合計',
+              '${(tradingHistoryList.sumProfit + 1000000).toStringAsFixed(0)} 円'),
+          _infoColumn(
+              '利益', '${tradingHistoryList.sumProfit.toStringAsFixed(0)} 円'),
+          _infoColumn('利益率',
+              '${tradingHistoryList.sumProfitRate.toStringAsFixed(2)} %'),
+          _infoColumn('仮利益',
+              '${tradingHistoryList.buyFlag ? tradingHistoryList.tradingHistoryList[tradingHistoryList.tradingHistoryList.length - 1].profit.toStringAsFixed(0) : 0} 円'),
           Container(
             height: containerHeight,
             margin: EdgeInsets.all(padding),

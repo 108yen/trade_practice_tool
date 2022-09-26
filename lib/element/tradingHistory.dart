@@ -26,12 +26,18 @@ class TradingHistoryList {
           value) {
         tradingHistoryList[tradingHistoryList.length - 1].setSell(time,
             tradingHistoryList[tradingHistoryList.length - 1].plusTwoPerValue);
+        sumProfit +=
+            tradingHistoryList[tradingHistoryList.length - 1].profit.toDouble();
+        sumProfitRate = sumProfit / 10000;
         buyFlag = false;
         return true;
       } else if (tradingHistoryList[tradingHistoryList.length - 1]
               .minusThreePerValue >
           value) {
         tradingHistoryList[tradingHistoryList.length - 1].setSell(time, value);
+        sumProfit +=
+            tradingHistoryList[tradingHistoryList.length - 1].profit.toDouble();
+        sumProfitRate = sumProfit / 10000;
         buyFlag = false;
         return true;
       } else {
@@ -55,7 +61,7 @@ class _TradingHistory {
         plusTwoPerValueTickRange;
     final double minusThreePerValueTickRange = getTickRange(buyValue * 0.97);
     minusThreePerValue =
-        ((buyValue * 1.02) ~/ minusThreePerValueTickRange + 1) *
+        ((buyValue * 0.97) ~/ minusThreePerValueTickRange + 1) *
             minusThreePerValueTickRange;
     volume =
         buyValue > 10000 ? 100 : ((10000 / buyValue).floor() * 100).toInt();
