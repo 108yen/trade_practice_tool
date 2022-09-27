@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:trade_practice_tool/element/chartParams.dart';
 import 'package:trade_practice_tool/element/tradingHistory.dart';
 import 'package:trade_practice_tool/utils/candlesticks/candlesticks.dart';
@@ -30,10 +31,17 @@ class DetailChartWidget extends StatelessWidget {
     } else {
       currentTime = '';
     }
+    late String timestamp;
+    if (chartParams.currentBord?.timeStamp != null) {
+      timestamp = DateFormat('HH:mm:ss.sss')
+          .format(chartParams.currentBord!.timeStamp!);
+    } else {
+      timestamp = '';
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          '${chartParams.symbol} ${chartParams.symbolName} ${currentTime}',
+          '${chartParams.symbol} ${chartParams.symbolName} ${currentTime} ${timestamp}',
         ),
         leading: IconButton(
             icon: Icon(Icons.arrow_back),
@@ -59,6 +67,7 @@ class DetailChartWidget extends StatelessWidget {
                         chartParams.tickIndicator,
                         chartParams.vwapIndicator,
                       ],
+                      isMiniChart: false,
                     ),
                   ),
                   TickVolumeWidget(

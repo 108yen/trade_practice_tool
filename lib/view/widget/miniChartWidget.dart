@@ -45,6 +45,7 @@ class MiniChartWidget extends StatelessWidget {
                     miniChartParams.vwapIndicator,
                     miniChartParams.tickIndicator,
                   ],
+                  isMiniChart: true,
                 ),
               ),
               DailyCandlestickWidget(

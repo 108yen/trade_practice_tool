@@ -27,6 +27,7 @@ class Candlesticks extends StatefulWidget {
 
   /// List of indicators to draw
   final List<IndicatorComponentData> indicators;
+  final bool isMiniChart;
 
   Candlesticks({
     Key? key,
@@ -34,6 +35,7 @@ class Candlesticks extends StatefulWidget {
     this.onLoadMoreCandles,
     this.actions = const [],
     required this.indicators,
+    required this.isMiniChart,
   }) : super(key: key);
 
   @override
@@ -127,6 +129,7 @@ class _CandlesticksState extends State<Candlesticks> {
                     candles: widget.candles,
                     index: index,
                     indicatorDatas: widget.indicators,
+                    isMiniChart: widget.isMiniChart,
                   );
                 } else {
                   return MobileChart(

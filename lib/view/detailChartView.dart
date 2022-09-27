@@ -56,6 +56,7 @@ class DetailChartView extends StatelessWidget {
                               model.chartParams.tickIndicator,
                               model.chartParams.vwapIndicator,
                             ],
+                            isMiniChart: false,
                           ),
                         ),
                         TickVolumeWidget(

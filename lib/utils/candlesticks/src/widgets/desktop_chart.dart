@@ -44,6 +44,7 @@ class DesktopChart extends StatefulWidget {
   final Function() onReachEnd;
 
   final List<IndicatorComponentData> indicatorDatas;
+  final bool isMiniChart;
 
   DesktopChart({
     required this.onScaleUpdate,
@@ -55,6 +56,7 @@ class DesktopChart extends StatefulWidget {
     required this.onPanEnd,
     required this.onReachEnd,
     required this.indicatorDatas,
+    required this.isMiniChart,
   });
 
   @override
@@ -382,7 +384,7 @@ class _DesktopChartState extends State<DesktopChart> {
                         padding: const EdgeInsets.only(right: 50, bottom: 20),
                         child: Listener(
                           onPointerSignal: (pointerSignal) {
-                            if (pointerSignal is PointerScrollEvent) {
+                            if (pointerSignal is PointerScrollEvent && !widget.isMiniChart) {
                               widget.onScaleUpdate(
                                   pointerSignal.scrollDelta.direction);
                             }

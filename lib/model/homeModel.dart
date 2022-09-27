@@ -82,11 +82,15 @@ class HomeModel extends ChangeNotifier {
         final preSym = Symbol.fromJson(json.decode(e));
         return Regist(symbol: preSym.symbol, exchange: preSym.exchange);
       }).toList();
+      symbolInfoList = latestSymbolInfoList.symbolInfoList
+          .map((e) => Symbol.fromJson(json.decode(e)))
+          .toList();
     }
+    notifyListeners();
+    
     registList = await Kabuapi.register(_token, _previousRegistList);
     symbolInfoList = await _getSymbolInfoList(registList);
 
-    notifyListeners();
   }
 
   Future removeAll() async {
