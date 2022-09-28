@@ -33,7 +33,7 @@ class DetailChartWidget extends StatelessWidget {
     }
     late String timestamp;
     if (chartParams.currentBord?.timeStamp != null) {
-      timestamp = DateFormat('HH:mm:ss.sss')
+      timestamp = DateFormat('HH:mm:ss.SSS')
           .format(chartParams.currentBord!.timeStamp!);
     } else {
       timestamp = '';

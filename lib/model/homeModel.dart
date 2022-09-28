@@ -87,10 +87,9 @@ class HomeModel extends ChangeNotifier {
           .toList();
     }
     notifyListeners();
-    
+
     registList = await Kabuapi.register(_token, _previousRegistList);
     symbolInfoList = await _getSymbolInfoList(registList);
-
   }
 
   Future removeAll() async {
@@ -128,7 +127,17 @@ class HomeModel extends ChangeNotifier {
           ),
         ],
       );
-      symbolInfoList = await _getSymbolInfoList(registList);
+
+      final Symbol symbolInfo =
+          await Kabuapi.symbolInfo(_token, int.parse(newSymbolController.text));
+      symbolInfoList.add(symbolInfo);
+
+      final symbolInfoListBox = store.box<SymbolInfoListBox>();
+      symbolInfoListBox.put(SymbolInfoListBox(
+        timestamp: DateTime.now(),
+        symbolInfoList:
+            symbolInfoList.map((e) => json.encode(e.toJson())).toList(),
+      ));
     }
     newSymbolController.text = '';
 
