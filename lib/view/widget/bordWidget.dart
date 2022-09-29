@@ -109,8 +109,7 @@ class BordWidget extends StatelessWidget {
         ];
         //買い板
         for (var i = 0; i < 20; i++) {
-          final value =
-              _bordValueList[i] - getTickRange(_bordValueList[i] - 1);
+          final value = _bordValueList[i] - getTickRange(_bordValueList[i] - 1);
           _bordValueList.add(value);
           int index = _buyList.indexWhere(
               (element) => element.price != null && element.price == value);
@@ -127,7 +126,9 @@ class BordWidget extends StatelessWidget {
                 ),
                 _BordContainer(
                   context: context,
-                  value: _buyList[index].qty,
+                  value: index != 0
+                      ? _buyList[index].qty
+                      : '${bord.askSign} ${_buyList[index].qty}',
                   textColor: Colors.red,
                 ),
               ],
@@ -163,7 +164,9 @@ class BordWidget extends StatelessWidget {
                   children: [
                     _BordContainer(
                       context: context,
-                      value: _sellList[index].qty,
+                      value: index != 0
+                          ? _sellList[index].qty
+                          : '${bord.bidSign} ${_sellList[index].qty}',
                       textColor: Colors.blue,
                     ),
                     _BordContainer(

@@ -79,6 +79,9 @@ class ChartParams {
         if (!dailyCandlestick.alreadySetPreviousDayClose() &&
             currentBord?.previousClose != null) {
           dailyCandlestick.setPreviousDayClose(currentBord!.previousClose!);
+        } else if (!dailyCandlestick.alreadySetPreviousDayClose() &&
+            currentBord?.currentPrice != null) {
+          dailyCandlestick.setPreviousDayClose(currentBord!.currentPrice!);
         }
         if (!dailyCandlestick.alreadySetOpen() &&
             currentBord?.openingPrice != null) {

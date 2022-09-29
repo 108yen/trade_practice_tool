@@ -11,7 +11,6 @@ import 'package:trade_practice_tool/view/miniChartsView.dart';
 import 'objectbox.g.dart';
 
 late Store store;
-late Store fileStore;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
