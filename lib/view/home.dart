@@ -24,6 +24,16 @@ class Home extends StatelessWidget {
                               title: Text(
                                 '${e.symbol} ${e.displayName}',
                               ),
+                              trailing: ElevatedButton(
+                                child: Text('削除'),
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.red,
+                                  onPrimary: Colors.white,
+                                ),
+                                onPressed: () {
+                                  model.remove(e.symbol);
+                                },
+                              ),
                             ))
                         .toList(),
                   ),

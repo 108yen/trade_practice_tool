@@ -30,6 +30,33 @@ class Kabuapi {
     }
   }
 
+  static Future<List<Regist>> remove(String apikey,List<Regist> removeList)async{
+    List<Regist> _registList = [];
+
+    try {
+      final http.Response response = await http.put(
+        Uri.http(REST_URL, '/kabusapi/unregister'),
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-KEY': apikey,
+        },
+        body: json.encode({
+          'Symbols': removeList.map((e) => e.toJson()).toList(),
+        }),
+      );
+      if (response.statusCode != 200) {
+        throw KabuapiException(response.statusCode, response.body);
+      }
+      final Map<String, dynamic> fetchdata = json.decode(response.body);
+      for (var item in fetchdata['RegistList']) {
+        _registList.add(Regist.fromJson(item));
+      }
+    } catch (e) {
+      print(e);
+    }
+    return _registList;
+  }
+
   static Future<bool> removeAll(String apikey) async {
     try {
       final http.Response response = await http.put(
