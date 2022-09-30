@@ -47,30 +47,6 @@ class MyApp extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  title: Text('ミニチャート'),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) => MiniChartsView()),
-                      ),
-                    );
-                  },
-                ),
-                ListTile(
-                  title: Text('詳細チャート'),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) => DetailChartView(
-                              symbol: '5032',
-                            )),
-                      ),
-                    );
-                  },
-                ),
-                ListTile(
                   title: Text('ミニ＋詳細チャート'),
                   onTap: () {
                     Navigator.push(
@@ -84,23 +60,18 @@ class MyApp extends StatelessWidget {
                 ListTile(
                   title: Text('test'),
                   onTap: () {
-                    // final resourcebox = store.box<MessageTestBox>();
-                    // final query =
-                    //     resourcebox.query(MessageTestBox_.id.equals(5)).build();
-                    // final resourceboxlist = query.findFirst();
-                    // query.close();
-                    // final box = fileStore.box<MessageBox>();
-                    // // print(resourceboxlist.length);
-                    // // for (var i = 0; i < resourceboxlist.length; i++) {
-                    // //   resourceboxlist[i].id = 0;
-                    // // }
-                    // if (resourceboxlist?.messageList != null) {
-                    //   box.put(MessageBox(
-                    //     date: '2022-09-20',
-                    //     messageList: resourceboxlist!.messageList,
-                    //   ));
-                    //   print('complete');
-                    // }
+                    final symbolInfoListBox = store.box<SymbolInfoListBox>();
+                    final query = symbolInfoListBox.query().build();
+                    List<SymbolInfoListBox> allSymbolInfoList = query.find();
+                    query.close();
+                    SymbolInfoListBox latestSymbolInfoList =
+                        allSymbolInfoList.reduce((value, element) =>
+                            value.timestamp.isAtSameMomentAs(element.timestamp)
+                                ? value
+                                : element);
+                    for (var item in latestSymbolInfoList.symbolInfoList) {
+                      print(item);
+                    }
                   },
                 ),
               ],

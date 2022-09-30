@@ -127,17 +127,20 @@ class HomeModel extends ChangeNotifier {
           ),
         ],
       );
+      if (symbolInfoList.indexWhere(
+              (element) => element.symbol == newSymbolController.text) !=
+          -1) {
+        final Symbol symbolInfo = await Kabuapi.symbolInfo(
+            _token, int.parse(newSymbolController.text));
+        symbolInfoList.add(symbolInfo);
 
-      final Symbol symbolInfo =
-          await Kabuapi.symbolInfo(_token, int.parse(newSymbolController.text));
-      symbolInfoList.add(symbolInfo);
-
-      final symbolInfoListBox = store.box<SymbolInfoListBox>();
-      symbolInfoListBox.put(SymbolInfoListBox(
-        timestamp: DateTime.now(),
-        symbolInfoList:
-            symbolInfoList.map((e) => json.encode(e.toJson())).toList(),
-      ));
+        final symbolInfoListBox = store.box<SymbolInfoListBox>();
+        symbolInfoListBox.put(SymbolInfoListBox(
+          timestamp: DateTime.now(),
+          symbolInfoList:
+              symbolInfoList.map((e) => json.encode(e.toJson())).toList(),
+        ));
+      }
     }
     newSymbolController.text = '';
 
