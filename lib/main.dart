@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:objectbox/objectbox.dart';
 import 'package:trade_practice_tool/element/objectBoxEntity.dart';
 import 'package:trade_practice_tool/view/ChartView.dart';
+import 'package:trade_practice_tool/view/calendarView.dart';
 import 'package:trade_practice_tool/view/detailChartView.dart';
 import 'package:trade_practice_tool/view/home.dart';
 import 'package:trade_practice_tool/view/miniChartsView.dart';
@@ -60,18 +61,12 @@ class MyApp extends StatelessWidget {
                 ListTile(
                   title: Text('test'),
                   onTap: () {
-                    final symbolInfoListBox = store.box<SymbolInfoListBox>();
-                    final query = symbolInfoListBox.query().build();
-                    List<SymbolInfoListBox> allSymbolInfoList = query.find();
-                    query.close();
-                    SymbolInfoListBox latestSymbolInfoList =
-                        allSymbolInfoList.reduce((value, element) =>
-                            value.timestamp.isAtSameMomentAs(element.timestamp)
-                                ? value
-                                : element);
-                    for (var item in latestSymbolInfoList.symbolInfoList) {
-                      print(item);
-                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: ((context) => calendarView()),
+                      ),
+                    );
                   },
                 ),
               ],
