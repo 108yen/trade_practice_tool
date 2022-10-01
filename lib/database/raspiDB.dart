@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:mysql1/mysql1.dart';
+import 'package:trade_practice_tool/element/getDate.dart';
 import 'package:trade_practice_tool/element/step.dart';
 import '../config.dart';
 import 'package:intl/intl.dart';
@@ -23,7 +24,6 @@ class RaspiDB {
         'SELECT cast(date as char),cast(time as char),code,value,volume,dayindex FROM step WHERE (`date` IN (\'$date\')) AND (code=$code) ORDER BY dayindex DESC');
     List<Step> results = [];
     for (var row in fetchData) {
-      // print(row[0]);
       results.add(Step(
         row[0],
         row[1],
@@ -42,7 +42,12 @@ class RaspiDB {
     final fetchData = await conn.query(
         'SELECT * FROM getdate WHERE code=${code} AND (`date` IN (\'$date\'))');
     await conn.close();
+    // print(fetchData.runtimeType);
+    List<GetDate> getDateList=[];
+    for (var item in fetchData) {
+      getDateList.add(GetDate(item[0], item[1], item[2]));
+    }
 
-    return fetchData.length != 0;
+    return getDateList.length != 0 && getDateList[0].tick != 0;
   }
 }

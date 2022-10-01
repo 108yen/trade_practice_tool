@@ -22,13 +22,12 @@ class calendarView extends StatelessWidget {
                 return isSameDay(model.selectedDay, day);
               },
               onDaySelected: (selectedDay, focusedDay) {
-                model.setDay(selectedDay, focusedDay);
+                model.onDaySelected(context,selectedDay, focusedDay);
               },
               calendarFormat: model.calendarFormat,
               onFormatChanged: (format) {
                 model.setFormat(format);
               },
-              eventLoader: model.getEventForDay,
               holidayPredicate: model.isHoliday,
               enabledDayPredicate: model.isEnableDay,
               calendarBuilders: CalendarBuilders(
@@ -49,6 +48,22 @@ class calendarView extends StatelessWidget {
                   );
                 },
                 disabledBuilder: (context, day, focusedDay) {
+                  return Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    margin: EdgeInsets.all(1),
+                    color: Colors.black26,
+                    child: Center(
+                      child: Text(
+                        day.day.toString(),
+                        style: TextStyle(
+                          color: model.textColor(day),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                outsideBuilder: (context, day, focusedDay) {
                   return Container(
                     width: double.infinity,
                     height: double.infinity,

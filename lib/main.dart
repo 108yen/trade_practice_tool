@@ -3,7 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:objectbox/objectbox.dart';
 import 'package:trade_practice_tool/element/objectBoxEntity.dart';
-import 'package:trade_practice_tool/view/ChartView.dart';
+import 'package:trade_practice_tool/view/chartView.dart';
 import 'package:trade_practice_tool/view/calendarView.dart';
 import 'package:trade_practice_tool/view/detailChartView.dart';
 import 'package:trade_practice_tool/view/home.dart';
@@ -53,13 +53,14 @@ class MyApp extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: ((context) => ChartView()),
+                        builder: ((context) =>
+                            ChartView(replayDate: '2022-09-28')),
                       ),
                     );
                   },
                 ),
                 ListTile(
-                  title: Text('test'),
+                  title: Text('カレンダー'),
                   onTap: () {
                     Navigator.push(
                       context,

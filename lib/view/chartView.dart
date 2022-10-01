@@ -10,10 +10,15 @@ import 'package:trade_practice_tool/view/widget/miniChartWidget.dart';
 import 'package:trade_practice_tool/view/widget/miniChartsWidget.dart';
 
 class ChartView extends StatelessWidget {
+  final String replayDate;
+  ChartView({
+    required this.replayDate,
+  });
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ChartViewModel>(
-      create: (_) => ChartViewModel()..setSampleData(),
+      create: (_) => ChartViewModel(replayDate:replayDate)..setSampleData(),
       child: Consumer<ChartViewModel>(
         builder: ((context, model, child) {
           return Scaffold(

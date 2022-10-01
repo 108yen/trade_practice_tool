@@ -11,7 +11,12 @@ import 'package:trade_practice_tool/objectbox.g.dart';
 import 'package:trade_practice_tool/element/symbol.dart';
 
 class ChartViewModel extends ChangeNotifier {
-  final String replayDate = '2022-09-28';
+  final String replayDate;
+
+  ChartViewModel({
+    required this.replayDate,
+  });
+
   List<ChartParams> miniChartParamsList = [];
   int? detailChartIndex;
   TradingHistoryList tradingHistoryList = TradingHistoryList();

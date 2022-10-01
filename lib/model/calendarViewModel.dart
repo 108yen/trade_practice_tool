@@ -5,56 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:trade_practice_tool/assets/infoUtils.dart';
+import 'package:trade_practice_tool/element/objectBoxEntity.dart';
+import 'package:trade_practice_tool/main.dart';
+import 'package:trade_practice_tool/objectbox.g.dart';
+import 'package:trade_practice_tool/view/chartView.dart';
 
 class CalendarViewModel extends ChangeNotifier {
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
   CalendarFormat calendarFormat = CalendarFormat.month;
-  final _eventsList = {
-    DateTime.now().subtract(Duration(days: 2)): ['Event A6', 'Event B6'],
-    DateTime.now(): ['Event A7', 'Event B7', 'Event C7', 'Event D7'],
-    DateTime.now().add(Duration(days: 1)): [
-      'Event A8',
-      'Event B8',
-      'Event C8',
-      'Event D8'
-    ],
-    DateTime.now().add(Duration(days: 3)):
-        Set.from(['Event A9', 'Event A9', 'Event B9']).toList(),
-    DateTime.now().add(Duration(days: 7)): [
-      'Event A10',
-      'Event B10',
-      'Event C10'
-    ],
-    DateTime.now().add(Duration(days: 11)): ['Event A11', 'Event B11'],
-    DateTime.now().add(Duration(days: 17)): [
-      'Event A12',
-      'Event B12',
-      'Event C12',
-      'Event D12'
-    ],
-    DateTime.now().add(Duration(days: 22)): ['Event A13', 'Event B13'],
-    DateTime.now().add(Duration(days: 26)): [
-      'Event A14',
-      'Event B14',
-      'Event C14'
-    ],
-  };
-  late LinkedHashMap<DateTime, List> _events;
+  late List<String> getDateList;
 
   CalendarViewModel() {
-    _events = LinkedHashMap<DateTime, List>(
-      equals: isSameDay,
-      hashCode: _getHashCode,
-    )..addAll(_eventsList);
-  }
-
-  int _getHashCode(DateTime key) {
-    return key.day * 1000000 + key.month * 10000 + key.year;
-  }
-
-  List getEventForDay(DateTime day) {
-    return _events[day] ?? [];
+    final messageBox = store.box<MessageBox>();
+    final query = messageBox.query().build();
+    getDateList = query.property(MessageBox_.date).find();
+    query.close();
   }
 
   bool isHoliday(DateTime day) {
@@ -62,10 +28,21 @@ class CalendarViewModel extends ChangeNotifier {
   }
 
   bool isEnableDay(DateTime day) {
-    return day.day == DateTime(2022, 9, 28).day;
+    return getDateList.indexWhere(
+            (element) => element == DateFormat('yyyy-MM-dd').format(day)) !=
+        -1;
   }
 
-  setDay(selectedDay, focusedDay) {
+  onDaySelected(context, selectedDay, focusedDay) {
+    if (isSameDay(this.focusedDay, focusedDay)) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: ((context) => ChartView(
+              replayDate: DateFormat('yyyy-MM-dd').format(focusedDay))),
+        ),
+      );
+    }
     this.selectedDay = selectedDay;
     this.focusedDay = focusedDay;
     notifyListeners();
