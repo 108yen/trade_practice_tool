@@ -88,6 +88,7 @@ class DetailChartView extends StatelessWidget {
                           : BordWidget(
                               bord: model.chartParams.currentBord!,
                               priviousBord: model.chartParams.previousBord,
+                              tradingHistoryList: model.tradingHistoryList,
                             ),
                     ]),
                   ],

@@ -22,7 +22,7 @@ class calendarView extends StatelessWidget {
                 return isSameDay(model.selectedDay, day);
               },
               onDaySelected: (selectedDay, focusedDay) {
-                model.onDaySelected(context,selectedDay, focusedDay);
+                model.onDaySelected(context, selectedDay, focusedDay);
               },
               calendarFormat: model.calendarFormat,
               onFormatChanged: (format) {
@@ -64,20 +64,39 @@ class calendarView extends StatelessWidget {
                   );
                 },
                 outsideBuilder: (context, day, focusedDay) {
-                  return Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    margin: EdgeInsets.all(1),
-                    color: Colors.black26,
-                    child: Center(
-                      child: Text(
-                        day.day.toString(),
-                        style: TextStyle(
-                          color: model.textColor(day),
+                  if (model.isEnableDay(day)) {
+                    return Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      margin: EdgeInsets.all(1),
+                      color: Theme.of(context).background,
+                      child: Center(
+                        child: Center(
+                          child: Text(
+                            day.day.toString(),
+                            style: TextStyle(
+                              color: model.textColor(day),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  );
+                    );
+                  } else {
+                    return Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      margin: EdgeInsets.all(1),
+                      color: Colors.black26,
+                      child: Center(
+                        child: Text(
+                          day.day.toString(),
+                          style: TextStyle(
+                            color: model.textColor(day),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
                 },
                 selectedBuilder: (context, day, focusedDay) {
                   if (model.isEnableDay(day)) {

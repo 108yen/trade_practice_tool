@@ -4,11 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:trade_practice_tool/assets/infoUtils.dart';
 import 'package:trade_practice_tool/element/bord.dart';
+import 'package:trade_practice_tool/element/tradingHistory.dart';
 import 'package:trade_practice_tool/theme/theme_data.dart';
 
 class BordWidget extends StatelessWidget {
   final Bord bord;
   final Bord? priviousBord;
+  final TradingHistoryList tradingHistoryList;
   final double width = 250;
   final double height;
   final double containerWidth = 80;
@@ -18,6 +20,7 @@ class BordWidget extends StatelessWidget {
   BordWidget({
     required this.bord,
     required this.priviousBord,
+    required this.tradingHistoryList,
     this.height = 873,
   });
 
@@ -128,7 +131,7 @@ class BordWidget extends StatelessWidget {
                   context: context,
                   value: index != 0
                       ? _buyList[index].qty
-                      : '${bord.askSign} ${_buyList[index].qty}',
+                      : '${_buyList[index].qty}',
                   textColor: Colors.red,
                 ),
               ],
@@ -151,6 +154,7 @@ class BordWidget extends StatelessWidget {
           }
         }
         //売り板
+        final buySymbol = tradingHistoryList.getBuySymbol();
         for (var i = 0; i < 19; i++) {
           final value = _bordValueList[0] + getTickRange(_bordValueList[0]);
           _bordValueList.insert(0, value);
@@ -166,13 +170,21 @@ class BordWidget extends StatelessWidget {
                       context: context,
                       value: index != 0
                           ? _sellList[index].qty
-                          : '${bord.bidSign} ${_sellList[index].qty}',
+                          : '${_sellList[index].qty}',
                       textColor: Colors.blue,
                     ),
                     _BordContainer(
                       context: context,
                       value: value,
                       textColor: index != 0 ? Colors.white : Colors.blue,
+                      isSellValue: buySymbol != null &&
+                          buySymbol == bord.symbol &&
+                          tradingHistoryList
+                                  .tradingHistoryList[tradingHistoryList
+                                          .tradingHistoryList.length -
+                                      1]
+                                  .plusTwoPerValue ==
+                              value,
                     ),
                     _BordContainer(
                       context: context,
@@ -190,6 +202,14 @@ class BordWidget extends StatelessWidget {
                   _BordContainer(
                     context: context,
                     value: value,
+                    isSellValue: buySymbol != null &&
+                        buySymbol == bord.symbol &&
+                        tradingHistoryList
+                                .tradingHistoryList[tradingHistoryList
+                                        .tradingHistoryList.length -
+                                    1]
+                                .plusTwoPerValue ==
+                            value,
                   ),
                   _BordContainer(
                     context: context,
@@ -264,12 +284,15 @@ class BordWidget extends StatelessWidget {
     var value,
     var previousValue,
     Color textColor = Colors.white,
+    bool isSellValue = false,
     required BuildContext context,
   }) {
     Color boxColor = Theme.of(context).background;
     Color borderColor = Theme.of(context).grayColor;
+    if (isSellValue) {
+      boxColor = Color.fromARGB(255, 163, 99, 2);
+    }
     if (previousValue != null && previousValue != value) {
-      // boxColor = Colors.white12;
       borderColor = Colors.white;
     }
 

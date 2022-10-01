@@ -34,7 +34,8 @@ class CalendarViewModel extends ChangeNotifier {
   }
 
   onDaySelected(context, selectedDay, focusedDay) {
-    if (isSameDay(this.focusedDay, focusedDay)) {
+    print('focusedDay:${selectedDay} this.focusedDay:${this.selectedDay}');
+    if (isSameDay(this.selectedDay, selectedDay)) {
       Navigator.push(
         context,
         MaterialPageRoute(

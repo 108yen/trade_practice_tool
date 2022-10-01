@@ -99,6 +99,7 @@ class DetailChartWidget extends StatelessWidget {
                     : BordWidget(
                         bord: chartParams.currentBord!,
                         priviousBord: chartParams.previousBord,
+                        tradingHistoryList: tradingHistoryList,
                         height: constraints.maxHeight - 130,
                       ),
               ]),
