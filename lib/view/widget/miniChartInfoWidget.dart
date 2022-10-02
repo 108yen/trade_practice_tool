@@ -53,14 +53,18 @@ class MiniChartInfoWidget extends StatelessWidget {
             margin: EdgeInsets.all(1),
             padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
             color: Theme.of(context).background,
-            // decoration: BoxDecoration(
-            //   border: Border.all(
-            //     color: Theme.of(context).grayColor,
-            //   ),
-            // ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                Container(
+                  width: 60,
+                  child: Text(
+                    '${miniChartParams.currentBord?.currentPriceTime?.substring(11, 19) ?? ''}',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 12),
+                  ),
+                ),
+                Spacer(),
                 Container(
                   width: 60,
                   child: Text(
