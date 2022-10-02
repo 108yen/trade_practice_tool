@@ -100,8 +100,8 @@ class ChartParams {
         holiday.containsKey(date));
   }
 
-  String _searchPreviousDay() {
-    DateTime baseDate = DateTime.parse(date + ' 09:00:00');
+  String _searchPreviousDay(String _date) {
+    DateTime baseDate = DateTime.parse(_date + ' 09:00:00');
     String previousDay;
     int i = 0;
     do {
@@ -137,13 +137,13 @@ class ChartParams {
   }
 
   Future setPreviousDayData() async {
-    String previousDay = _searchPreviousDay();
+    String previousDay = _searchPreviousDay(date);
 
-    final FiveminTickBox? fiveminTickBox =
+    final FiveminTickBox? previousdayFiveminTickBox =
         _getFiveminTickBoxData(symbol, previousDay);
-    if (fiveminTickBox != null) {
-      candles = fiveminTickBox.getCandles();
-      vwapIndicator.values = fiveminTickBox.getVwap();
+    if (previousdayFiveminTickBox != null) {
+      candles = previousdayFiveminTickBox.getCandles();
+      vwapIndicator.values = previousdayFiveminTickBox.getVwap();
       dailyCandlestick = DailyCandlestick(candles[0].close);
       // raspiにデータがあった時の処理
     } else if (await RaspiDB.getDataExist(int.parse(symbol), previousDay)) {
@@ -160,6 +160,16 @@ class ChartParams {
       dailyCandlestick = DailyCandlestick(candles[0].close);
     } else {
       dailyCandlestick = DailyCandlestick(0);
+    }
+
+    // 前々日のデータもあれば設定
+    String twoDaysBefore = _searchPreviousDay(previousDay);
+
+    final FiveminTickBox? twoDaysBeforeFiveminTickBox =
+        _getFiveminTickBoxData(symbol, twoDaysBefore);
+    if (twoDaysBeforeFiveminTickBox != null) {
+      candles.addAll(twoDaysBeforeFiveminTickBox.getCandles());
+      vwapIndicator.values.addAll(twoDaysBeforeFiveminTickBox.getVwap());
     }
   }
 
