@@ -29,6 +29,7 @@ class ChartViewModel extends ChangeNotifier {
             null) {
       tradingHistoryList.buy(
         miniChartParamsList[detailChartIndex!].symbol,
+        miniChartParamsList[detailChartIndex!].symbolName,
         miniChartParamsList[detailChartIndex!].currentBord!.sell1.time!,
         miniChartParamsList[detailChartIndex!].currentBord!.sell1.price!,
       );

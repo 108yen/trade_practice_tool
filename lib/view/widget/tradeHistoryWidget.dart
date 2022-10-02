@@ -36,7 +36,12 @@ class TradeHistoryWidget extends StatelessWidget {
                 width: containerBorderWidth,
               ),
             ),
-            child: Center(child: Text(index)),
+            child: Center(
+              child: Text(
+                index,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ),
           Container(
             width: width - 100 - padding * 2,
@@ -98,7 +103,7 @@ class TradeHistoryWidget extends StatelessWidget {
             Colors.white,
           ),
           _infoColumn(
-            '仮利益',
+            '${tradingHistoryList.buyFlag ? tradingHistoryList.tradingHistoryList[tradingHistoryList.tradingHistoryList.length - 1].symbolName : ""}',
             '${NumberFormat("#,###").format(tradingHistoryList.buyFlag ? tradingHistoryList.tradingHistoryList[tradingHistoryList.tradingHistoryList.length - 1].profit : 0)} 円',
             profitColor,
           ),

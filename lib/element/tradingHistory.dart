@@ -6,11 +6,15 @@ class TradingHistoryList {
   double sumProfitRate = 0;
   bool buyFlag = false;
 
-  buy(String symbol, String buyTime, double buyValue) {
+  buy(String symbol, String symbolName, String buyTime, double buyValue) {
     if (!buyFlag) {
       buyFlag = true;
       tradingHistoryList.add(_TradingHistory(
-          symbol: symbol, buyTime: buyTime, buyValue: buyValue));
+        symbol: symbol,
+        symbolName: symbolName,
+        buyTime: buyTime,
+        buyValue: buyValue,
+      ));
     }
   }
 
@@ -53,6 +57,7 @@ class TradingHistoryList {
 class _TradingHistory {
   _TradingHistory({
     required this.symbol,
+    required this.symbolName,
     required this.buyTime,
     required this.buyValue,
   }) {
@@ -68,6 +73,7 @@ class _TradingHistory {
   }
 
   final String symbol;
+  final String symbolName;
   final String buyTime;
   late String sellTime;
   final double buyValue;
