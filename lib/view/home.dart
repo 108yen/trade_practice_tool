@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:trade_practice_tool/model/homeModel.dart';
+import 'package:trade_practice_tool/theme/theme_data.dart';
 
 class Home extends StatelessWidget {
   @override

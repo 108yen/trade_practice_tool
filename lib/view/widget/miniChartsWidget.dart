@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:trade_practice_tool/element/chartParams.dart';
+import 'package:trade_practice_tool/element/tradingHistory.dart';
 import 'package:trade_practice_tool/view/widget/miniChartWidget.dart';
 
 class MiniChartsWidget extends StatelessWidget {
   final double miniChartWidth = 319;
   final double miniChartHeight = 208;
   final List<ChartParams> miniChartParamsList;
+  final TradingHistoryList tradingHistoryList;
   final Function onMinichartTap;
 
   MiniChartsWidget({
     required this.miniChartParamsList,
+    required this.tradingHistoryList,
     required this.onMinichartTap,
   });
 
@@ -36,6 +39,7 @@ class MiniChartsWidget extends StatelessWidget {
                     width: miniChartWidth,
                     height: miniChartHeight,
                     miniChartParams: miniChartParamsList[index],
+                    tradingHistoryList: tradingHistoryList,
                   ),
                   onTap: () {
                     onMinichartTap(miniChartParamsList[index].symbol);

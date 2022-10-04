@@ -27,6 +27,7 @@ class ChartView extends StatelessWidget {
                 return model.detailChartIndex == null
                     ? MiniChartsWidget(
                         miniChartParamsList: model.miniChartParamsList,
+                        tradingHistoryList: model.tradingHistoryList,
                         onMinichartTap: (e) {
                           model.setDetailChartIndex(e);
                         },
@@ -38,6 +39,7 @@ class ChartView extends StatelessWidget {
                             height: constraints.maxHeight,
                             child: MiniChartsWidget(
                               miniChartParamsList: model.miniChartParamsList,
+                              tradingHistoryList: model.tradingHistoryList,
                               onMinichartTap: (e) {
                                 model.setDetailChartIndex(e);
                               },

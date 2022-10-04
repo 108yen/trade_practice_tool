@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:trade_practice_tool/element/tradingHistory.dart';
 import 'package:trade_practice_tool/model/miniChartsViewModel.dart';
 import 'package:trade_practice_tool/view/widget/miniChartWidget.dart';
 
@@ -33,6 +34,7 @@ class MiniChartsView extends StatelessWidget {
                           width: model.miniChartWidth,
                           height: model.miniChartHeight,
                           miniChartParams: model.miniChartParamsList[index],
+                          tradingHistoryList: TradingHistoryList(),
                         ),
                         onTap: () {
                           model.setDetailChart(

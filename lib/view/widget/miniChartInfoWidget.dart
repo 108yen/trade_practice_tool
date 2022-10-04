@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:trade_practice_tool/element/bord.dart';
 import 'package:trade_practice_tool/element/chartParams.dart';
+import 'package:trade_practice_tool/element/tradingHistory.dart';
 import 'package:trade_practice_tool/theme/theme_data.dart';
 
 class MiniChartInfoWidget extends StatelessWidget {
@@ -9,11 +10,13 @@ class MiniChartInfoWidget extends StatelessWidget {
   final double height;
   final ChartParams miniChartParams;
   final double titleWidth = 110;
+  final TradingHistoryList tradingHistoryList;
 
   MiniChartInfoWidget({
     required this.width,
     required this.height,
     required this.miniChartParams,
+    required this.tradingHistoryList,
   });
 
   @override
@@ -25,6 +28,24 @@ class MiniChartInfoWidget extends StatelessWidget {
               ? Theme.of(context).primaryGreen
               : Theme.of(context).primaryRed;
     }
+    Color indicatorColor = Theme.of(context).background;
+    if (tradingHistoryList.buyFlag &&
+        tradingHistoryList
+                .tradingHistoryList[
+                    tradingHistoryList.tradingHistoryList.length - 1]
+                .symbol ==
+            miniChartParams.symbol) {
+      if (tradingHistoryList
+              .tradingHistoryList[
+                  tradingHistoryList.tradingHistoryList.length - 1]
+              .profit >=
+          0) {
+        indicatorColor = Theme.of(context).primaryRed;
+      } else {
+        indicatorColor = Theme.of(context).primaryGreen;
+      }
+    }
+
     return Container(
       width: width,
       height: height,
@@ -57,7 +78,16 @@ class MiniChartInfoWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  width: 60,
+                  width: height - 10,
+                  height: height - 10,
+                  margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: indicatorColor,
+                  ),
+                ),
+                Container(
+                  width: 50,
                   child: Text(
                     '${miniChartParams.currentBord?.currentPriceTime?.substring(11, 19) ?? ''}',
                     textAlign: TextAlign.left,
@@ -66,7 +96,7 @@ class MiniChartInfoWidget extends StatelessWidget {
                 ),
                 Spacer(),
                 Container(
-                  width: 60,
+                  width: 40,
                   child: Text(
                     '${miniChartParams.currentBord?.currentPrice ?? ''}',
                     textAlign: TextAlign.right,

@@ -3,15 +3,18 @@ import 'package:trade_practice_tool/element/bord.dart';
 import 'package:trade_practice_tool/element/dailyCandlestick.dart';
 import 'package:trade_practice_tool/element/indicatorComponentData.dart';
 import 'package:trade_practice_tool/element/chartParams.dart';
+import 'package:trade_practice_tool/element/tradingHistory.dart';
 import 'package:trade_practice_tool/utils/candlesticks/src/main.dart';
 import 'package:trade_practice_tool/utils/candlesticks/src/models/candle.dart';
 import 'package:trade_practice_tool/view/widget/dailyCandlestickWidget.dart';
 import 'package:trade_practice_tool/view/widget/miniChartInfoWidget.dart';
+import 'package:trade_practice_tool/view/widget/tradeHistoryWidget.dart';
 
 class MiniChartWidget extends StatelessWidget {
   final double width;
   final double height;
   final ChartParams miniChartParams;
+  final TradingHistoryList tradingHistoryList;
 
   final double dailyCandlestickWidth = 15;
   final double infoWidgetHeight = 20;
@@ -20,6 +23,7 @@ class MiniChartWidget extends StatelessWidget {
     required this.width,
     required this.height,
     required this.miniChartParams,
+    required this.tradingHistoryList,
   });
 
   @override
@@ -33,6 +37,7 @@ class MiniChartWidget extends StatelessWidget {
             width: width,
             height: infoWidgetHeight,
             miniChartParams: miniChartParams,
+            tradingHistoryList: tradingHistoryList,
           ),
           Row(
             children: [
