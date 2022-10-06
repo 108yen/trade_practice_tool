@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:objectbox/objectbox.dart';
 import 'package:trade_practice_tool/element/objectBoxEntity.dart';
 import 'package:trade_practice_tool/view/chartView.dart';
@@ -19,6 +20,15 @@ void main() async {
       maxDBSizeInKB: 1000 * 1024 * 1024,
       directory: 'E:/Program/trade_practice_tool/lib/assets/objectbox');
   runApp(MyApp());
+  configLoading();
+}
+
+void configLoading() {
+  EasyLoading.instance
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..dismissOnTap = false;
 }
 
 class MyApp extends StatelessWidget {
@@ -29,6 +39,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
+      builder: EasyLoading.init(),
       home: Scaffold(
         body: LayoutBuilder(builder: (context, constraints) {
           return Container(
@@ -70,6 +81,7 @@ class MyApp extends StatelessWidget {
                     );
                   },
                 ),
+                //todo:10/6の朝のデータに5129が入っていないので手動で入れる
               ],
             ),
           );

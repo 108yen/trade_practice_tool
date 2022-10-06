@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:trade_practice_tool/api/kabuapi.dart';
@@ -37,27 +38,6 @@ class HomeModel extends ChangeNotifier {
   }
 
   Future saveMessageList() async {
-    // final messageTestBox = store.box<MessageTestBox>();
-
-    // final query = messageTestBox.query().build();
-    // final List<MessageTestBox> messageTest = query.find();
-    // int id = 0;
-    // if (messageTest.isNotEmpty) {
-    //   id = messageTest
-    //           .reduce(
-    //               (value, element) => value.id > element.id ? value : element)
-    //           .id +
-    //       1;
-    // }
-    // query.close();
-
-    // messageTestBox.put(MessageTestBox(
-    //   id: id,
-    //   messageList: messageList,
-    // ));
-
-    // print('save data with id:${id}');
-
     final messageBox = store.box<MessageBox>();
 
     messageBox.put(MessageBox(
@@ -129,12 +109,17 @@ class HomeModel extends ChangeNotifier {
   Future<List<Symbol>> _getSymbolInfoList(List<Regist> _registList) async {
     List<Symbol> _symbolInfoList = [];
     List<String> _symbolInfoJsonList = [];
+    int index = 1;
     for (var item in registList) {
       final Symbol symbolInfo =
           await Kabuapi.symbolInfo(_token, int.parse(item.symbol));
       _symbolInfoList.add(symbolInfo);
       _symbolInfoJsonList.add(json.encode(symbolInfo.toJson()));
+      EasyLoading.showProgress(index / registList.length,
+          status: '${(100 * index / registList.length).toStringAsFixed(0)} %');
+      index += 1;
     }
+    EasyLoading.dismiss();
 
     final symbolInfoListBox = store.box<SymbolInfoListBox>();
     symbolInfoListBox.put(SymbolInfoListBox(
