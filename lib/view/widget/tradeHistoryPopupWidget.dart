@@ -17,6 +17,8 @@ class TradeHistoryPopupWidget extends StatelessWidget {
   final Function onTapReplay;
   final Function onTapStart;
   final int isolateStatus;
+  final String repalyDate;
+  final int symbolNum;
 
   TradeHistoryPopupWidget({
     this.right = 10,
@@ -28,6 +30,8 @@ class TradeHistoryPopupWidget extends StatelessWidget {
     required this.onTapReplay,
     required this.onTapStart,
     required this.isolateStatus,
+    required this.repalyDate,
+    required this.symbolNum,
   });
 
   final EdgeInsets padding = EdgeInsets.all(5);
@@ -112,6 +116,27 @@ class TradeHistoryPopupWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ItemContainer(
+                        '${repalyDate} ${DateFormat('E').format(DateTime.parse(repalyDate))}',
+                        alignment: Alignment.centerLeft,
+                        width: 100,
+                      ),
+                      ItemContainer(
+                        '${symbolNum} 銘柄',
+                        alignment: Alignment.centerRight,
+                        width: 60,
+                      ),
+                    ],
+                  ),
+                  Divider(
+                    color: Theme.of(context).grayColor,
+                    height: 4,
+                    indent: 10,
+                    endIndent: 10,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

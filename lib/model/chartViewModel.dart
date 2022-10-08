@@ -45,8 +45,6 @@ class ChartViewModel extends ChangeNotifier {
     isolateStatus = 3;
   }
 
-  replay() {}
-
   changeIsPopup() {
     isPopup = !isPopup;
     notifyListeners();

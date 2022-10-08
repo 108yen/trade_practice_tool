@@ -37,6 +37,8 @@ class ChartView extends StatelessWidget {
             stackWidget.add(TradeHistoryPopupWidget(
               tradingHistoryList: model.tradingHistoryList,
               isolateStatus: model.isolateStatus,
+              repalyDate: model.replayDate,
+              symbolNum: model.miniChartParamsList.length,
               onTapCalendar: () {
                 model.stop();
                 Navigator.push(
@@ -47,7 +49,14 @@ class ChartView extends StatelessWidget {
                 );
               },
               onTapReplay: () {
-                model.replay();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: ((context) => ChartView(
+                          replayDate: model.replayDate,
+                        )),
+                  ),
+                );
               },
               onTapStart: () {
                 if (model.isolateStatus == 0) {
