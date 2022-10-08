@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:trade_practice_tool/config.dart';
 import 'package:trade_practice_tool/model/ChartViewModel.dart';
 import 'package:trade_practice_tool/theme/theme_data.dart';
+import 'package:trade_practice_tool/view/calendarView.dart';
 import 'package:trade_practice_tool/view/widget/detailChartWidget.dart';
 import 'package:trade_practice_tool/view/widget/miniChartWidget.dart';
 import 'package:trade_practice_tool/view/widget/miniChartsWidget.dart';
@@ -35,6 +36,27 @@ class ChartView extends StatelessWidget {
           if (model.isPopup) {
             stackWidget.add(TradeHistoryPopupWidget(
               tradingHistoryList: model.tradingHistoryList,
+              isolateStatus: model.isolateStatus,
+              onTapCalendar: () {
+                model.stop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: ((context) => CalendarView()),
+                  ),
+                );
+              },
+              onTapReplay: () {
+                model.replay();
+              },
+              onTapStart: () {
+                if (model.isolateStatus == 0) {
+                  model.start();
+                } else if (model.isolateStatus == 1 ||
+                    model.isolateStatus == 2) {
+                  model.resume();
+                }
+              },
             ));
           }
 

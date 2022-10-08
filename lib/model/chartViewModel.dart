@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:isolate';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:trade_practice_tool/element/bord.dart';
@@ -21,6 +22,30 @@ class ChartViewModel extends ChangeNotifier {
   int? detailChartIndex;
   TradingHistoryList tradingHistoryList = TradingHistoryList();
   bool isPopup = false;
+  late Isolate _isolate;
+  late Capability _capability;
+  int isolateStatus = 0; //0:null,1:play,2:pouse,3:killed
+
+  start() {
+    _receiveBordData();
+  }
+
+  resume() {
+    if (isolateStatus == 1) {
+      _capability = _isolate.pause();
+      isolateStatus = 2;
+    } else if (isolateStatus == 2) {
+      _isolate.resume(_capability);
+      isolateStatus = 1;
+    }
+  }
+
+  stop() {
+    _isolate.kill();
+    isolateStatus = 3;
+  }
+
+  replay() {}
 
   changeIsPopup() {
     isPopup = !isPopup;
@@ -81,7 +106,6 @@ class ChartViewModel extends ChangeNotifier {
         miniChartParamsList.add(miniChartParams);
         notifyListeners();
       }
-      _receiveBordData();
     }
   }
 
@@ -130,10 +154,11 @@ class ChartViewModel extends ChangeNotifier {
     final fetchData = query.findFirst();
 
     if (fetchData != null) {
-      await Isolate.spawn(sendBordData, {
+      _isolate = await Isolate.spawn(sendBordData, {
         'sendPort': sendPort,
         'data': fetchData.messageList,
       });
+      isolateStatus = 1;
     }
   }
 }

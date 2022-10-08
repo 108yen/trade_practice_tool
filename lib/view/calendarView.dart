@@ -6,7 +6,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:trade_practice_tool/model/calendarViewModel.dart';
 import 'package:trade_practice_tool/theme/theme_data.dart';
 
-class calendarView extends StatelessWidget {
+class CalendarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<CalendarViewModel>(

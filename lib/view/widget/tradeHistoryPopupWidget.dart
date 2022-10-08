@@ -13,6 +13,10 @@ class TradeHistoryPopupWidget extends StatelessWidget {
   final double width;
   final double height;
   final TradingHistoryList tradingHistoryList;
+  final Function onTapCalendar;
+  final Function onTapReplay;
+  final Function onTapStart;
+  final int isolateStatus;
 
   TradeHistoryPopupWidget({
     this.right = 10,
@@ -20,6 +24,10 @@ class TradeHistoryPopupWidget extends StatelessWidget {
     this.width = 330, //conteinerWidh*itemNum + 10
     this.height = 500,
     required this.tradingHistoryList,
+    required this.onTapCalendar,
+    required this.onTapReplay,
+    required this.onTapStart,
+    required this.isolateStatus,
   });
 
   final EdgeInsets padding = EdgeInsets.all(5);
@@ -28,8 +36,10 @@ class TradeHistoryPopupWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double containerHeight =
+    final double historyListHeight =
         height / 2 - margin.bottom - margin.top - padding.top - padding.bottom;
+    final double iconBarHeight = 40;
+    final double sumInfoHeight = historyListHeight - iconBarHeight;
     return Positioned(
       right: right,
       bottom: bottom,
@@ -42,7 +52,7 @@ class TradeHistoryPopupWidget extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: containerHeight,
+              height: historyListHeight,
               margin: margin,
               child: Column(
                 children: [
@@ -59,7 +69,7 @@ class TradeHistoryPopupWidget extends StatelessWidget {
                     height: 10,
                   ),
                   Container(
-                    height: containerHeight - 30,
+                    height: historyListHeight - 30,
                     child: ListView.builder(
                       itemCount: tradingHistoryList.tradingHistoryList.length,
                       itemBuilder: ((context, index) {
@@ -89,106 +99,141 @@ class TradeHistoryPopupWidget extends StatelessWidget {
               ),
             ),
             Container(
-              height: 180,
+              height: sumInfoHeight,
               width: 200,
-              margin: EdgeInsets.all((height / 2 - 180) / 2),
+              margin: margin,
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Theme.of(context).grayColor,
                 ),
               ),
-              child: Center(
-                child: Container(
-                  width: 150,
-                  height: 120,
-                  child: Column(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        children: [
-                          ItemContainer(
-                            '総資産：',
-                            alignment: Alignment.centerLeft,
-                            width: 90,
-                          ),
-                          ItemContainer(
-                            '${NumberFormat("#,###").format(tradingHistoryList.originAssets + tradingHistoryList.sumProfit)}',
-                            alignment: Alignment.centerRight,
-                            width: 60,
-                          ),
-                        ],
+                      ItemContainer(
+                        '総資産：',
+                        alignment: Alignment.centerLeft,
+                        width: 90,
                       ),
-                      Row(
-                        children: [
-                          ItemContainer(
-                            '総利益：',
-                            alignment: Alignment.centerLeft,
-                            width: 90,
-                          ),
-                          ItemContainer(
-                            '${NumberFormat("#,###").format(tradingHistoryList.sumProfit)}',
-                            alignment: Alignment.centerRight,
-                            width: 60,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          ItemContainer(
-                            '総利益率：',
-                            alignment: Alignment.centerLeft,
-                            width: 90,
-                          ),
-                          ItemContainer(
-                            '${tradingHistoryList.sumProfitRate}',
-                            alignment: Alignment.centerRight,
-                            width: 60,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          ItemContainer(
-                            '平均利益：',
-                            alignment: Alignment.centerLeft,
-                            width: 90,
-                          ),
-                          ItemContainer(
-                            '${NumberFormat("#,###").format(tradingHistoryList.sumProfit / tradingHistoryList.tradingHistoryList.length)}',
-                            alignment: Alignment.centerRight,
-                            width: 60,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          ItemContainer(
-                            '平均利益率：',
-                            alignment: Alignment.centerLeft,
-                            width: 90,
-                          ),
-                          ItemContainer(
-                            '${(tradingHistoryList.sumProfitRate / tradingHistoryList.tradingHistoryList.length).toStringAsFixed(2)}',
-                            alignment: Alignment.centerRight,
-                            width: 60,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          ItemContainer(
-                            '取引数：',
-                            alignment: Alignment.centerLeft,
-                            width: 90,
-                          ),
-                          ItemContainer(
-                            '${tradingHistoryList.tradingHistoryList.length}',
-                            alignment: Alignment.centerRight,
-                            width: 60,
-                          ),
-                        ],
+                      ItemContainer(
+                        '${NumberFormat("#,###").format(tradingHistoryList.originAssets + tradingHistoryList.sumProfit)}',
+                        alignment: Alignment.centerRight,
+                        width: 60,
                       ),
                     ],
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ItemContainer(
+                        '総利益：',
+                        alignment: Alignment.centerLeft,
+                        width: 90,
+                      ),
+                      ItemContainer(
+                        '${NumberFormat("#,###").format(tradingHistoryList.sumProfit)}',
+                        alignment: Alignment.centerRight,
+                        width: 60,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ItemContainer(
+                        '総利益率：',
+                        alignment: Alignment.centerLeft,
+                        width: 90,
+                      ),
+                      ItemContainer(
+                        '${tradingHistoryList.sumProfitRate}',
+                        alignment: Alignment.centerRight,
+                        width: 60,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ItemContainer(
+                        '平均利益：',
+                        alignment: Alignment.centerLeft,
+                        width: 90,
+                      ),
+                      ItemContainer(
+                        '${NumberFormat("#,###").format(tradingHistoryList.sumProfit / tradingHistoryList.tradingHistoryList.length)}',
+                        alignment: Alignment.centerRight,
+                        width: 60,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ItemContainer(
+                        '平均利益率：',
+                        alignment: Alignment.centerLeft,
+                        width: 90,
+                      ),
+                      ItemContainer(
+                        '${(tradingHistoryList.sumProfitRate / tradingHistoryList.tradingHistoryList.length).toStringAsFixed(2)}',
+                        alignment: Alignment.centerRight,
+                        width: 60,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ItemContainer(
+                        '取引数：',
+                        alignment: Alignment.centerLeft,
+                        width: 90,
+                      ),
+                      ItemContainer(
+                        '${tradingHistoryList.tradingHistoryList.length}',
+                        alignment: Alignment.centerRight,
+                        width: 60,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: iconBarHeight,
+              width: width,
+              margin: margin,
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        onTapCalendar();
+                      },
+                      icon: Icon(Icons.calendar_month_rounded),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        onTapReplay();
+                      },
+                      icon: Icon(Icons.replay),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        onTapStart();
+                      },
+                      icon: Icon(isolateStatus == 0 || isolateStatus == 2
+                          ? Icons.play_arrow
+                          : Icons.pause),
+                    ),
+                  ],
                 ),
               ),
             ),
