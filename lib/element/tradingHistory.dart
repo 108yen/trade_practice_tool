@@ -2,6 +2,7 @@ import 'package:trade_practice_tool/assets/infoUtils.dart';
 
 class TradingHistoryList {
   List<_TradingHistory> tradingHistoryList = [];
+  double originAssets = 1000000;
   double sumProfit = 0;
   double sumProfitRate = 0;
   bool buyFlag = false;
@@ -75,9 +76,9 @@ class _TradingHistory {
   final String symbol;
   final String symbolName;
   final String buyTime;
-  late String sellTime;
+  String? sellTime;
   final double buyValue;
-  late double sellValue;
+  double? sellValue;
   late int volume;
   late double minusThreePerValue;
   late double plusTwoPerValue;
@@ -93,7 +94,7 @@ class _TradingHistory {
   setSell(String sellTime, double sellValue) {
     this.sellTime = sellTime;
     this.sellValue = sellValue;
-    profit = ((this.sellValue - buyValue) * volume).toInt();
+    profit = ((this.sellValue! - buyValue) * volume).toInt();
     profitRate = (((sellValue - buyValue) / buyValue) * 10000).floor() / 100;
     calculating = false;
   }

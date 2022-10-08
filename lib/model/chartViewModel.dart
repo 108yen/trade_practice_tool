@@ -20,6 +20,12 @@ class ChartViewModel extends ChangeNotifier {
   List<ChartParams> miniChartParamsList = [];
   int? detailChartIndex;
   TradingHistoryList tradingHistoryList = TradingHistoryList();
+  bool isPopup = false;
+
+  changeIsPopup() {
+    isPopup = !isPopup;
+    notifyListeners();
+  }
 
   buy() {
     if (detailChartIndex != null &&

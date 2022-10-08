@@ -59,18 +59,6 @@ class MyApp extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  title: Text('ミニ＋詳細チャート'),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) =>
-                            ChartView(replayDate: '2022-09-28')),
-                      ),
-                    );
-                  },
-                ),
-                ListTile(
                   title: Text('カレンダー'),
                   onTap: () {
                     Navigator.push(

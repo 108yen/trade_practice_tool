@@ -9,6 +9,7 @@ import 'package:trade_practice_tool/theme/theme_data.dart';
 import 'package:trade_practice_tool/view/widget/detailChartWidget.dart';
 import 'package:trade_practice_tool/view/widget/miniChartWidget.dart';
 import 'package:trade_practice_tool/view/widget/miniChartsWidget.dart';
+import 'package:trade_practice_tool/view/widget/tradeHistoryPopupWidget.dart';
 
 class ChartView extends StatelessWidget {
   final String replayDate;
@@ -22,16 +23,27 @@ class ChartView extends StatelessWidget {
       create: (_) => ChartViewModel(replayDate: replayDate)..setSampleData(),
       child: Consumer<ChartViewModel>(
         builder: ((context, model, child) {
+          List<Widget> stackWidget = [
+            MiniChartsWidget(
+              miniChartParamsList: model.miniChartParamsList,
+              tradingHistoryList: model.tradingHistoryList,
+              onMinichartTap: (e) {
+                model.setDetailChartIndex(e);
+              },
+            ),
+          ];
+          if (model.isPopup) {
+            stackWidget.add(TradeHistoryPopupWidget(
+              tradingHistoryList: model.tradingHistoryList,
+            ));
+          }
+
           return Scaffold(
             body: LayoutBuilder(
               builder: ((context, constraints) {
                 return model.detailChartIndex == null
-                    ? MiniChartsWidget(
-                        miniChartParamsList: model.miniChartParamsList,
-                        tradingHistoryList: model.tradingHistoryList,
-                        onMinichartTap: (e) {
-                          model.setDetailChartIndex(e);
-                        },
+                    ? Stack(
+                        children: stackWidget,
                       )
                     : Row(
                         children: [
@@ -66,7 +78,9 @@ class ChartView extends StatelessWidget {
               foregroundColor: Colors.white,
               mini: true,
               child: Icon(Icons.menu),
-              onPressed: () {},
+              onPressed: () {
+                model.changeIsPopup();
+              },
             ),
           );
         }),
