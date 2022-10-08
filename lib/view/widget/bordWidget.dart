@@ -224,6 +224,8 @@ class BordWidget extends StatelessWidget {
       return _bordTickList;
     }
 
+    final bordTickList = _calcBordValueList();
+
     return Container(
       width: width,
       height: height,
@@ -260,10 +262,13 @@ class BordWidget extends StatelessWidget {
           ),
           SizedBox(
             height: height - 73 < 800 ? height - 73 : 800,
-            child: ListView(
+            child: ListView.builder(
+              itemCount: bordTickList.length,
               controller: ScrollController(
                   initialScrollOffset: 400 - (height - 73) / 2),
-              children: _calcBordValueList(),
+              itemBuilder: (context, index) {
+                return bordTickList[index];
+              },
             ),
           ),
           Row(

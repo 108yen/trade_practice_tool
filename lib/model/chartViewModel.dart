@@ -110,7 +110,7 @@ class ChartViewModel extends ChangeNotifier {
   static Future sendBordData(Map<String, dynamic> args) async {
     final List<String> sendDatas = args['data'];
     for (var item in sendDatas) {
-      await new Future.delayed(Duration(milliseconds: 1));
+      await new Future.delayed(Duration(milliseconds: 5));
       args['sendPort'].send(item);
     }
   }
