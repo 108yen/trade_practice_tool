@@ -5,6 +5,7 @@ import 'package:trade_practice_tool/element/step.dart' as kabustep;
 
 class StepWidget extends StatelessWidget {
   final List<kabustep.Step> steps;
+  late List<kabustep.Step> reversedSteps;
   final double width;
   final double height;
 
@@ -12,7 +13,9 @@ class StepWidget extends StatelessWidget {
     required this.steps,
     this.width = 200,
     required this.height,
-  });
+  }) {
+    this.reversedSteps = steps.reversed.toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,39 +37,37 @@ class StepWidget extends StatelessWidget {
         Container(
           width: width,
           height: height - 18,
-          child: ListView(
-              controller: ScrollController(),
-              children: steps.isEmpty
-                  ? []
-                  : steps.reversed
-                      .toList()
-                      .sublist(0, steps.length < 100 ? steps.length - 1 : 100)
-                      .map((e) => Container(
-                            width: 200,
-                            height: 15,
-                            child: Center(
-                              child: Row(
-                                children: [
-                                  SizedBoxText(65, TextAlign.right,
-                                      '${DateFormat('HH:mm:ss').format(e.datetime)}'),
-                                  SizedBoxText(
-                                      60, TextAlign.right, '${e.value}'),
-                                  SizedBox(
-                                    width: 60,
-                                    child: Text(
-                                      '${e.volume.floor()}',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(
-                                          color: e.isBuy!
-                                              ? Colors.red
-                                              : Colors.blue),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ))
-                      .toList()),
+          child: ListView.builder(
+            itemCount: steps.length < 100 ? steps.length : 100,
+            controller: ScrollController(),
+            itemBuilder: (context, index) {
+              return Container(
+                width: 200,
+                height: 15,
+                child: Center(
+                  child: Row(
+                    children: [
+                      SizedBoxText(65, TextAlign.right,
+                          '${DateFormat('HH:mm:ss').format(reversedSteps[index].datetime)}'),
+                      SizedBoxText(
+                          60, TextAlign.right, '${reversedSteps[index].value}'),
+                      SizedBox(
+                        width: 60,
+                        child: Text(
+                          '${reversedSteps[index].volume.floor()}',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                              color: reversedSteps[index].isBuy!
+                                  ? Colors.red
+                                  : Colors.blue),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
         ),
       ],
     );
