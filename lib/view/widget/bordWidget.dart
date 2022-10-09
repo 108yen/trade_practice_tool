@@ -33,7 +33,12 @@ class BordWidget extends StatelessWidget {
         final ave = (bord.buy1.price! + bord.sell1.price!) / 2;
         final medianTickRange = getTickRange(ave);
         final median = medianTickRange * (ave ~/ medianTickRange);
+
+        int valueState = 0;
         _bordValueList.add(median);
+        if (median == bord.currentPrice) {
+          valueState = 3;
+        }
         if (median == bord.buy1.price!) {
           _bordTickList.add(Row(
             children: [
@@ -43,6 +48,7 @@ class BordWidget extends StatelessWidget {
               _BordContainer(
                 context: context,
                 value: median,
+                valueState: valueState,
                 textColor: Colors.red,
               ),
               _BordContainer(
@@ -63,6 +69,7 @@ class BordWidget extends StatelessWidget {
               _BordContainer(
                 context: context,
                 value: median,
+                valueState: valueState,
                 textColor: Colors.blue,
               ),
               _BordContainer(
@@ -111,11 +118,25 @@ class BordWidget extends StatelessWidget {
           bord.sell10,
         ];
         //買い板
+        final buySymbol = tradingHistoryList.getBuySymbol();
         for (var i = 0; i < 20; i++) {
           final value = _bordValueList[i] - getTickRange(_bordValueList[i] - 1);
           _bordValueList.add(value);
           int index = _buyList.indexWhere(
               (element) => element.price != null && element.price == value);
+
+          int valueState = 0;
+          if (buySymbol != null &&
+              buySymbol == bord.symbol &&
+              tradingHistoryList
+                      .tradingHistoryList[
+                          tradingHistoryList.tradingHistoryList.length - 1]
+                      .minusThreePerValue ==
+                  value) {
+            valueState = 2;
+          } else if (value == bord.currentPrice) {
+            valueState = 3;
+          }
           if (index != -1) {
             _bordTickList.add(Row(
               children: [
@@ -154,13 +175,25 @@ class BordWidget extends StatelessWidget {
           }
         }
         //売り板
-        final buySymbol = tradingHistoryList.getBuySymbol();
         for (var i = 0; i < 19; i++) {
           final value = _bordValueList[0] + getTickRange(_bordValueList[0]);
           _bordValueList.insert(0, value);
 
           int index = _sellList.indexWhere(
               (element) => element.price != null && element.price == value);
+          int valueState = 0;
+          if (buySymbol != null &&
+              buySymbol == bord.symbol &&
+              tradingHistoryList
+                      .tradingHistoryList[
+                          tradingHistoryList.tradingHistoryList.length - 1]
+                      .plusTwoPerValue ==
+                  value) {
+            valueState = 1;
+          } else if (value == bord.currentPrice) {
+            valueState = 3;
+          }
+
           if (index != -1) {
             _bordTickList.insert(
                 0,
@@ -177,14 +210,7 @@ class BordWidget extends StatelessWidget {
                       context: context,
                       value: value,
                       textColor: index != 0 ? Colors.white : Colors.blue,
-                      isSellValue: buySymbol != null &&
-                          buySymbol == bord.symbol &&
-                          tradingHistoryList
-                                  .tradingHistoryList[tradingHistoryList
-                                          .tradingHistoryList.length -
-                                      1]
-                                  .plusTwoPerValue ==
-                              value,
+                      valueState: valueState,
                     ),
                     _BordContainer(
                       context: context,
@@ -202,14 +228,7 @@ class BordWidget extends StatelessWidget {
                   _BordContainer(
                     context: context,
                     value: value,
-                    isSellValue: buySymbol != null &&
-                        buySymbol == bord.symbol &&
-                        tradingHistoryList
-                                .tradingHistoryList[tradingHistoryList
-                                        .tradingHistoryList.length -
-                                    1]
-                                .plusTwoPerValue ==
-                            value,
+                    valueState: valueState,
                   ),
                   _BordContainer(
                     context: context,
@@ -289,14 +308,25 @@ class BordWidget extends StatelessWidget {
     var value,
     var previousValue,
     Color textColor = Colors.white,
-    bool isSellValue = false,
+    int valueState = 0,
     required BuildContext context,
   }) {
     Color boxColor = Theme.of(context).background;
     Color borderColor = Theme.of(context).grayColor;
-    if (isSellValue) {
-      boxColor = Color.fromARGB(255, 163, 99, 2);
+
+    switch (valueState) {
+      case 1:
+        boxColor = Color.fromARGB(255, 163, 99, 2);
+        break;
+      case 2:
+        boxColor = Color.fromARGB(255, 5, 73, 108);
+        break;
+      case 3:
+        print('object');
+        boxColor = Colors.white24;
+        break;
     }
+
     if (previousValue != null && previousValue != value) {
       borderColor = Colors.white;
     }
