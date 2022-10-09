@@ -146,6 +146,7 @@ class BordWidget extends StatelessWidget {
                 _BordContainer(
                   context: context,
                   value: value,
+                  valueState: valueState,
                   textColor: index != 0 ? Colors.white : Colors.red,
                 ),
                 _BordContainer(
@@ -166,6 +167,7 @@ class BordWidget extends StatelessWidget {
                 _BordContainer(
                   context: context,
                   value: value,
+                  valueState: valueState,
                 ),
                 _BordContainer(
                   context: context,
@@ -319,10 +321,9 @@ class BordWidget extends StatelessWidget {
         boxColor = Color.fromARGB(255, 163, 99, 2);
         break;
       case 2:
-        boxColor = Color.fromARGB(255, 5, 73, 108);
+        boxColor = Color.fromARGB(255, 0, 9, 112);
         break;
       case 3:
-        print('object');
         boxColor = Colors.white24;
         break;
     }
