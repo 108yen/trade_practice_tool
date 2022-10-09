@@ -18,6 +18,7 @@ class TradeHistoryPopupWidget extends StatelessWidget {
   final Function onTapStart;
   final int isolateStatus;
   final String repalyDate;
+  final String presentTime;
   final int symbolNum;
 
   TradeHistoryPopupWidget({
@@ -31,6 +32,7 @@ class TradeHistoryPopupWidget extends StatelessWidget {
     required this.onTapStart,
     required this.isolateStatus,
     required this.repalyDate,
+    required this.presentTime,
     required this.symbolNum,
   });
 
@@ -116,18 +118,27 @@ class TradeHistoryPopupWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Column(
                     children: [
-                      ItemContainer(
-                        '${repalyDate} ${DateFormat('E').format(DateTime.parse(repalyDate))}',
-                        alignment: Alignment.centerLeft,
-                        width: 100,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ItemContainer(
+                            '${repalyDate} ${DateFormat('E').format(DateTime.parse(repalyDate))}',
+                            alignment: Alignment.centerLeft,
+                            width: 100,
+                          ),
+                          ItemContainer(
+                            '${symbolNum} 銘柄',
+                            alignment: Alignment.centerRight,
+                            width: 60,
+                          ),
+                        ],
                       ),
                       ItemContainer(
-                        '${symbolNum} 銘柄',
-                        alignment: Alignment.centerRight,
-                        width: 60,
+                        presentTime,
+                        alignment: Alignment.centerLeft,
+                        width: 160,
                       ),
                     ],
                   ),

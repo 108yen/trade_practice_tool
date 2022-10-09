@@ -38,6 +38,7 @@ class ChartView extends StatelessWidget {
               tradingHistoryList: model.tradingHistoryList,
               isolateStatus: model.isolateStatus,
               repalyDate: model.replayDate,
+              presentTime: model.presentTime,
               symbolNum: model.miniChartParamsList.length,
               onTapCalendar: () {
                 model.stop();

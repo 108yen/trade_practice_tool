@@ -25,6 +25,7 @@ class ChartViewModel extends ChangeNotifier {
   late Isolate _isolate;
   late Capability _capability;
   int isolateStatus = 0; //0:null,1:play,2:pouse,3:killed
+  String presentTime = '';
 
   start() {
     _receiveBordData();
@@ -109,9 +110,26 @@ class ChartViewModel extends ChangeNotifier {
 
   static Future sendBordData(Map<String, dynamic> args) async {
     final List<String> sendDatas = args['data'];
-    for (var item in sendDatas) {
-      await new Future.delayed(Duration(milliseconds: 5));
-      args['sendPort'].send(item);
+    final firstData = json.decode(sendDatas[0]);
+    final firstDateTime = DateTime.parse(firstData['timestamp']);
+    Duration delta = Duration(milliseconds: 0);
+    final addDelta = Duration(milliseconds: 100);
+    final waitDelta = Duration(milliseconds: 100 ~/ 2);
+    int index = 0;
+
+    Map<String, dynamic> jsonPersed = firstData;
+    while (index < sendDatas.length - 1) {
+      await new Future.delayed(waitDelta);
+      delta += addDelta;
+
+      while (index < sendDatas.length - 1 &&
+          firstDateTime
+              .add(delta)
+              .isAfter(DateTime.parse(jsonPersed['timestamp']))) {
+        args['sendPort'].send(jsonPersed);
+        index += 1;
+        jsonPersed = json.decode(sendDatas[index]);
+      }
     }
   }
 
@@ -120,11 +138,11 @@ class ChartViewModel extends ChangeNotifier {
     final sendPort = receivePort.sendPort;
 
     receivePort.listen((message) {
-      final jsonPersed = json.decode(message);
+      presentTime = message['timestamp'].substring(11, 19);
       Map<String, dynamic> shaped = {
-        'timeStamp': jsonPersed['timestamp'],
+        'timeStamp': message['timestamp'],
       };
-      shaped.addAll(jsonPersed['message']);
+      shaped.addAll(message['message']);
       final Bord receivedBord = Bord.fromJson(shaped);
 
       miniChartParamsList
