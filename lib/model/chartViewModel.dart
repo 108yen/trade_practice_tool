@@ -27,6 +27,8 @@ class ChartViewModel extends ChangeNotifier {
   int isolateStatus = 0; //0:null,1:play,2:pouse,3:killed
   String presentTime = '';
 
+  static int replaySpeed = 1;
+
   start() {
     _receiveBordData();
   }
@@ -39,6 +41,7 @@ class ChartViewModel extends ChangeNotifier {
       _isolate.resume(_capability);
       isolateStatus = 1;
     }
+    notifyListeners();
   }
 
   stop() {
@@ -114,7 +117,7 @@ class ChartViewModel extends ChangeNotifier {
     final firstDateTime = DateTime.parse(firstData['timestamp']);
     Duration delta = Duration(milliseconds: 0);
     final addDelta = Duration(milliseconds: 100);
-    final waitDelta = Duration(milliseconds: 100 ~/ 2);
+    final waitDelta = Duration(milliseconds: 100 ~/ replaySpeed);
     int index = 0;
 
     Map<String, dynamic> jsonPersed = firstData;

@@ -126,12 +126,12 @@ class TradeHistoryPopupWidget extends StatelessWidget {
                           ItemContainer(
                             '${repalyDate} ${DateFormat('E').format(DateTime.parse(repalyDate))}',
                             alignment: Alignment.centerLeft,
-                            width: 100,
+                            width: 110,
                           ),
                           ItemContainer(
                             '${symbolNum} 銘柄',
                             alignment: Alignment.centerRight,
-                            width: 60,
+                            width: 50,
                           ),
                         ],
                       ),
