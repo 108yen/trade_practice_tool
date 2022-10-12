@@ -29,16 +29,14 @@ class MiniChartsView extends StatelessWidget {
                     ),
                     itemCount: model.miniChartParamsList.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return GestureDetector(
-                        child: MiniChartWidget(
-                          width: model.miniChartWidth,
-                          height: model.miniChartHeight,
-                          miniChartParams: model.miniChartParamsList[index],
-                          tradingHistoryList: TradingHistoryList(),
-                        ),
-                        onTap: () {
-                          model.setDetailChart(
-                              model.miniChartParamsList[index].symbol);
+                      return MiniChartWidget(
+                        key: Key(model.miniChartParamsList[index].symbol),
+                        width: model.miniChartWidth,
+                        height: model.miniChartHeight,
+                        miniChartParams: model.miniChartParamsList[index],
+                        tradingHistoryList: TradingHistoryList(),
+                        onTap: (symbol) {
+                          model.setDetailChart(symbol);
                         },
                       );
                     },

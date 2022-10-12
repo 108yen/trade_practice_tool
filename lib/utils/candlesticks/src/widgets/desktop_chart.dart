@@ -77,7 +77,7 @@ class _DesktopChartState extends State<DesktopChart> {
   }
 
   void _onMouseHover(PointerEvent details) {
-    setState(() {
+    if(this.mounted) setState(() {
       mouseHoverX = details.localPosition.dx;
       mouseHoverY = details.localPosition.dy;
     });

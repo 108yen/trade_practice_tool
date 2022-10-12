@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_reorderable_grid_view/entities/order_update_entity.dart';
 import 'package:provider/provider.dart';
 import 'package:trade_practice_tool/config.dart';
 import 'package:trade_practice_tool/model/ChartViewModel.dart';
@@ -30,6 +31,9 @@ class ChartView extends StatelessWidget {
               tradingHistoryList: model.tradingHistoryList,
               onMinichartTap: (e) {
                 model.setDetailChartIndex(e);
+              },
+              exchangeParamListOrder: (List<OrderUpdateEntity> orderUpdateEntities) {
+                model.exchangeParamListOrder(orderUpdateEntities);
               },
             ),
           ];
@@ -87,6 +91,11 @@ class ChartView extends StatelessWidget {
                               tradingHistoryList: model.tradingHistoryList,
                               onMinichartTap: (e) {
                                 model.setDetailChartIndex(e);
+                              },
+                              exchangeParamListOrder: (List<OrderUpdateEntity>
+                                  orderUpdateEntities) {
+                                model.exchangeParamListOrder(
+                                    orderUpdateEntities);
                               },
                             ),
                           ),

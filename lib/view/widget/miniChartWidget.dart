@@ -15,52 +15,61 @@ class MiniChartWidget extends StatelessWidget {
   final double height;
   final ChartParams miniChartParams;
   final TradingHistoryList tradingHistoryList;
-
-  final double dailyCandlestickWidth = 15;
-  final double infoWidgetHeight = 20;
+  final Function onTap;
+  final Key key;
 
   MiniChartWidget({
+    required this.key,
     required this.width,
     required this.height,
     required this.miniChartParams,
     required this.tradingHistoryList,
+    required this.onTap,
   });
+
+  final double dailyCandlestickWidth = 15;
+  final double infoWidgetHeight = 20;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width,
       height: height,
-      child: Column(
-        children: [
-          MiniChartInfoWidget(
-            width: width,
-            height: infoWidgetHeight,
-            miniChartParams: miniChartParams,
-            tradingHistoryList: tradingHistoryList,
-          ),
-          Row(
-            children: [
-              Container(
-                width: width - dailyCandlestickWidth,
-                height: height - infoWidgetHeight,
-                child: Candlesticks(
-                  candles: miniChartParams.candles,
-                  indicators: [
-                    miniChartParams.vwapIndicator,
-                    miniChartParams.tickIndicator,
-                  ],
-                  isMiniChart: true,
+      child: GestureDetector(
+        child: Column(
+          children: [
+            MiniChartInfoWidget(
+              width: width,
+              height: infoWidgetHeight,
+              miniChartParams: miniChartParams,
+              tradingHistoryList: tradingHistoryList,
+            ),
+            Row(
+              children: [
+                Container(
+                  width: width - dailyCandlestickWidth,
+                  height: height - infoWidgetHeight,
+                  child: Candlesticks(
+                    candles: miniChartParams.candles,
+                    indicators: [
+                      miniChartParams.vwapIndicator,
+                      miniChartParams.tickIndicator,
+                    ],
+                    isMiniChart: true,
+                  ),
                 ),
-              ),
-              DailyCandlestickWidget(
-                dailyCandlestick: miniChartParams.dailyCandlestick,
-                width: dailyCandlestickWidth,
-                height: height - infoWidgetHeight,
-              ),
-            ],
-          ),
-        ],
+                DailyCandlestickWidget(
+                  dailyCandlestick: miniChartParams.dailyCandlestick,
+                  width: dailyCandlestickWidth,
+                  height: height - infoWidgetHeight,
+                ),
+              ],
+            ),
+          ],
+        ),
+        onTap: () {
+          onTap(miniChartParams.symbol);
+        },
       ),
     );
   }

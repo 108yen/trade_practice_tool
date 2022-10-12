@@ -15,6 +15,9 @@ class Home extends StatelessWidget {
       child: Consumer<HomeModel>(
         builder: (context, model, child) {
           return Scaffold(
+            appBar: AppBar(
+              title: Text('${model.symbolInfoList.length}銘柄'),
+            ),
             body: Column(
               children: [
                 SizedBox(

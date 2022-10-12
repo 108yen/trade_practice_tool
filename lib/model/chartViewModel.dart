@@ -3,6 +3,7 @@ import 'dart:isolate';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_reorderable_grid_view/entities/order_update_entity.dart';
 import 'package:trade_practice_tool/element/bord.dart';
 import 'package:trade_practice_tool/element/chartParams.dart';
 import 'package:trade_practice_tool/element/objectBoxEntity.dart';
@@ -30,6 +31,8 @@ class ChartViewModel extends ChangeNotifier {
   static int replaySpeed = 1;
 
   start() {
+    isolateStatus = 1;
+    notifyListeners();
     _receiveBordData();
   }
 
@@ -67,6 +70,14 @@ class ChartViewModel extends ChangeNotifier {
         miniChartParamsList[detailChartIndex!].currentBord!.sell1.price!,
       );
     }
+  }
+
+  exchangeParamListOrder(List<OrderUpdateEntity> orderUpdateEntities) {
+    for (final orderUpdateEntity in orderUpdateEntities) {
+      final tempItem = miniChartParamsList.removeAt(orderUpdateEntity.oldIndex);
+      miniChartParamsList.insert(orderUpdateEntity.newIndex, tempItem);
+    }
+    notifyListeners();
   }
 
   setDetailChartIndex(String symbol) {
@@ -177,7 +188,6 @@ class ChartViewModel extends ChangeNotifier {
         'sendPort': sendPort,
         'data': fetchData.messageList,
       });
-      isolateStatus = 1;
     }
   }
 }
