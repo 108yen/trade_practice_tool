@@ -32,9 +32,7 @@ class ChartView extends StatelessWidget {
               onMinichartTap: (e) {
                 model.setDetailChartIndex(e);
               },
-              exchangeParamListOrder: (List<OrderUpdateEntity> orderUpdateEntities) {
-                model.exchangeParamListOrder(orderUpdateEntities);
-              },
+              exchangeParamListOrder: model.exchangeParamListOrder,
             ),
           ];
           if (model.isPopup) {
@@ -92,11 +90,7 @@ class ChartView extends StatelessWidget {
                               onMinichartTap: (e) {
                                 model.setDetailChartIndex(e);
                               },
-                              exchangeParamListOrder: (List<OrderUpdateEntity>
-                                  orderUpdateEntities) {
-                                model.exchangeParamListOrder(
-                                    orderUpdateEntities);
-                              },
+                              exchangeParamListOrder: model.exchangeParamListOrder,
                             ),
                           ),
                           Container(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reorderable_grid_view/entities/order_update_entity.dart';
 import 'package:flutter_reorderable_grid_view/widgets/widgets.dart';
+import 'package:reorderable_grid/reorderable_grid.dart';
 import 'package:trade_practice_tool/element/chartParams.dart';
 import 'package:trade_practice_tool/element/tradingHistory.dart';
 import 'package:trade_practice_tool/view/widget/miniChartWidget.dart';
@@ -22,10 +23,11 @@ class MiniChartsWidget extends StatelessWidget {
   final double miniChartHeight = 208;
   final gridvewKey = GlobalKey();
   final scrollController = ScrollController();
+  List<int> lockedIndices = [];
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> reorderbleWidget = List.generate(
+    final List<Widget> miniChartWidgetList = List.generate(
       miniChartParamsList.length,
       (index) => MiniChartWidget(
         key: Key(miniChartParamsList[index].symbol),
@@ -38,20 +40,6 @@ class MiniChartsWidget extends StatelessWidget {
         },
       ),
     );
-    // miniChartParamsList
-    //     .map(
-    //       (e) => MiniChartWidget(
-    //         key: Key(e),
-    //         width: miniChartWidth,
-    //         height: miniChartHeight,
-    //         miniChartParams: e,
-    //         tradingHistoryList: tradingHistoryList,
-    //         onTap: (symbol) {
-    //           onMinichartTap(symbol);
-    //         },
-    //       ),
-    //     )
-    //     .toList();
 
     return Scaffold(
       body: LayoutBuilder(
@@ -59,32 +47,23 @@ class MiniChartsWidget extends StatelessWidget {
           final crossAxisCount = constraints.maxWidth ~/ miniChartWidth;
           return Container(
             width: (miniChartWidth + 1) * crossAxisCount,
-            child: ReorderableBuilder(
-              children: reorderbleWidget,
-              scrollController: scrollController,
-              onDragStarted: () {
-                print('dragging');
+            child: ReorderableGridView.builder(
+              controller: ScrollController(),
+              onReorder: (oldIndex, newIndex) {
+                exchangeParamListOrder(oldIndex, newIndex);
               },
-              onReorder: (List<OrderUpdateEntity> orderUpdateEntities) {
-                exchangeParamListOrder(orderUpdateEntities);
-              },
-              builder: (List<Widget> children) {
-                return GridView.builder(
-                  key: gridvewKey,
-                  controller: scrollController,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount,
-                    mainAxisSpacing: 4,
-                    crossAxisSpacing: 1,
-                    childAspectRatio: miniChartWidth / miniChartHeight,
-                  ),
-                  itemCount: children.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return children[index];
-                  },
-                );
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
+                mainAxisSpacing: 4,
+                crossAxisSpacing: 1,
+                childAspectRatio: miniChartWidth / miniChartHeight,
+              ),
+              itemCount: miniChartParamsList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return miniChartWidgetList[index];
               },
             ),
+            //元のやつ
             // child: GridView.builder(
             //   controller: ScrollController(),
             //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -95,17 +74,7 @@ class MiniChartsWidget extends StatelessWidget {
             //   ),
             //   itemCount: miniChartParamsList.length,
             //   itemBuilder: (BuildContext context, int index) {
-            //     return GestureDetector(
-            //       child: MiniChartWidget(
-            //         width: miniChartWidth,
-            //         height: miniChartHeight,
-            //         miniChartParams: miniChartParamsList[index],
-            //         tradingHistoryList: tradingHistoryList,
-            //       ),
-            //       onTap: () {
-            //         onMinichartTap(miniChartParamsList[index].symbol);
-            //       },
-            //     );
+            //     return miniChartWidgetList[index];
             //   },
             // ),
           );

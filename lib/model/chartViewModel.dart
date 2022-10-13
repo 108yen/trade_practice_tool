@@ -72,11 +72,17 @@ class ChartViewModel extends ChangeNotifier {
     }
   }
 
-  exchangeParamListOrder(List<OrderUpdateEntity> orderUpdateEntities) {
-    for (final orderUpdateEntity in orderUpdateEntities) {
-      final tempItem = miniChartParamsList.removeAt(orderUpdateEntity.oldIndex);
-      miniChartParamsList.insert(orderUpdateEntity.newIndex, tempItem);
-    }
+  // exchangeParamListOrder(List<OrderUpdateEntity> orderUpdateEntities) {
+  //   for (final orderUpdateEntity in orderUpdateEntities) {
+  //     final tempItem = miniChartParamsList.removeAt(orderUpdateEntity.oldIndex);
+  //     miniChartParamsList.insert(orderUpdateEntity.newIndex, tempItem);
+  //   }
+  //   notifyListeners();
+  // }
+
+  exchangeParamListOrder(int oldIndex, int newIndex) {
+    final item = miniChartParamsList.removeAt(oldIndex);
+    miniChartParamsList.insert(newIndex, item);
     notifyListeners();
   }
 

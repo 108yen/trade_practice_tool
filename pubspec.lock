@@ -494,6 +494,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.1"
+  reorderable_grid:
+    dependency: "direct main"
+    description:
+      name: reorderable_grid
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
   shelf:
     dependency: transitive
     description:
