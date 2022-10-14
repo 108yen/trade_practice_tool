@@ -40,11 +40,12 @@ class HomeModel extends ChangeNotifier {
   Future saveMessageList() async {
     final messageBox = store.box<MessageBox>();
 
+    EasyLoading.show(status: 'saving...');
     messageBox.put(MessageBox(
       date: DateFormat('yyyy-MM-dd').format(DateTime.now()),
       messageList: messageList,
     ));
-    print('save data');
+    EasyLoading.dismiss();
   }
 
   Future restApiTest() async {
@@ -81,6 +82,7 @@ class HomeModel extends ChangeNotifier {
     final int infoIndex =
         symbolInfoList.indexWhere((element) => element.symbol == symbol);
     if (infoIndex != -1) {
+      EasyLoading.show(status: 'delete ${symbol}...');
       registList = await Kabuapi.remove(
         _token,
         [
@@ -98,9 +100,7 @@ class HomeModel extends ChangeNotifier {
         symbolInfoList:
             symbolInfoList.map((e) => json.encode(e.toJson())).toList(),
       ));
-    }
-    for (var item in registList) {
-      print(item.symbol);
+      EasyLoading.dismiss();
     }
 
     notifyListeners();
@@ -132,6 +132,7 @@ class HomeModel extends ChangeNotifier {
   Future register() async {
     if (newSymbolController.text.length == 4 &&
         double.tryParse(newSymbolController.text) != null) {
+      EasyLoading.show(status: 'registering...');
       registList = await Kabuapi.register(
         _token,
         [
@@ -157,6 +158,7 @@ class HomeModel extends ChangeNotifier {
       }
     }
     newSymbolController.text = '';
+    EasyLoading.dismiss();
 
     notifyListeners();
   }

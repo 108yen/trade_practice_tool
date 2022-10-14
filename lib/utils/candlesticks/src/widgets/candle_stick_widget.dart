@@ -8,6 +8,7 @@ class CandleStickWidget extends LeafRenderObjectWidget {
   final double candleWidth;
   final double high;
   final double low;
+  final double? presentValue;
   final Color bullColor;
   final Color bearColor;
 
@@ -17,6 +18,7 @@ class CandleStickWidget extends LeafRenderObjectWidget {
     required this.candleWidth,
     required this.low,
     required this.high,
+    this.presentValue,
     required this.bearColor,
     required this.bullColor,
   });
@@ -29,6 +31,7 @@ class CandleStickWidget extends LeafRenderObjectWidget {
       candleWidth,
       low,
       high,
+      presentValue,
       bullColor,
       bearColor,
     );
@@ -48,18 +51,21 @@ class CandleStickWidget extends LeafRenderObjectWidget {
       candlestickRenderObject._candleWidth = candleWidth;
       candlestickRenderObject._high = high;
       candlestickRenderObject._low = low;
+      candlestickRenderObject._presentValue = presentValue;
       candlestickRenderObject._bullColor = bullColor;
       candlestickRenderObject._bearColor = bearColor;
       candlestickRenderObject.markNeedsPaint();
     } else if (candlestickRenderObject._index != index ||
         candlestickRenderObject._candleWidth != candleWidth ||
         candlestickRenderObject._high != high ||
-        candlestickRenderObject._low != low) {
+        candlestickRenderObject._low != low ||
+        candlestickRenderObject._presentValue != presentValue) {
       candlestickRenderObject._candles = candles;
       candlestickRenderObject._index = index;
       candlestickRenderObject._candleWidth = candleWidth;
       candlestickRenderObject._high = high;
       candlestickRenderObject._low = low;
+      candlestickRenderObject._presentValue = presentValue;
       candlestickRenderObject._bullColor = bullColor;
       candlestickRenderObject._bearColor = bearColor;
       candlestickRenderObject.markNeedsPaint();
@@ -75,6 +81,7 @@ class CandleStickRenderObject extends RenderBox {
   late double _low;
   late double _high;
   double? _close;
+  late double? _presentValue;
   late Color _bullColor;
   late Color _bearColor;
 
@@ -84,6 +91,7 @@ class CandleStickRenderObject extends RenderBox {
     double candleWidth,
     double low,
     double high,
+    double? presentValue,
     Color bullColor,
     Color bearColor,
   ) {
@@ -92,6 +100,7 @@ class CandleStickRenderObject extends RenderBox {
     _candleWidth = candleWidth;
     _low = low;
     _high = high;
+    _presentValue = presentValue;
     _bearColor = bearColor;
     _bullColor = bullColor;
   }
@@ -143,7 +152,7 @@ class CandleStickRenderObject extends RenderBox {
   void paintLatestCandleIndicator(PaintingContext context, Offset offset,
       int index, Candle candle, double range) {
     Paint paint = Paint()..color = Color.fromARGB(255, 132, 142, 156);
-    double x = size.width + offset.dx - (index + 0.5) * _candleWidth;
+    final double x = size.width + offset.dx - (index + 0.5) * _candleWidth;
     final double plusTwoPerValue = candle.close * 1.02;
     final double plusTwoPerY = offset.dy + (_high - plusTwoPerValue) / range;
 
@@ -170,6 +179,18 @@ class CandleStickRenderObject extends RenderBox {
         context.canvas, Offset(x + _candleWidth * 1.5, plusTwoPerY - 7));
   }
 
+  void paintPresentValueBar(PaintingContext context, Offset offset,
+      double presentValue, double range) {
+    Paint paint = Paint()..color = Color.fromARGB(255, 132, 142, 156);
+    final double presentValY = offset.dy + (_high - presentValue) / range;
+
+    context.canvas.drawLine(
+      Offset(offset.dx, presentValY),
+      Offset(offset.dx + size.width, presentValY),
+      paint,
+    );
+  }
+
   @override
   void paint(PaintingContext context, Offset offset) {
     double range = (_high - _low) / size.height;
@@ -181,6 +202,15 @@ class CandleStickRenderObject extends RenderBox {
     _close = _candles[0].close;
     if (_index < 0) {
       paintLatestCandleIndicator(context, offset, -_index, _candles[0], range);
+    }
+
+    if (_presentValue != null) {
+      paintPresentValueBar(
+        context,
+        offset,
+        _presentValue!,
+        range,
+      );
     }
 
     context.canvas.save();

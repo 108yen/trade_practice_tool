@@ -29,9 +29,18 @@ class MiniChartWidget extends StatelessWidget {
 
   final double dailyCandlestickWidth = 15;
   final double infoWidgetHeight = 20;
+  double? presentValue;
 
   @override
   Widget build(BuildContext context) {
+    if (miniChartParams.currentBord?.askTime != null &&
+        DateTime.parse(miniChartParams.currentBord!.askTime!)
+                .add(Duration(hours: 9))
+                .hour <
+            9) {
+      presentValue = miniChartParams.currentBord?.askPrice;
+    }
+
     return Container(
       width: width,
       height: height,
@@ -56,6 +65,7 @@ class MiniChartWidget extends StatelessWidget {
                       miniChartParams.tickIndicator,
                     ],
                     isMiniChart: true,
+                    presentValue: presentValue,
                   ),
                 ),
                 DailyCandlestickWidget(

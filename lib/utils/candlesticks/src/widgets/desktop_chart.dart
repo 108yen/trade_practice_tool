@@ -38,6 +38,8 @@ class DesktopChart extends StatefulWidget {
   /// changes when user scrolls along the chart
   final int index;
 
+  final double? presentValue;
+
   final void Function(double) onPanDown;
   final void Function() onPanEnd;
 
@@ -52,6 +54,7 @@ class DesktopChart extends StatefulWidget {
     required this.candleWidth,
     required this.candles,
     required this.index,
+    this.presentValue,
     required this.onPanDown,
     required this.onPanEnd,
     required this.onReachEnd,
@@ -77,10 +80,11 @@ class _DesktopChartState extends State<DesktopChart> {
   }
 
   void _onMouseHover(PointerEvent details) {
-    if(this.mounted) setState(() {
-      mouseHoverX = details.localPosition.dx;
-      mouseHoverY = details.localPosition.dy;
-    });
+    if (this.mounted)
+      setState(() {
+        mouseHoverX = details.localPosition.dx;
+        mouseHoverY = details.localPosition.dy;
+      });
   }
 
   double calcutePriceScale(double height, double high, double low) {
@@ -223,6 +227,8 @@ class _DesktopChartState extends State<DesktopChart> {
                                                   index: widget.index,
                                                   high: high,
                                                   low: low,
+                                                  presentValue:
+                                                      widget.presentValue,
                                                   bearColor: Theme.of(context)
                                                       .primaryGreen,
                                                   bullColor: Theme.of(context)
@@ -384,7 +390,8 @@ class _DesktopChartState extends State<DesktopChart> {
                         padding: const EdgeInsets.only(right: 50, bottom: 20),
                         child: Listener(
                           onPointerSignal: (pointerSignal) {
-                            if (pointerSignal is PointerScrollEvent && !widget.isMiniChart) {
+                            if (pointerSignal is PointerScrollEvent &&
+                                !widget.isMiniChart) {
                               widget.onScaleUpdate(
                                   pointerSignal.scrollDelta.direction);
                             }

@@ -63,20 +63,6 @@ class MiniChartsWidget extends StatelessWidget {
                 return miniChartWidgetList[index];
               },
             ),
-            //元のやつ
-            // child: GridView.builder(
-            //   controller: ScrollController(),
-            //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //     crossAxisCount: crossAxisCount,
-            //     mainAxisSpacing: 4,
-            //     crossAxisSpacing: 1,
-            //     childAspectRatio: miniChartWidth / miniChartHeight,
-            //   ),
-            //   itemCount: miniChartParamsList.length,
-            //   itemBuilder: (BuildContext context, int index) {
-            //     return miniChartWidgetList[index];
-            //   },
-            // ),
           );
         }),
       ),
