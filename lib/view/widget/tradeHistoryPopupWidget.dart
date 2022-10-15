@@ -18,7 +18,7 @@ class TradeHistoryPopupWidget extends StatelessWidget {
   final Function onTapStart;
   final int isolateStatus;
   final String repalyDate;
-  final String presentTime;
+  final String currentTime;
   final int symbolNum;
 
   TradeHistoryPopupWidget({
@@ -32,7 +32,7 @@ class TradeHistoryPopupWidget extends StatelessWidget {
     required this.onTapStart,
     required this.isolateStatus,
     required this.repalyDate,
-    required this.presentTime,
+    required this.currentTime,
     required this.symbolNum,
   });
 
@@ -136,7 +136,7 @@ class TradeHistoryPopupWidget extends StatelessWidget {
                         ],
                       ),
                       ItemContainer(
-                        presentTime,
+                        currentTime,
                         alignment: Alignment.centerLeft,
                         width: 160,
                       ),

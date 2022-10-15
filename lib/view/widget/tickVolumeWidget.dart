@@ -21,7 +21,7 @@ class TickVolumeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int displayableNum = ((widgetWidth - 80) / _stickWidth).floor() + 1;
+    final int displayableNum = ((widgetWidth - 60) / _stickWidth).floor() + 1;
     final List<KabuStep.Step> displayStepList = steps.length <= displayableNum
         ? steps
         : steps.sublist(steps.length - displayableNum).toList();

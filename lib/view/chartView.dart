@@ -40,7 +40,7 @@ class ChartView extends StatelessWidget {
               tradingHistoryList: model.tradingHistoryList,
               isolateStatus: model.isolateStatus,
               repalyDate: model.replayDate,
-              presentTime: model.presentTime,
+              currentTime: model.currentTime,
               symbolNum: model.miniChartParamsList.length,
               onTapCalendar: () {
                 model.stop();
@@ -90,7 +90,8 @@ class ChartView extends StatelessWidget {
                               onMinichartTap: (e) {
                                 model.setDetailChartIndex(e);
                               },
-                              exchangeParamListOrder: model.exchangeParamListOrder,
+                              exchangeParamListOrder:
+                                  model.exchangeParamListOrder,
                             ),
                           ),
                           Container(
@@ -100,6 +101,7 @@ class ChartView extends StatelessWidget {
                               chartParams: model
                                   .miniChartParamsList[model.detailChartIndex!],
                               tradingHistoryList: model.tradingHistoryList,
+                              currentTime: model.currentTime,
                               onBackTap: () => model.setDetailChartIndexNull(),
                               onBuy: () => model.buy(),
                             ),

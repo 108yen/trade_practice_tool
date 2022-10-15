@@ -11,37 +11,25 @@ import 'package:trade_practice_tool/view/widget/tradeHistoryWidget.dart';
 
 class DetailChartWidget extends StatelessWidget {
   final ChartParams chartParams;
-  final Function onBackTap;
   final TradingHistoryList tradingHistoryList;
+  final String currentTime;
+  final Function onBackTap;
   final Function onBuy;
 
   DetailChartWidget({
     required this.chartParams,
-    required this.onBackTap,
     required this.tradingHistoryList,
+    required this.currentTime,
+    required this.onBackTap,
     required this.onBuy,
   });
 
   @override
   Widget build(BuildContext context) {
-    late String currentTime;
-    if (chartParams.currentBord?.currentPriceTime != null) {
-      currentTime =
-          chartParams.currentBord!.currentPriceTime!.substring(11, 19);
-    } else {
-      currentTime = '';
-    }
-    late String timestamp;
-    if (chartParams.currentBord?.timeStamp != null) {
-      timestamp = DateFormat('HH:mm:ss.SSS')
-          .format(chartParams.currentBord!.timeStamp!);
-    } else {
-      timestamp = '';
-    }
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          '${chartParams.symbol} ${chartParams.symbolName} ${currentTime} ${timestamp}',
+          '${chartParams.symbol} ${chartParams.symbolName} ${currentTime}',
         ),
         leading: IconButton(
             icon: Icon(Icons.arrow_back),

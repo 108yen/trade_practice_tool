@@ -26,7 +26,7 @@ class ChartViewModel extends ChangeNotifier {
   Isolate? _isolate;
   Capability? _capability;
   int isolateStatus = 0; //0:null,1:play,2:pouse,3:killed
-  String presentTime = '';
+  String currentTime = '';
 
   static int replaySpeed = 1;
 
@@ -153,7 +153,7 @@ class ChartViewModel extends ChangeNotifier {
     final sendPort = receivePort.sendPort;
 
     receivePort.listen((message) {
-      presentTime = message['timestamp'].substring(11, 19);
+      currentTime = message['timestamp'].substring(11, 19);
       Map<String, dynamic> shaped = {
         'timeStamp': message['timestamp'],
       };
