@@ -23,8 +23,8 @@ class ChartViewModel extends ChangeNotifier {
   int? detailChartIndex;
   TradingHistoryList tradingHistoryList = TradingHistoryList();
   bool isPopup = false;
-  late Isolate _isolate;
-  late Capability _capability;
+  Isolate? _isolate;
+  Capability? _capability;
   int isolateStatus = 0; //0:null,1:play,2:pouse,3:killed
   String presentTime = '';
 
@@ -38,18 +38,20 @@ class ChartViewModel extends ChangeNotifier {
 
   resume() {
     if (isolateStatus == 1) {
-      _capability = _isolate.pause();
+      _capability = _isolate!.pause();
       isolateStatus = 2;
     } else if (isolateStatus == 2) {
-      _isolate.resume(_capability);
+      _isolate!.resume(_capability!);
       isolateStatus = 1;
     }
     notifyListeners();
   }
 
   stop() {
-    _isolate.kill();
-    isolateStatus = 3;
+    if (_isolate != null) {
+      _isolate!.kill();
+      isolateStatus = 3;
+    }
   }
 
   changeIsPopup() {
