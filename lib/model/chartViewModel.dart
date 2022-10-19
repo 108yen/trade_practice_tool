@@ -83,7 +83,7 @@ class ChartViewModel extends ChangeNotifier {
     final paramsListItem = miniChartParamsList.removeAt(oldIndex);
     miniChartParamsList.insert(newIndex, paramsListItem);
     notifyListeners();
-    //todo できれば並び変えた状態でobjectboxないのデータも上書きしたい
+    //並べ替え保存
     if (symbolInfoListBox != null) {
       final symbolInfoListItem =
           symbolInfoListBox!.symbolInfoList.removeAt(oldIndex);

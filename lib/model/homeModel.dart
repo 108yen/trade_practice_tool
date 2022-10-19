@@ -72,7 +72,6 @@ class HomeModel extends ChangeNotifier {
 
     registList = await Kabuapi.register(_token, _previousRegistList);
     symbolInfoList = await _getSymbolInfoList(registList);
-
   }
 
   Future removeAll() async {

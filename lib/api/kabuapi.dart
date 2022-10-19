@@ -30,7 +30,8 @@ class Kabuapi {
     }
   }
 
-  static Future<List<Regist>> remove(String apikey,List<Regist> removeList)async{
+  static Future<List<Regist>> remove(
+      String apikey, List<Regist> removeList) async {
     List<Regist> _registList = [];
 
     try {
@@ -137,6 +138,30 @@ class Kabuapi {
 
   static Future<Symbol> symbolInfo(String apikey, int symbol) async {
     late Symbol symbolData;
+
+    if (symbol == 101) {
+      symbolData = Symbol(
+        '',
+        0,
+        0,
+        0,
+        false,
+        false,
+        false,
+        false,
+        '日経平均',
+        1,
+        '',
+        0,
+        '',
+        0,
+        0,
+        '101',
+        '日経平均株価',
+      );
+      
+      return symbolData;
+    }
     try {
       final http.Response response = await http.get(
         Uri.http(

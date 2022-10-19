@@ -71,29 +71,29 @@ class MyApp extends StatelessWidget {
                     );
                   },
                 ),
-                ListTile(
-                  title: Text('test'),
-                  onTap: () {
-                    final symbolInfoListBox = store.box<SymbolInfoListBox>();
-                    final query = symbolInfoListBox.query().build();
-                    List<SymbolInfoListBox> allSymbolInfoList = query.find();
-                    query.close();
-                    SymbolInfoListBox latestSymbolInfoList =
-                        allSymbolInfoList.reduce((value, element) =>
-                            value.timestamp.isAtSameMomentAs(element.timestamp)
-                                ? value
-                                : element);
-                    if (latestSymbolInfoList != null) {
-                      final symbolList = latestSymbolInfoList.symbolInfoList
-                          .map((e) => sy.Symbol.fromJson(json.decode(e)))
-                          .toList();
-                      for (var element in symbolList) {
-                        print(element.symbol);
-                      }
-                    }
-                    // symbolInfoListBox.remove(latestSymbolInfoList.id);
-                  },
-                ),
+                // ListTile(
+                //   title: Text('test'),
+                //   onTap: () {
+                //     final symbolInfoListBox = store.box<SymbolInfoListBox>();
+                //     final query = symbolInfoListBox.query().build();
+                //     List<SymbolInfoListBox> allSymbolInfoList = query.find();
+                //     query.close();
+                //     SymbolInfoListBox latestSymbolInfoList =
+                //         allSymbolInfoList.reduce((value, element) =>
+                //             value.timestamp.isAtSameMomentAs(element.timestamp)
+                //                 ? value
+                //                 : element);
+                //     if (latestSymbolInfoList != null) {
+                //       final symbolList = latestSymbolInfoList.symbolInfoList
+                //           .map((e) => sy.Symbol.fromJson(json.decode(e)))
+                //           .toList();
+                //       for (var element in symbolList) {
+                //         print(element.symbol);
+                //       }
+                //     }
+                //     // symbolInfoListBox.remove(latestSymbolInfoList.id);
+                //   },
+                // ),
                 //todo:10/6の朝のデータに5129が入っていないので手動で入れる
               ],
             ),
