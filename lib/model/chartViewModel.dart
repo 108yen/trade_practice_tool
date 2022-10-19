@@ -27,6 +27,11 @@ class ChartViewModel extends ChangeNotifier {
   Capability? _capability;
   int isolateStatus = 0; //0:null,1:play,2:pouse,3:killed
   String currentTime = '';
+  SymbolInfoListBox? symbolInfoListBox;
+  final Map<String, dynamic> boxList = {
+    'SymbolInfoListBox': store.box<SymbolInfoListBox>(),
+    'MessageBox': store.box<MessageBox>(),
+  };
 
   static int replaySpeed = 1;
 
@@ -75,10 +80,16 @@ class ChartViewModel extends ChangeNotifier {
   }
 
   exchangeParamListOrder(int oldIndex, int newIndex) {
-    final item = miniChartParamsList.removeAt(oldIndex);
-    miniChartParamsList.insert(newIndex, item);
+    final paramsListItem = miniChartParamsList.removeAt(oldIndex);
+    miniChartParamsList.insert(newIndex, paramsListItem);
     notifyListeners();
     //todo できれば並び変えた状態でobjectboxないのデータも上書きしたい
+    if (symbolInfoListBox != null) {
+      final symbolInfoListItem =
+          symbolInfoListBox!.symbolInfoList.removeAt(oldIndex);
+      symbolInfoListBox!.symbolInfoList.insert(newIndex, symbolInfoListItem);
+      boxList['SymbolInfoListBox'].put(symbolInfoListBox!);
+    }
   }
 
   setDetailChartIndex(String symbol) {
@@ -94,19 +105,18 @@ class ChartViewModel extends ChangeNotifier {
   }
 
   setSampleData() async {
-    final box = store.box<SymbolInfoListBox>();
     final searchDatetime = DateTime.parse(replayDate);
-    final query = box
+    final query = boxList['SymbolInfoListBox']
         .query(SymbolInfoListBox_.timestamp.between(
           searchDatetime.millisecondsSinceEpoch,
           searchDatetime.add(Duration(days: 1)).millisecondsSinceEpoch,
         ))
         .build();
-    final symbolInfoListBoxList = query.find();
+    final findedList = query.find();
     query.close();
-    if (symbolInfoListBoxList != null) {
-      final symbolList = symbolInfoListBoxList[symbolInfoListBoxList.length - 1]
-          .symbolInfoList
+    if (findedList != null) {
+      symbolInfoListBox = findedList[findedList.length - 1];
+      final symbolList = symbolInfoListBox!.symbolInfoList
           .map((e) => Symbol.fromJson(json.decode(e)))
           .toList();
       late ChartParams miniChartParams;
@@ -180,8 +190,7 @@ class ChartViewModel extends ChangeNotifier {
       notifyListeners();
     });
 
-    final messageBox = store.box<MessageBox>();
-    Query query = messageBox.query(MessageBox_.date.equals(replayDate)).build();
+    Query query = boxList['MessageBox'].query(MessageBox_.date.equals(replayDate)).build();
     final fetchData = query.findFirst();
 
     if (fetchData != null) {

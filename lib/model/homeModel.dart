@@ -38,9 +38,10 @@ class HomeModel extends ChangeNotifier {
   }
 
   Future saveMessageList() async {
+    EasyLoading.show(status: 'saving...');
+
     final messageBox = store.box<MessageBox>();
 
-    EasyLoading.show(status: 'saving...');
     messageBox.put(MessageBox(
       date: DateFormat('yyyy-MM-dd').format(DateTime.now()),
       messageList: messageList,
@@ -71,6 +72,7 @@ class HomeModel extends ChangeNotifier {
 
     registList = await Kabuapi.register(_token, _previousRegistList);
     symbolInfoList = await _getSymbolInfoList(registList);
+
   }
 
   Future removeAll() async {
