@@ -38,7 +38,7 @@ class StepWidget extends StatelessWidget {
           width: width,
           height: height - 18,
           child: ListView.builder(
-            itemCount: steps.length < 100 ? steps.length : 100,
+            itemCount: steps.length,
             controller: ScrollController(),
             itemBuilder: (context, index) {
               return Container(
