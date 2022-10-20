@@ -145,12 +145,15 @@ class ChartViewModel extends ChangeNotifier {
     Map<String, dynamic> jsonPersed = firstData;
     while (index < sendDatas.length - 1) {
       await new Future.delayed(waitDelta);
+
       delta += addDelta;
+      final currentDateTime = firstDateTime.add(delta);
+      if (currentDateTime.hour == 11 && currentDateTime.minute == 31) {
+        delta += Duration(minutes: 50);
+      }
 
       while (index < sendDatas.length - 1 &&
-          firstDateTime
-              .add(delta)
-              .isAfter(DateTime.parse(jsonPersed['timestamp']))) {
+          currentDateTime.isAfter(DateTime.parse(jsonPersed['timestamp']))) {
         args['sendPort'].send(jsonPersed);
         index += 1;
         jsonPersed = json.decode(sendDatas[index]);
@@ -168,13 +171,23 @@ class ChartViewModel extends ChangeNotifier {
         'timeStamp': message['timestamp'],
       };
       shaped.addAll(message['message']);
-      final Bord receivedBord = Bord.fromJson(shaped);
+      // final Bord receivedBord = Bord.fromJson(shaped);
+      late Bord receivedBord;
+      try {
+        receivedBord = Bord.fromJson(shaped);
+      } catch (e) {
+        print(shaped);
+      }
 
-      miniChartParamsList
-          .firstWhere(
-            (element) => element.symbol == receivedBord.symbol!,
-          )
-          .setBord(receivedBord);
+      try {
+        miniChartParamsList
+            .firstWhere(
+              (element) => element.symbol == receivedBord.symbol!,
+            )
+            .setBord(receivedBord);
+      } catch (e) {
+        print(e);
+      }
 
       final buySymbol = tradingHistoryList.getBuySymbol();
       if (buySymbol != null &&
@@ -190,7 +203,9 @@ class ChartViewModel extends ChangeNotifier {
       notifyListeners();
     });
 
-    Query query = boxList['MessageBox'].query(MessageBox_.date.equals(replayDate)).build();
+    Query query = boxList['MessageBox']
+        .query(MessageBox_.date.equals(replayDate))
+        .build();
     final fetchData = query.findFirst();
 
     if (fetchData != null) {
