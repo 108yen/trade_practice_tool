@@ -66,15 +66,15 @@ class ChartViewModel extends ChangeNotifier {
 
   buy() {
     if (detailChartIndex != null &&
-        miniChartParamsList[detailChartIndex!].currentBord?.sell1.time !=
+        miniChartParamsList[detailChartIndex!].currentBord?.sell1?.time !=
             null &&
-        miniChartParamsList[detailChartIndex!].currentBord?.sell1.price !=
+        miniChartParamsList[detailChartIndex!].currentBord?.sell1?.price !=
             null) {
       tradingHistoryList.buy(
         miniChartParamsList[detailChartIndex!].symbol,
         miniChartParamsList[detailChartIndex!].symbolName,
-        miniChartParamsList[detailChartIndex!].currentBord!.sell1.time!,
-        miniChartParamsList[detailChartIndex!].currentBord!.sell1.price!,
+        miniChartParamsList[detailChartIndex!].currentBord!.sell1!.time!,
+        miniChartParamsList[detailChartIndex!].currentBord!.sell1!.price!,
       );
     }
   }
@@ -171,13 +171,9 @@ class ChartViewModel extends ChangeNotifier {
         'timeStamp': message['timestamp'],
       };
       shaped.addAll(message['message']);
-      // final Bord receivedBord = Bord.fromJson(shaped);
-      late Bord receivedBord;
-      try {
-        receivedBord = Bord.fromJson(shaped);
-      } catch (e) {
-        print(shaped);
-      }
+      final Bord receivedBord = shaped['Symbol'] == '101'
+          ? Bord.N225fromJson(shaped)
+          : Bord.fromJson(shaped);
 
       try {
         miniChartParamsList
@@ -186,6 +182,7 @@ class ChartViewModel extends ChangeNotifier {
             )
             .setBord(receivedBord);
       } catch (e) {
+        print(receivedBord.symbol!);
         print(e);
       }
 

@@ -1,120 +1,120 @@
 class Bord {
   // タイムスタンプ
-  final DateTime? timeStamp;
+  DateTime? timeStamp;
   // 銘柄コード
-  final String? symbol;
+  String? symbol;
   // 銘柄名
-  final String? symbolName;
+  String? symbolName;
   // 市場コード
-  final int? exchange;
+  int? exchange;
   // 市場名称
-  final String? exchangeName;
+  String? exchangeName;
   // 現値
-  final double? currentPrice;
+  double? currentPrice;
   // 現値時刻
-  final String? currentPriceTime;
+  String? currentPriceTime;
   // 現値前値比較
-  final String? currentPriceChangeStatus;
+  String? currentPriceChangeStatus;
   // 現値ステータス
-  final int? currentPriceStatus;
+  int? currentPriceStatus;
   // 計算用現値
-  final double? calcPrice;
+  double? calcPrice;
   // 前日終値
-  final double? previousClose;
+  double? previousClose;
   // 前日終値日付
-  final String? previousCloseTime;
+  String? previousCloseTime;
   // 前日比
-  final double? changePreviousClose;
+  double? changePreviousClose;
   // 暴落率
-  final double? changePreviousClosePer;
+  double? changePreviousClosePer;
   // 始値
-  final double? openingPrice;
+  double? openingPrice;
   // 始値時刻
-  final String? openingPriceTime;
+  String? openingPriceTime;
   // 高値
-  final double? highPrice;
+  double? highPrice;
   // 高値時刻
-  final String? highPriceTime;
+  String? highPriceTime;
   // 安値
-  final double? lowPrice;
+  double? lowPrice;
   // 安値時刻
-  final String? lowPriceTime;
+  String? lowPriceTime;
   // 売買高
-  final int? tradingVolume;
+  int? tradingVolume;
   // 売買高時刻
-  final String? tradingVolumeTime;
+  String? tradingVolumeTime;
   // VWAP
-  final double? vwap;
+  double? vwap;
   // 売買代金
-  final int? tradingValue;
+  int? tradingValue;
   // 最良売気配数量
-  final int? bidQty;
+  int? bidQty;
   // 最良売気配値段
-  final double? bidPrice;
+  double? bidPrice;
   // 最良売気配時刻
-  final String? bidTime;
+  String? bidTime;
   // 最良売気配フラグ
-  final String? bidSign;
+  String? bidSign;
   // 売成行数量
-  final int? marketOrderSellQty;
+  int? marketOrderSellQty;
   // 売気配数量1本目
-  final Qty1 sell1;
+  Qty1? sell1;
   // 売気配数量2本目
-  final Qty sell2;
+  Qty? sell2;
   // 売気配数量3本目
-  final Qty sell3;
+  Qty? sell3;
   // 売気配数量4本目
-  final Qty sell4;
+  Qty? sell4;
   // 売気配数量5本目
-  final Qty sell5;
+  Qty? sell5;
   // 売気配数量6本目
-  final Qty sell6;
+  Qty? sell6;
   // 売気配数量7本目
-  final Qty sell7;
+  Qty? sell7;
   // 売気配数量8本目
-  final Qty sell8;
+  Qty? sell8;
   // 売気配数量9本目
-  final Qty sell9;
+  Qty? sell9;
   // 売気配数量10本目
-  final Qty sell10;
+  Qty? sell10;
   // 最良買気配数量
-  final int? askQty;
+  int? askQty;
   // 最良買気配値段
-  final double? askPrice;
+  double? askPrice;
   // 最良買気配時刻
-  final String? askTime;
+  String? askTime;
   // 最良買気配フラグ
-  final String? askSign;
+  String? askSign;
   // 買成行数量
-  final int? marketOrderBuyQty;
+  int? marketOrderBuyQty;
   // 買気配数量1本目
-  final Qty1 buy1;
+  Qty1? buy1;
   // 買気配数量2本目
-  final Qty buy2;
+  Qty? buy2;
   // 買気配数量3本目
-  final Qty buy3;
+  Qty? buy3;
   // 買気配数量4本目
-  final Qty buy4;
+  Qty? buy4;
   // 買気配数量5本目
-  final Qty buy5;
+  Qty? buy5;
   // 買気配数量6本目
-  final Qty buy6;
+  Qty? buy6;
   // 買気配数量7本目
-  final Qty buy7;
+  Qty? buy7;
   // 買気配数量8本目
-  final Qty buy8;
+  Qty? buy8;
   // 買気配数量9本目
-  final Qty buy9;
+  Qty? buy9;
   // 買気配数量10本目
-  final Qty buy10;
+  Qty? buy10;
   // OVER気配数量
-  final int? overSellQty;
+  int? overSellQty;
   // UNDER気配数量
-  final int? underBuyQty;
+  int? underBuyQty;
   // 時価総額
-  final double? totalMarketValue;
+  double? totalMarketValue;
   // 	銘柄種別
-  final int? securityType;
+  int? securityType;
 
   Bord({
     timeStamp,
@@ -363,9 +363,28 @@ class Bord {
             json['UnderBuyQty'] == null ? null : json['UnderBuyQty'].toInt(),
         totalMarketValue = json['TotalMarketValue'],
         securityType = json['SecurityType'],
-        timeStamp = json.containsKey('timeStamp')
-            ? DateTime.parse(json['timeStamp'])
-            : DateTime.now();
+        timeStamp = DateTime.parse(json['timeStamp']);
+
+  Bord.N225fromJson(Map<String, dynamic> json)
+      : timeStamp = DateTime.parse(json['timeStamp']),
+        symbol = json['Symbol'],
+        symbolName = json['SymbolName'],
+        currentPrice = json['CurrentPrice'],
+        currentPriceTime = json['CurrentPriceTime'],
+        currentPriceChangeStatus = json['CurrentPriceChangeStatus'],
+        currentPriceStatus = json['CurrentPriceStatus'],
+        calcPrice = json['CalcPrice'],
+        previousClose = json['PreviousClose'],
+        previousCloseTime = json['PreviousCloseTime'],
+        changePreviousClose = json['ChangePreviousClose'],
+        changePreviousClosePer = json['ChangePreviousClosePer'],
+        openingPrice = json['OpeningPrice'],
+        openingPriceTime = json['OpeningPriceTime'],
+        highPrice = json['HighPrice'],
+        highPriceTime = json['HighPriceTime'],
+        lowPrice = json['LowPrice'],
+        lowPriceTime = json['LowPriceTime'],
+        securityType = json['SecurityType'];
 
   Map<String, dynamic> toJson() => {
         'TimeStamp': '${timeStamp}',
@@ -398,46 +417,46 @@ class Bord {
         'BidSign': bidSign,
         'MarketOrderSellQty': marketOrderSellQty,
         'Sell1': {
-          'Price': sell1.price,
-          'Qty': sell1.qty,
-          'Time': sell1.time,
-          'Sign': sell1.sign,
+          'Price': sell1?.price,
+          'Qty': sell1?.qty,
+          'Time': sell1?.time,
+          'Sign': sell1?.sign,
         },
         'Sell2': {
-          'Price': sell2.price,
-          'Qty': sell2.qty,
+          'Price': sell2?.price,
+          'Qty': sell2?.qty,
         },
         'Sell3': {
-          'Price': sell3.price,
-          'Qty': sell3.qty,
+          'Price': sell3?.price,
+          'Qty': sell3?.qty,
         },
         'Sell4': {
-          'Price': sell4.price,
-          'Qty': sell4.qty,
+          'Price': sell4?.price,
+          'Qty': sell4?.qty,
         },
         'Sell5': {
-          'Price': sell5.price,
-          'Qty': sell5.qty,
+          'Price': sell5?.price,
+          'Qty': sell5?.qty,
         },
         'Sell6': {
-          'Price': sell6.price,
-          'Qty': sell6.qty,
+          'Price': sell6?.price,
+          'Qty': sell6?.qty,
         },
         'Sell7': {
-          'Price': sell7.price,
-          'Qty': sell7.qty,
+          'Price': sell7?.price,
+          'Qty': sell7?.qty,
         },
         'Sell8': {
-          'Price': sell8.price,
-          'Qty': sell8.qty,
+          'Price': sell8?.price,
+          'Qty': sell8?.qty,
         },
         'Sell9': {
-          'Price': sell9.price,
-          'Qty': sell9.qty,
+          'Price': sell9?.price,
+          'Qty': sell9?.qty,
         },
         'Sell10': {
-          'Price': sell10.price,
-          'Qty': sell10.qty,
+          'Price': sell10?.price,
+          'Qty': sell10?.qty,
         },
         'AskQty': askQty,
         'AskPrice': askPrice,
@@ -445,46 +464,46 @@ class Bord {
         'AskSign': askSign,
         'MarketOrderBuyQty': marketOrderBuyQty,
         'Buy1': {
-          'Price': buy1.price,
-          'Qty': buy1.qty,
-          'Time': buy1.time,
-          'Sign': buy1.sign,
+          'Price': buy1?.price,
+          'Qty': buy1?.qty,
+          'Time': buy1?.time,
+          'Sign': buy1?.sign,
         },
         'Buy2': {
-          'Price': buy2.price,
-          'Qty': buy2.qty,
+          'Price': buy2?.price,
+          'Qty': buy2?.qty,
         },
         'Buy3': {
-          'Price': buy3.price,
-          'Qty': buy3.qty,
+          'Price': buy3?.price,
+          'Qty': buy3?.qty,
         },
         'Buy4': {
-          'Price': buy4.price,
-          'Qty': buy4.qty,
+          'Price': buy4?.price,
+          'Qty': buy4?.qty,
         },
         'Buy5': {
-          'Price': buy5.price,
-          'Qty': buy5.qty,
+          'Price': buy5?.price,
+          'Qty': buy5?.qty,
         },
         'Buy6': {
-          'Price': buy6.price,
-          'Qty': buy6.qty,
+          'Price': buy6?.price,
+          'Qty': buy6?.qty,
         },
         'Buy7': {
-          'Price': buy7.price,
-          'Qty': buy7.qty,
+          'Price': buy7?.price,
+          'Qty': buy7?.qty,
         },
         'Buy8': {
-          'Price': buy8.price,
-          'Qty': buy8.qty,
+          'Price': buy8?.price,
+          'Qty': buy8?.qty,
         },
         'Buy9': {
-          'Price': buy9.price,
-          'Qty': buy9.qty,
+          'Price': buy9?.price,
+          'Qty': buy9?.qty,
         },
         'Buy10': {
-          'Price': buy10.price,
-          'Qty': buy10.qty,
+          'Price': buy10?.price,
+          'Qty': buy10?.qty,
         },
         'OverSellQty': overSellQty,
         'UnderBuyQty': underBuyQty,

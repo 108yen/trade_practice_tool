@@ -47,48 +47,73 @@ class ChartParams {
   setBord(Bord bord) {
     previousBord = currentBord;
     currentBord = bord;
-    if (previousBord?.tradingVolume != null) {
-      if (currentBord?.tradingVolume != null &&
-          currentBord?.tradingVolumeTime != null &&
-          currentBord?.currentPrice != null) {
-        final datetime = DateTime.parse(currentBord!.tradingVolumeTime!)
-            .add(Duration(hours: 9));
-        final date = DateFormat('yyyy-MM-dd').format(datetime);
-        final time = DateFormat('HH:mm:ss').format(datetime);
-        final value = currentBord!.currentPrice!;
-        final volume =
-            (currentBord!.tradingVolume! - previousBord!.tradingVolume!)
-                .toDouble();
-        // step&candle
-        if (volume != 0) {
-          final step = Step(date, time, value, volume);
-          if (steps.isEmpty) {
-            step.isBuy = true;
-          } else if (steps[steps.length - 1].value > value) {
-            step.isBuy = false;
-          } else if (steps[steps.length - 1].value < value) {
-            step.isBuy = true;
-          } else {
-            step.isBuy = steps[steps.length - 1].isBuy;
-          }
-          steps.add(step);
 
-          _updateCandles(value, volume, currentBord!.vwap!, datetime);
+    if (currentBord?.symbol == '101' &&
+        currentBord?.currentPriceTime != null &&
+        currentBord?.currentPrice != null) {
+      final datetime = DateTime.parse(currentBord!.currentPriceTime!);
+      final date = DateFormat('yyyy-MM-dd').format(datetime);
+      final time = DateFormat('HH:mm:ss').format(datetime);
+      final value = currentBord!.currentPrice!;
+      final volume = 100.0;
+
+      _updateCandles(value, volume, 0, datetime);
+      // dailychart
+      if (!dailyCandlestick.alreadySetPreviousDayClose() &&
+          currentBord?.previousClose != null) {
+        dailyCandlestick.setPreviousDayClose(currentBord!.previousClose!);
+      } else if (!dailyCandlestick.alreadySetPreviousDayClose() &&
+          currentBord?.currentPrice != null) {
+        dailyCandlestick.setPreviousDayClose(currentBord!.currentPrice!);
+      }
+      if (!dailyCandlestick.alreadySetOpen() &&
+          currentBord?.openingPrice != null) {
+        dailyCandlestick.setOpenValue(currentBord!.openingPrice!);
+      } else if (currentBord?.currentPrice != null) {
+        dailyCandlestick.updateValue(currentBord!.currentPrice!);
+      }
+    } else if (previousBord?.tradingVolume != null &&
+        currentBord?.tradingVolume != null &&
+        currentBord?.tradingVolumeTime != null &&
+        currentBord?.currentPrice != null) {
+      final datetime = DateTime.parse(currentBord!.tradingVolumeTime!)
+          .add(Duration(hours: 9));
+      final date = DateFormat('yyyy-MM-dd').format(datetime);
+      final time = DateFormat('HH:mm:ss').format(datetime);
+      final value = currentBord!.currentPrice!;
+      final volume =
+          (currentBord!.tradingVolume! - previousBord!.tradingVolume!)
+              .toDouble();
+
+      // step&candle
+      if (volume != 0) {
+        final step = Step(date, time, value, volume);
+        if (steps.isEmpty) {
+          step.isBuy = true;
+        } else if (steps[steps.length - 1].value > value) {
+          step.isBuy = false;
+        } else if (steps[steps.length - 1].value < value) {
+          step.isBuy = true;
+        } else {
+          step.isBuy = steps[steps.length - 1].isBuy;
         }
-        // dailychart
-        if (!dailyCandlestick.alreadySetPreviousDayClose() &&
-            currentBord?.previousClose != null) {
-          dailyCandlestick.setPreviousDayClose(currentBord!.previousClose!);
-        } else if (!dailyCandlestick.alreadySetPreviousDayClose() &&
-            currentBord?.currentPrice != null) {
-          dailyCandlestick.setPreviousDayClose(currentBord!.currentPrice!);
-        }
-        if (!dailyCandlestick.alreadySetOpen() &&
-            currentBord?.openingPrice != null) {
-          dailyCandlestick.setOpenValue(currentBord!.openingPrice!);
-        } else if (currentBord?.currentPrice != null) {
-          dailyCandlestick.updateValue(currentBord!.currentPrice!);
-        }
+        steps.add(step);
+
+        _updateCandles(value, volume, currentBord!.vwap!, datetime);
+      }
+      // dailychart
+      if (!dailyCandlestick.alreadySetPreviousDayClose() &&
+          currentBord?.previousClose != null) {
+        dailyCandlestick.setPreviousDayClose(currentBord!.previousClose!);
+      } else if (!dailyCandlestick.alreadySetPreviousDayClose() &&
+          currentBord?.currentPrice != null) {
+        dailyCandlestick.setPreviousDayClose(currentBord!.currentPrice!);
+      }
+      if (!dailyCandlestick.alreadySetOpen() &&
+          currentBord?.openingPrice != null) {
+        dailyCandlestick.setOpenValue(currentBord!.openingPrice!);
+      } else if (currentBord?.currentPrice != null) {
+        dailyCandlestick.updateValue(currentBord!.currentPrice!);
       }
     }
   }

@@ -29,8 +29,8 @@ class BordWidget extends StatelessWidget {
     List<Widget> _calcBordValueList() {
       List<Widget> _bordTickList = [];
       List<double> _bordValueList = [];
-      if (bord.buy1.price != null && bord.sell1.price != null) {
-        final ave = (bord.buy1.price! + bord.sell1.price!) / 2;
+      if (bord.buy1?.price != null && bord.sell1?.price != null) {
+        final ave = (bord.buy1!.price! + bord.sell1!.price!) / 2;
         final medianTickRange = getTickRange(ave);
         final median = medianTickRange * (ave ~/ medianTickRange);
 
@@ -39,7 +39,7 @@ class BordWidget extends StatelessWidget {
         if (median == bord.currentPrice) {
           valueState = 3;
         }
-        if (median == bord.buy1.price!) {
+        if (median == bord.buy1!.price!) {
           _bordTickList.add(Row(
             children: [
               _BordContainer(
@@ -53,17 +53,17 @@ class BordWidget extends StatelessWidget {
               ),
               _BordContainer(
                 context: context,
-                value: bord.buy1.qty,
+                value: bord.buy1?.qty,
                 textColor: Colors.red,
               ),
             ],
           ));
-        } else if (median == bord.sell1.price!) {
+        } else if (median == bord.sell1!.price!) {
           _bordTickList.add(Row(
             children: [
               _BordContainer(
                 context: context,
-                value: bord.sell1.qty,
+                value: bord.sell1?.qty,
                 textColor: Colors.blue,
               ),
               _BordContainer(
@@ -93,7 +93,7 @@ class BordWidget extends StatelessWidget {
             ],
           ));
         }
-        final List<Qty> _buyList = [
+        final List<Qty?> _buyList = [
           bord.buy1,
           bord.buy2,
           bord.buy3,
@@ -105,7 +105,7 @@ class BordWidget extends StatelessWidget {
           bord.buy9,
           bord.buy10,
         ];
-        final List<Qty> _sellList = [
+        final List<Qty?> _sellList = [
           bord.sell1,
           bord.sell2,
           bord.sell3,
@@ -123,7 +123,7 @@ class BordWidget extends StatelessWidget {
           final value = _bordValueList[i] - getTickRange(_bordValueList[i] - 1);
           _bordValueList.add(value);
           int index = _buyList.indexWhere(
-              (element) => element.price != null && element.price == value);
+              (element) => element?.price != null && element!.price == value);
 
           int valueState = 0;
           if (buySymbol != null &&
@@ -152,8 +152,8 @@ class BordWidget extends StatelessWidget {
                 _BordContainer(
                   context: context,
                   value: index != 0
-                      ? _buyList[index].qty
-                      : '${_buyList[index].qty}',
+                      ? _buyList[index]?.qty
+                      : '${_buyList[index]?.qty}',
                   textColor: Colors.red,
                 ),
               ],
@@ -182,7 +182,7 @@ class BordWidget extends StatelessWidget {
           _bordValueList.insert(0, value);
 
           int index = _sellList.indexWhere(
-              (element) => element.price != null && element.price == value);
+              (element) => element?.price != null && element!.price == value);
           int valueState = 0;
           if (buySymbol != null &&
               buySymbol == bord.symbol &&
@@ -204,8 +204,8 @@ class BordWidget extends StatelessWidget {
                     _BordContainer(
                       context: context,
                       value: index != 0
-                          ? _sellList[index].qty
-                          : '${_sellList[index].qty}',
+                          ? _sellList[index]?.qty
+                          : '${_sellList[index]?.qty}',
                       textColor: Colors.blue,
                     ),
                     _BordContainer(

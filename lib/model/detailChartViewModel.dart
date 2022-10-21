@@ -67,8 +67,8 @@ class DetailChartViewModel extends ChangeNotifier {
       //   presentTime = DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
       //       .format(receivedBord.timeStamp!);
       // }
-      if (receivedBord.buy1.time != null) {
-        presentTime = receivedBord.buy1.time!;
+      if (receivedBord.buy1?.time != null) {
+        presentTime = receivedBord.buy1!.time!;
       }
 
       if (receivedBord.symbol! == chartParams.symbol) {
