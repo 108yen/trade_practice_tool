@@ -44,6 +44,11 @@ class _PriceColumnState extends State<PriceColumn> {
   Widget build(BuildContext context) {
     final double priceTileHeight =
         widget.chartHeight / ((widget.high - widget.low) / widget.priceScale);
+    // final priceColumnTop = MAIN_CHART_VERTICAL_PADDING - priceTileHeight / 2;
+    // final priceColumnHeight =
+    //     widget.chartHeight + MAIN_CHART_VERTICAL_PADDING + priceTileHeight / 2;
+    // final priceIndicatorTopPadding = priceColumnTop+priceColumnHeight-((widget.lastCandle.close - widget.low) / (widget.high - widget.low)*priceColumnHeight);
+
     return GestureDetector(
       onVerticalDragUpdate: (details) {
         widget.onScale(details.delta.dy);
@@ -101,6 +106,7 @@ class _PriceColumnState extends State<PriceColumn> {
                   widget.low,
                   widget.high,
                 ),
+                // top: priceIndicatorTopPadding,
                 child: Row(
                   children: [
                     Container(

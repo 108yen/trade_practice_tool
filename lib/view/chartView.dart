@@ -104,6 +104,15 @@ class ChartView extends StatelessWidget {
                               currentTime: model.currentTime,
                               onBackTap: () => model.setDetailChartIndexNull(),
                               onBuy: () => model.buy(),
+                              isolateStatus: model.isolateStatus,
+                              onTapStart: () {
+                                if (model.isolateStatus == 0) {
+                                  model.start();
+                                } else if (model.isolateStatus == 1 ||
+                                    model.isolateStatus == 2) {
+                                  model.resume();
+                                }
+                              },
                             ),
                           ),
                         ],

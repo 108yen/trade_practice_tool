@@ -15,6 +15,8 @@ class DetailChartWidget extends StatelessWidget {
   final String currentTime;
   final Function onBackTap;
   final Function onBuy;
+  final int isolateStatus;
+  final Function onTapStart;
 
   DetailChartWidget({
     required this.chartParams,
@@ -22,6 +24,8 @@ class DetailChartWidget extends StatelessWidget {
     required this.currentTime,
     required this.onBackTap,
     required this.onBuy,
+    required this.isolateStatus,
+    required this.onTapStart,
   });
 
   @override
@@ -32,10 +36,19 @@ class DetailChartWidget extends StatelessWidget {
           '${chartParams.symbol} ${chartParams.symbolName} ${currentTime}',
         ),
         leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              onBackTap();
-            }),
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            onBackTap();
+          },
+        ),
+        actions: [
+          IconButton(
+            onPressed: () => onTapStart(),
+            icon: Icon(isolateStatus == 0 || isolateStatus == 2
+                ? Icons.play_arrow
+                : Icons.pause),
+          ),
+        ],
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {

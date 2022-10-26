@@ -264,7 +264,7 @@ class BordWidget extends StatelessWidget {
               _BordContainer(context: context, value: '成行'),
               _BordContainer(
                 context: context,
-                value: bord.marketOrderSellQty,
+                value: bord.marketOrderBuyQty,
                 previousValue: priviousBord?.marketOrderBuyQty,
               ),
             ],
