@@ -51,7 +51,8 @@ class ChartParams {
     if (currentBord?.symbol == '101' &&
         currentBord?.currentPriceTime != null &&
         currentBord?.currentPrice != null) {
-      final datetime = DateTime.parse(currentBord!.currentPriceTime!);
+      final datetime = DateTime.parse(currentBord!.currentPriceTime!)
+          .add(Duration(hours: 9));
       final date = DateFormat('yyyy-MM-dd').format(datetime);
       final time = DateFormat('HH:mm:ss').format(datetime);
       final value = currentBord!.currentPrice!;
