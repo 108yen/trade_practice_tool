@@ -1,0 +1,14 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/shiraikazuki/workspace/trade_practice_tool/macos/build/Debug/objectbox_flutter_libs/objectbox_flutter_libs.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/shiraikazuki/workspace/trade_practice_tool/macos/build/Pods.build/Debug/objectbox_flutter_libs.build/unextended-module.modulemap",
+    }]
+  }]
+}

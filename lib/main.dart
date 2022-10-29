@@ -1,16 +1,7 @@
-import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:objectbox/objectbox.dart';
-import 'package:trade_practice_tool/element/objectBoxEntity.dart';
-import 'package:trade_practice_tool/view/chartView.dart';
 import 'package:trade_practice_tool/view/calendarView.dart';
-import 'package:trade_practice_tool/view/detailChartView.dart';
 import 'package:trade_practice_tool/view/home.dart';
-import 'package:trade_practice_tool/view/miniChartsView.dart';
-import 'package:trade_practice_tool/element/symbol.dart' as sy;
 
 import 'objectbox.g.dart';
 
@@ -20,7 +11,7 @@ void main() async {
 
   store = await openStore(
       maxDBSizeInKB: 1000 * 1024 * 1024,
-      directory: 'E:/Program/trade_practice_tool/lib/assets/objectbox');
+      directory: '/Users/shiraikazuki/workspace/trade_practice_tool/lib/assets/objectbox');
   runApp(MyApp());
   configLoading();
 }

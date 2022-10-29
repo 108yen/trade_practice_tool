@@ -1,0 +1,8 @@
+version: "Apple Swift version 5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)"
+options: "59a151140e171b0e6fc36cbda593a57dafacf4560131dab7347ba7fb96e09cda"
+build_start_time: [1667031994, 433876037]
+build_end_time: [1667031994, 456590175]
+inputs:
+  "/Users/shiraikazuki/workspace/trade_practice_tool/macos/Flutter/GeneratedPluginRegistrant.swift": !private [1667031796, 39022445]
+  "/Users/shiraikazuki/workspace/trade_practice_tool/macos/Runner/AppDelegate.swift": !private [1651468449, 920462131]
+  "/Users/shiraikazuki/workspace/trade_practice_tool/macos/Runner/MainFlutterWindow.swift": !private [1651468449, 921897888]

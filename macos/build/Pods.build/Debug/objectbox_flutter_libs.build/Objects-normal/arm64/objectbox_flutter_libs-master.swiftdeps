@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)"
+options: "5c945f2e64729261e3566d7744ce34498475e0b3d76c9b4542c441e90795e70b"
+build_start_time: [1667031988, 23802995]
+build_end_time: [1667031994, 370236873]
+inputs:
+  "/Users/shiraikazuki/.pub-cache/hosted/pub.dev/objectbox_flutter_libs-1.6.2/macos/Classes/ObjectboxFlutterLibsPlugin.swift": [1666958170, 80542564]
