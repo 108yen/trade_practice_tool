@@ -1,0 +1,157 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "2:5225350915337682720",
+      "lastPropertyId": "4:6636650015795645786",
+      "name": "BordBox",
+      "properties": [
+        {
+          "id": "1:5716610540107944712",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6209845871329960925",
+          "name": "code",
+          "type": 6
+        },
+        {
+          "id": "3:4902163692963928378",
+          "name": "date",
+          "type": 9
+        },
+        {
+          "id": "4:6636650015795645786",
+          "name": "bordList",
+          "type": 30
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:1596763531391672294",
+      "lastPropertyId": "7:2661009793671852874",
+      "name": "FiveminTickBox",
+      "properties": [
+        {
+          "id": "1:4741173291582878246",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "3:1136726715172797226",
+          "name": "date",
+          "type": 9
+        },
+        {
+          "id": "4:1796337629037372235",
+          "name": "fiveminTickList",
+          "type": 30
+        },
+        {
+          "id": "5:6732374433203437822",
+          "name": "symbol",
+          "type": 9
+        },
+        {
+          "id": "7:2661009793671852874",
+          "name": "vwap",
+          "type": 30
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:3691176263919765665",
+      "lastPropertyId": "3:8278205856954812811",
+      "name": "SymbolInfoListBox",
+      "properties": [
+        {
+          "id": "1:4844932049792473001",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:9046900821982206403",
+          "name": "timestamp",
+          "type": 10
+        },
+        {
+          "id": "3:8278205856954812811",
+          "name": "symbolInfoList",
+          "type": 30
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:3419777912298223948",
+      "lastPropertyId": "2:1222923142368749033",
+      "name": "MessageTestBox",
+      "properties": [
+        {
+          "id": "1:1614031325872136894",
+          "name": "id",
+          "type": 6,
+          "flags": 129
+        },
+        {
+          "id": "2:1222923142368749033",
+          "name": "messageList",
+          "type": 30
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "6:9185978342292065534",
+      "lastPropertyId": "3:8082777715241068674",
+      "name": "MessageBox",
+      "properties": [
+        {
+          "id": "1:5333344763082932645",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5911213788495814103",
+          "name": "date",
+          "type": 9
+        },
+        {
+          "id": "3:8082777715241068674",
+          "name": "messageList",
+          "type": 30
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "6:9185978342292065534",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [
+    7758782605704778113
+  ],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    7803780858167791650,
+    6353153556589379122,
+    8978055131926546455,
+    1464822001568040828,
+    7490730311367663961,
+    4914041924793336563
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

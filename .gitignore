@@ -50,3 +50,6 @@ lib/objectbox-model.json
 lib/assets/jsonSample.json
 lib/objectbox.g.dart
 .vscode/launch.json
+
+# objectbox
+!objectbox-model.json
